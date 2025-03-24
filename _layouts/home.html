@@ -1,29 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ site.title }}</title>
-    
-    <!-- Main.css -->
-    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }}</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
+  <!-- Main.css -->
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
-<body">
+<body class="bg-white text-rose-950">
+  {% include header.html %}    
+  <main class="py-8">
+    <div class="max-w-4xl mx-auto px-4">
+      <!-- Contenedor para las cartas -->
+      <div class="flex flex-col items-center space-y-6">
+        {% for post in site.posts %}
+          <article class="shadow-md overflow-hidden flex flex-col md:flex-row w-full">
+            <!-- Imagen con enlace (1/3) -->
+            {% if post.image %}
+              <a href="{{ post.url }}" class="w-full md:w-1/3 block">
+                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+              </a>
+            {% endif %}
+            
+            <!-- Contenido (2/3) -->
+            <div class="w-full md:w-2/3 p-6 flex flex-col justify-between">
+              <!-- Título y Categorías -->
+              <div class="flex flex-wrap justify-between items-center mb-2">
+                <h2 class="text-2xl font-bold flex-grow uppercase text-rose-950">
+                  <a href="{{ post.url }}" class="hover:text-blue-950">{{ post.title }}</a>
+                </h2>
+                {% if post.categories %}
+                  <div class="flex flex-wrap gap-2 uppercase">
+                    {% for cat in post.categories %}
+                      <span class="bg-rose-950 text-white text-xs px-2 py-1 rounded">{{ cat }}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
 
-    {% include header.html %}
-    <main>
-        <section>
-            {% for post in site.posts %}
-                <div">
-                    <a href="{{ post.url }}">{{ post.title }}</a>
-                    <p>Tiempo de lectura: {{ post.reading_time }}</p>
-                    <p>{{ post.date | date: "%B %d, %Y" }}</p>
-                </div>
-            {% endfor %}
-        </section>
-    </main>
-    {% include footer.html %}
-    
+              <!-- Excerpt con límite de líneas -->
+              {% if post.excerpt %}
+                <p class="text-blue-950 mb-4 line-clamp-2 md:line-clamp-3">
+                  {{ post.excerpt }}
+                </p>
+              {% endif %}
+
+              <!-- Fecha y tiempo de lectura -->
+              <p class="text-blue-950 text-xs md:mb-2 order-2 md:order-none uppercase">
+                {{ post.date | date: "%B %d, %Y" }} &middot; {{ post.reading_time }}
+              </p>
+
+              <!-- Botón "Leer más" solo en desktop -->
+              <a href="{{ post.url }}" class="border border-rose-950 text-rose-950 text-center py-2 px-6 rounded-md hover:bg-blue-950 hover:text-white transition w-fit self-start hidden md:inline-block">
+                Leer más
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </main>
+  {% include footer.html %}
 </body>
 </html>
