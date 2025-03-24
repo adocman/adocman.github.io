@@ -5,7 +5,7 @@ date: 2025-03-23 00:00:00 -0300
 categories: idiomas
 tags: coreano particulas
 excerpt: ¿Te has preguntado alguna vez cómo se unen las palabras en coreano para formar oraciones sencillas y claras? ¿Cómo es posible que, sin un orden fijo de sujeto y predicado, se entienda perfectamente lo que se quiere decir? La respuesta está en el uso de las partículas.
-image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/cover-particulas-coreano-1.png
+image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/cover-particulas-coreano-1.png?raw=true
 reading_time: "25 minutos"
 permalink: "/:categories/:title"
 ---
