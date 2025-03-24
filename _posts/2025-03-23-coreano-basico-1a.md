@@ -2,8 +2,8 @@
 layout: post
 title: "Coreano Básico 1A"
 date: 2025-03-23 00:00:00 -0300
-categories: idiomas coreano
-tags: gramatica particulas
+categories: idiomas
+tags: coreano
 excerpt: En este artículo comparto las bases esenciales del coreano, explorando desde el uso de partículas hasta estructuras fundamentales para presentarse, hablar de tus actividades y preguntar direcciones. Detallo cómo emplear pronombres interrogativos y verbos para construir oraciones claras, mientras que los adverbios de lugar te ayudarán a ubicar objetos y lugares con precisión. Con ejemplos.
 image: https://fox.withemes.com/newspaper2/wp-content/uploads/sites/84/2019/07/pexels-simon-gough-7224230-768x392.jpg
 reading_time: "10 minutos"

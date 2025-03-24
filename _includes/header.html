@@ -1,21 +1,79 @@
 <header>
-    <nav class="bg-white p-4">
-      <!-- Desktop header: grid de 3 columnas -->
-      <div class="hidden md:grid grid-cols-3 items-center max-w-7xl mx-auto">
-        <!-- Columna 1: Navegación -->
-        <div class="flex justify-start space-x-4">
-          <a href="/" class="text-blue-950 hover:text-black">Inicio</a>
-          <a href="/about/" class="text-blue-950 hover:text-black">Acerca de</a>
+  <nav class="p-4">
+    <!-- Desktop header: grid de 3 columnas -->
+    <div class="hidden md:grid grid-cols-3 items-center max-w-7xl mx-auto">
+      <!-- Columna 1: Navegación -->
+      <div class="flex justify-start space-x-4">
+        <a href="/" class="text-blue-950 hover:text-black">Inicio</a>
+        <a href="/about/" class="text-blue-950 hover:text-black">Acerca de</a>
+      </div>
+      
+      <!-- Columna 2: Nombre y descripción centrados -->
+      <div class="flex flex-col items-center">
+        <a href="/" class="text-blue-950 text-2xl font-bold">Aaron Docman</a>
+        <p class="text-sm text-blue-950">Compartiendo mis apuntes</p>
+      </div>
+      
+      <!-- Columna 3: Redes sociales -->
+      <div class="flex justify-end space-x-3 text-xl text-blue-950">
+        <a href="https://www.instagram.com/adocman/" class="hover:text-black">
+          <i class="ri-instagram-line"></i>
+        </a>
+        <a href="https://www.threads.net/@adocman" class="hover:text-black">
+          <i class="ri-threads-line"></i>
+        </a>
+        <a href="https://github.com/adocman" class="hover:text-black">
+          <i class="ri-github-fill"></i>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Mobile header -->
+    <div class="md:hidden relative">
+      <!-- Nombre y descripción centrados -->
+      <div class="text-center">
+        <a href="/" class="text-blue-950 text-2xl font-bold block">Aaron Docman</a>
+        <p class="text-sm text-blue-950">Compartiendo mis apuntes</p>
+      </div>
+      <!-- Botón de menú hamburguesa posicionado en la esquina superior derecha -->
+      <button id="menu-toggle" class="absolute right-0 top-0 text-blue-950 hover:text-black focus:outline-none p-2">
+        <!-- Icono hamburguesa -->
+        <svg id="hamburger" class="h-6 w-6 block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+        </svg>
+        <!-- Icono X -->
+        <svg id="close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Menú móvil desplegable -->
+    <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-all duration-300">
+      <div class="px-4 pt-2 pb-4 space-y-4">
+        <!-- Enlaces de navegación -->
+        <hr>
+        <div class="flex flex-col items-center space-y-2 uppercase">
+          <a href="/" class="block text-blue-950 hover:text-black">Inicio</a>
+          <a href="/about/" class="block text-blue-950 hover:text-black">Acerca de</a>
         </div>
-        
-        <!-- Columna 2: Nombre y descripción centrados -->
-        <div class="flex flex-col items-center">
-          <a href="/" class="text-blue-950 text-2xl font-bold">Aaron Docman</a>
-          <p class="text-sm text-blue-950">Compartiendo mis apuntes</p>
+        <hr class="mt-2">  
+        <!-- Menú de Categorías -->
+        <div class="uppercase text-center">
+          <h3 class="text-md font-bold mb-2 text-blue-950">Categorías</h3>
+          <ul class="text-xs flex flex-wrap justify-center gap-2">
+            {% for category in site.categories %}
+              <li>
+                <a href="/categorias/{{ category[0] | slugify }}/"
+                   class="inline-block py-1 px-3 bg-rose-950 hover:bg-blue-950 rounded text-white">
+                  {{ category[0] }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         </div>
-        
-        <!-- Columna 3: Redes sociales -->
-        <div class="flex justify-end space-x-3 text-xl text-blue-950">
+        <!-- Redes sociales horizontales -->
+        <div class="flex justify-center space-x-3 text-xl text-blue-950">
           <a href="https://www.instagram.com/adocman/" class="hover:text-black">
             <i class="ri-instagram-line"></i>
           </a>
@@ -27,72 +85,42 @@
           </a>
         </div>
       </div>
-      
-      <!-- Mobile header -->
-      <div class="md:hidden relative">
-        <!-- Nombre y descripción centrados -->
-        <div class="text-center">
-          <a href="/" class="text-blue-950 text-2xl font-bold block">Aaron Docman</a>
-          <p class="text-sm text-blue-950">Compartiendo mis apuntes</p>
-        </div>
-        <!-- Botón de menú hamburguesa posicionado en la esquina superior derecha -->
-        <button id="menu-toggle" class="absolute right-0 top-0 text-blue-950 hover:text-black focus:outline-none p-2">
-          <!-- Icono hamburguesa -->
-          <svg id="hamburger" class="h-6 w-6 block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
-          </svg>
-          <!-- Icono X -->
-          <svg id="close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-      </div>
-      
-      <!-- Menú móvil desplegable -->
-      <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-all duration-300">
-        <div class="px-4 pt-2 pb-4 space-y-4">
-          <!-- Enlaces de navegación -->
-          <div class="flex flex-col items-center space-y-2">
-            <a href="/" class="block text-blue-950 hover:text-black">Inicio</a>
-            <a href="/about/" class="block text-blue-950 hover:text-black">About</a>
-          </div>
-          <!-- Redes sociales horizontales -->
-          <div class="flex justify-center space-x-3 text-xl text-blue-950">
-            <a href="https://www.instagram.com/adocman/" class="hover:text-black">
-              <i class="ri-instagram-line"></i>
+    </div>  
+    <!-- Menú de Categorías Desktop (debajo del <hr>, centrado) -->
+    <hr class="mt-2">
+    <div class="hidden md:flex justify-center max-w-7xl mx-auto py-4 uppercase">
+      <ul class="flex space-x-4">
+        {% for category in site.categories %}
+          <li>
+            <a href="/categorias/{{ category[0] | slugify }}/" class="text-blue-950 hover:text-black">
+              {{ category[0] }}
             </a>
-            <a href="https://www.threads.net/@adocman" class="hover:text-black">
-              <i class="ri-threads-line"></i>
-            </a>
-            <a href="https://github.com/adocman" class="hover:text-black">
-              <i class="ri-github-fill"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <hr>
-    </nav>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <hr class="mb-2">
+  </nav>
   
-    <script>
-      // Alterna el menú móvil con transición
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const hamburger = document.getElementById('hamburger');
-      const closeIcon = document.getElementById('close');
-  
-      menuToggle.addEventListener('click', () => {
-        if (mobileMenu.classList.contains('max-h-0')) {
-          mobileMenu.classList.remove('max-h-0');
-          mobileMenu.classList.add('max-h-screen');
-          hamburger.classList.add('hidden');
-          closeIcon.classList.remove('hidden');
-        } else {
-          mobileMenu.classList.remove('max-h-screen');
-          mobileMenu.classList.add('max-h-0');
-          hamburger.classList.remove('hidden');
-          closeIcon.classList.add('hidden');
-        }
-      });
-    </script>
-  </header>
-  
+  <script>
+    // Alterna el menú móvil con transición
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburger = document.getElementById('hamburger');
+    const closeIcon = document.getElementById('close');
+
+    menuToggle.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('max-h-0')) {
+        mobileMenu.classList.remove('max-h-0');
+        mobileMenu.classList.add('max-h-screen');
+        hamburger.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        mobileMenu.classList.remove('max-h-screen');
+        mobileMenu.classList.add('max-h-0');
+        hamburger.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+  </script>
+</header>

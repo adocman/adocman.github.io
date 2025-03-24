@@ -26,11 +26,10 @@ kramdown:
 
 permalink: /blog/:title/
 
-# Colecciones personalizadas (si deseas manejar notas o proyectos separados de los posts)
-# collections:
-#   notas:
-#     output: true
-#     permalink: /notas/:title/
+collections:
+  categorias:
+    output: true
+    permalink: /categorias/:path/
 
 
 # Exclude from processing.
