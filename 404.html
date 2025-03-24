@@ -1,25 +1,53 @@
----
-permalink: /404.html
-layout: page
----
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Página no encontrada</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Motion.js -->
+    <script src="https://cdn.jsdelivr.net/npm/motion@0.3.0/dist/motion.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen justify-center items-center">
+    <header class="bg-gray-800 text-white p-4">
+        <nav class="flex justify-between items-center">
+            <a href="/" class="text-xl font-semibold">Mi Blog</a>
+            <ul class="flex space-x-6">
+                <li><a href="/" class="hover:text-gray-400">Inicio</a></li>
+                <li><a href="/about/" class="hover:text-gray-400">Acerca de</a></li>
+                <li><a href="/contact/" class="hover:text-gray-400">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+    <div class="text-center">
+        <!-- Título de la página 404 con animación Motion.js -->
+        <motion.h1 class="text-6xl font-extrabold text-blue-800 mb-4"
+            animate={{ opacity: 1, scale: [0, 1.2, 1] }} 
+            transition={{ duration: 1 }}>
+            ¡Oops! Página no encontrada
+        </motion.h1>
 
-<div class="container">
-  <h1>404</h1>
+        <!-- Mensaje adicional -->
+        <motion.p class="text-xl text-gray-600 mb-8"
+            animate={{ opacity: 1, scale: [0, 1.2, 1] }} 
+            transition={{ duration: 1.5 }}>
+            La página que estás buscando no existe o ha sido movida.
+        </motion.p>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+        <!-- Botón de regreso al inicio con animación Motion.js -->
+        <motion.a href="/" class="bg-blue-800 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-300"
+            whileHover={{ scale: 1.1 }} 
+            transition={{ type: "spring", stiffness: 300 }}>
+            Volver al home
+        </motion.a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="absolute bottom-0 w-full py-4 bg-gray-800 text-center text-white">
+        <p>© 2025 Tu sitio web | Todos los derechos reservados</p>
+    </footer>
+
+</body>
+</html>
