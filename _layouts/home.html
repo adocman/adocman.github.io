@@ -24,10 +24,12 @@
               
               <!-- Imagen con enlace (1/3) -->
               {% if post.image %}
-                <a href="{{ post.url }}" class="w-full md:w-1/3 block">
+              <a href="{{ post.url }}" class="w-full md:w-1/3 block">
+                <div class="w-full aspect-[16/9] border-2 border-blue-950 rounded">
                   <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
-                </a>
-              {% endif %}
+                </div>
+              </a>
+            {% endif %}
               
               <!-- Contenido (2/3) -->
               <div class="w-full md:w-2/3 p-6 flex flex-col justify-between">

@@ -4,8 +4,8 @@ title: "Programación Orientada a Objetos"
 date: 2025-03-23 00:00:00 -0300
 categories: tecnologia
 tags: poo python
-excerpt:
-image: image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/programacion-orientada-a-objetos-cover.png?raw=true
+excerpt: La Programación Orientada a Objetos (POO) permite modelar lo que queramos mediante clases y objetos, organizando el código de forma modular y reutilizable.
+image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/programacion-orientada-a-objetos-cover.png?raw=true
 reading_time: "5 minutos"
 permalink: "/:categories/:title"
 ---
