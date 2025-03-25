@@ -1,5 +1,5 @@
-title: Docman Notes
-description: "Un blog con notas sobre desarrollo, tecnología y más."
+title: El Archivo de Notas
+description: "Un espacio para mis notas sobre tecnología, idiomas y más."
 baseurl: "/" # Cambia esto según tu repo en GitHub Pages
 url: "http://127.0.0.1:4000" # O tu dominio personalizado
 

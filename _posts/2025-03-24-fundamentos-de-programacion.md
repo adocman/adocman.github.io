@@ -5,7 +5,7 @@ date: 2025-03-24 00:00:00 -0300
 categories: tecnologia
 tags: programacion python
 excerpt:
-image: 
+image: image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/fundamentos-de-programacion-cover.png?raw=true
 reading_time: "5 minutos"
 permalink: "/:categories/:title"
 ---
