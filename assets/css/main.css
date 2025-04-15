@@ -2,7 +2,7 @@ body {
     background-color: #080808;
     margin: 0 3rem;
     font-family: 'Arial', sans-serif;
-    color: #162456; /* text-blue-900 */
+    color: #fffff9; /* text-blue-900 */
 }
 
 /* Estilos generales del artículo */
@@ -79,7 +79,7 @@ body {
     border-left: 4px solid #e7000b;
     padding-left: 1rem;
     font-style: italic;
-    color: #162456;
+    color: #fffff9;
     margin: 1.5rem 0;
 }
 
@@ -98,7 +98,7 @@ body {
 }
 
 .post a:hover {
-    color: #162456;
+    color: #fffff9;
 }
 
 /* Estilos para las tablas */
@@ -114,7 +114,7 @@ body {
     padding: 1rem;
     text-align: left;
     font-size: 1rem;
-    color: #162456;
+    color: #fffff9;
     word-wrap: break-word;  /* Asegura que el texto largo se ajuste dentro de las celdas */
 }
 
@@ -135,6 +135,6 @@ body {
 .post caption {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #641c34;
+    color: #e7000b;
     margin-bottom: 0.5rem;
 }
