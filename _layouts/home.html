@@ -73,13 +73,13 @@
       </div>
 
       <!-- Menú de Categorías (solo desktop) -->
-      <aside class="w-full md:w-1/4 hidden md:block uppercase">
+      <aside class="w-full md:w-2/5 hidden md:block uppercase">
         <h2 class="text-lg font-bold mb-4">Categorías</h2>
         <ul class="space-y-2">
           {% for category in site.categories %}
             <li>
               <a href="/categorias/{{ category[0] | slugify }}/" 
-                class="block py-2 px-4 bg-gray-200 hover:bg-gray-300 rounded text-red-600">
+                class="block py-2 px-4 bg-black rounded text-red-600">
                 {{ category[0] }}: {{ category[1] | size }} posts
               </a>
             </li>
