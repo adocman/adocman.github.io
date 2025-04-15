@@ -17,7 +17,7 @@
     <div class="max-w-8xl mx-auto px-4 flex flex-col md:flex-row gap-8">
       
       <!-- Contenedor de Posts (3/5 de ancho en desktop) -->
-      <div class="w-full md:w-3/5">
+      <div class="w-full md:w-4/5">
         <div class="flex flex-col items-center space-y-6">
           {% for post in site.posts %}
             <article class="shadow-md overflow-hidden flex flex-col md:flex-row w-full">
@@ -39,14 +39,14 @@
                     <div class="flex flex-wrap gap-2 uppercase">
                       {% for cat in post.categories %}
                         <a href="/categorias/{{ cat | slugify }}/"
-                           class="bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-black">
+                           class="bg-red-600 text-white text-xs px-2 py-1 rounded">
                           {{ cat }}
                         </a>
                       {% endfor %}
                     </div>
                   {% endif %}
                   <h2 class="text-2xl font-bold flex-grow uppercase text-red-600">
-                    <a href="{{ post.url }}" class="hover:text-white">{{ post.title }}</a>
+                    <a href="{{ post.url }}" class="hover:underline">{{ post.title }}</a>
                   </h2>
                 </div>
 
@@ -73,8 +73,8 @@
       </div>
 
       <!-- Menú de Categorías (solo desktop) -->
-      <aside class="w-full md:w-2/5 hidden md:block uppercase">
-        <h2 class="text-lg font-bold mb-4">Categorías</h2>
+      <aside class="w-full md:w-1/5 hidden md:block uppercase">
+        <h2 class="text-lg font-bold mb-4 text-red-600">Categorías</h2>
         <ul class="space-y-2">
           {% for category in site.categories %}
             <li>
