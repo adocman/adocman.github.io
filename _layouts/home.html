@@ -10,7 +10,7 @@
   <!-- Main.css -->
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
-<body class="text-rose-950">
+<body class="text-red-600">
   {% include header.html %}    
 
   <main class="py-8">
@@ -25,7 +25,7 @@
               <!-- Imagen con enlace (1/3) -->
               {% if post.image %}
               <a href="{{ post.url }}" class="w-full md:w-1/3 block">
-                <div class="w-full aspect-[16/9] border-2 border-blue-950 rounded">
+                <div class="w-full aspect-[16/9] border-2 border-white rounded">
                   <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
                 </div>
               </a>
@@ -35,14 +35,14 @@
               <div class="w-full md:w-2/3 p-6 flex flex-col justify-between">
                 <!-- Título y Categorías -->
                 <div class="flex flex-wrap justify-between items-center mb-2">
-                  <h2 class="text-2xl font-bold flex-grow uppercase text-rose-950">
-                    <a href="{{ post.url }}" class="hover:text-blue-950">{{ post.title }}</a>
+                  <h2 class="text-2xl font-bold flex-grow uppercase text-red-600">
+                    <a href="{{ post.url }}" class="hover:text-white">{{ post.title }}</a>
                   </h2>
                   {% if post.categories %}
                     <div class="flex flex-wrap gap-2 uppercase">
                       {% for cat in post.categories %}
                         <a href="/categorias/{{ cat | slugify }}/"
-                           class="bg-rose-950 text-white text-xs px-2 py-1 rounded hover:bg-blue-950">
+                           class="bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-black">
                           {{ cat }}
                         </a>
                       {% endfor %}
@@ -52,18 +52,18 @@
 
                 <!-- Excerpt con límite de líneas -->
                 {% if post.excerpt %}
-                  <p class="text-blue-950 mb-4 line-clamp-2 md:line-clamp-3">
+                  <p class="text-white mb-4 line-clamp-2 md:line-clamp-3">
                     {{ post.excerpt }}
                   </p>
                 {% endif %}
 
                 <!-- Fecha y tiempo de lectura -->
-                <p class="text-blue-950 text-xs md:mb-2 order-2 md:order-none uppercase">
+                <p class="text-white text-xs md:mb-2 order-2 md:order-none uppercase">
                   {{ post.date | date: "%B %d, %Y" }} &middot; {{ post.reading_time }}
                 </p>
 
                 <!-- Botón "Leer más" solo en desktop -->
-                <a href="{{ post.url }}" class="border border-rose-950 text-rose-950 text-center py-2 px-6 rounded-md hover:bg-blue-950 hover:text-white transition w-fit self-start hidden md:inline-block">
+                <a href="{{ post.url }}" class="border border-red-600 text-red-600 text-center py-2 px-6 rounded-md hover:bg-black hover:text-white transition w-fit self-start hidden md:inline-block">
                   Leer más
                 </a>
               </div>
@@ -79,7 +79,7 @@
           {% for category in site.categories %}
             <li>
               <a href="/categorias/{{ category[0] | slugify }}/" 
-                class="block py-2 px-4 bg-gray-200 hover:bg-gray-300 rounded text-rose-950">
+                class="block py-2 px-4 bg-gray-200 hover:bg-gray-300 rounded text-red-600">
                 {{ category[0] }}: {{ category[1] | size }} posts
               </a>
             </li>

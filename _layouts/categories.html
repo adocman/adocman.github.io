@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
-<body class="bg-white text-rose-950">
+<body class="bg-black text-red-600">
   {% include header.html %}
 
   <main class="py-8">
@@ -18,7 +18,7 @@
       <!-- Listado de categorías -->
       <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
         {% for category in site.categories %}
-          <li class="bg-rose-950 text-white p-4 rounded-md text-center">
+          <li class="bg-red-600 text-white p-4 rounded-md text-center">
             <a href="{{ "/categorias/" | relative_url }}{{ category[0] | slugify }}/" class="text-lg font-bold hover:underline">
               {{ category[0] | capitalize }} ({{ category[1] | size }})
             </a>
