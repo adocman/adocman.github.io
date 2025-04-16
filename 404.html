@@ -4,50 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Página no encontrada</title>
-    <!-- TailwindCSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Motion.js -->
-    <script src="https://cdn.jsdelivr.net/npm/motion@0.3.0/dist/motion.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
+    <!-- Google Fonts: Arvo para texto y Bebas Neue para títulos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat:wght@300;600&family=Roboto:wght@300&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Main.css -->
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
-<body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen justify-center items-center">
-    <header class="bg-gray-800 text-white p-4">
-        <nav class="flex justify-between items-center">
-            <a href="/" class="text-xl font-semibold">Mi Blog</a>
-            <ul class="flex space-x-6">
-                <li><a href="/" class="hover:text-gray-400">Inicio</a></li>
-                <li><a href="/about/" class="hover:text-gray-400">Acerca de</a></li>
-                <li><a href="/contact/" class="hover:text-gray-400">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="bg-black text-red-600" style="font-family: 'Arvo', serif;">
+    <nav class="p-4">
+        <!-- Desktop header: grid de 3 columnas -->
+        <div class="hidden md:grid grid-cols-3 items-center max-w-8xl mx-auto my-6 uppercase text-sm">
+          <!-- Columna 1: Navegación -->
+          <div class="flex justify-start space-x-4">
+            <a href="/" class="text-white hover:text-red">Inicio</a>
+            <a href="/about/" class="text-white hover:text-red-600">Acerca de</a>
+            <a href="/blog/" class="text-white hover:text-red-600">Blog</a>
+            <a href="/links/" class="text-white hover:text-red-600">Mis links</a>
+          </div>
+          
+          <!-- Columna 2: Nombre y descripción centrados -->
+          <div class="flex flex-col items-center">
+            <a href="/" class="text-red-600 text-6xl font-bold" style="font-family: 'Bebas Neue', cursive;">ADOCMAN</a>
+            <p class="text-sm text-white">COMPARTIENDO MIS APUNTES</p>
+          </div>
+          
+          <!-- Columna 3: Redes sociales -->
+          <div class="flex justify-end space-x-3 text-xl text-white">
+            <a href="https://www.instagram.com/adocman/" class="hover:text-red-600">
+              <i class="ri-instagram-line"></i>
+            </a>
+            <a href="https://www.threads.net/@adocman" class="hover:text-red-600">
+              <i class="ri-threads-line"></i>
+            </a>
+            <a href="https://github.com/adocman" class="hover:text-red-600">
+              <i class="ri-github-fill"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Mobile header -->
+        <div class="md:hidden relative">
+          <!-- Nombre y descripción centrados -->
+          <div class="text-center">
+            <a href="/" class="text-red-600 text-6xl font-bold block" style="font-family: 'Bebas Neue', cursive;">ADOCMAN</a>
+            <p class="text-sm text-white">COMPARTIENDO MIS APUNTES</p>
+          </div>
+          <!-- Botón de menú hamburguesa posicionado en la esquina superior derecha -->
+          <button id="menu-toggle" class="absolute right-0 top-0 text-white hover:text-red-600 focus:outline-none p-2">
+            <!-- Icono hamburguesa -->
+            <svg id="hamburger" class="h-6 w-6 block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+            </svg>
+            <!-- Icono X -->
+            <svg id="close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Menú móvil desplegable -->
+        <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-all duration-300">
+          <div class="px-4 pt-2 pb-4 space-y-4">
+            <!-- Enlaces de navegación -->
+            <hr>
+            <div class="flex flex-col items-center space-y-2 uppercase text-sm">
+              <a href="/" class="block text-white hover:text-red-600">Inicio</a>
+              <a href="/about/" class="block text-white hover:text-red-600">Acerca de</a>
+              <a href="/blog/" class="text-white hover:text-red-600">Blog</a>
+              <a href="/links/" class="text-white hover:text-red-600">Mis links</a>
+            </div>
+            <hr class="mt-2 border-stone-800">  
+            <!-- Redes sociales horizontales -->
+            <div class="flex justify-center space-x-3 text-xl text-white">
+              <a href="https://www.instagram.com/adocman/" class="hover:text-red-600">
+                <i class="ri-instagram-line"></i>
+              </a>
+              <a href="https://www.threads.net/@adocman" class="hover:text-red-600">
+                <i class="ri-threads-line"></i>
+              </a>
+              <a href="https://github.com/adocman" class="hover:text-red-600">
+                <i class="ri-github-fill"></i>
+              </a>
+            </div>
+          </div>
+        </div>  
+      </nav>
+      
+      <script>
+        // Alterna el menú móvil con transición
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburger = document.getElementById('hamburger');
+        const closeIcon = document.getElementById('close');
+    
+        menuToggle.addEventListener('click', () => {
+          if (mobileMenu.classList.contains('max-h-0')) {
+            mobileMenu.classList.remove('max-h-0');
+            mobileMenu.classList.add('max-h-screen');
+            hamburger.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+          } else {
+            mobileMenu.classList.remove('max-h-screen');
+            mobileMenu.classList.add('max-h-0');
+            hamburger.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+          }
+        });
+      </script>
 
-    <div class="text-center">
-        <!-- Título de la página 404 con animación Motion.js -->
-        <motion.h1 class="text-6xl font-extrabold text-blue-800 mb-4"
-            animate={{ opacity: 1, scale: [0, 1.2, 1] }} 
-            transition={{ duration: 1 }}>
-            ¡Oops! Página no encontrada
-        </motion.h1>
-
-        <!-- Mensaje adicional -->
-        <motion.p class="text-xl text-gray-600 mb-8"
-            animate={{ opacity: 1, scale: [0, 1.2, 1] }} 
-            transition={{ duration: 1.5 }}>
-            La página que estás buscando no existe o ha sido movida.
-        </motion.p>
-
-        <!-- Botón de regreso al inicio con animación Motion.js -->
-        <motion.a href="/" class="bg-blue-800 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-300"
-            whileHover={{ scale: 1.1 }} 
-            transition={{ type: "spring", stiffness: 300 }}>
-            Volver al home
-        </motion.a>
+    <div class="max-w-3xl mx-auto px-4 py-16 text-center">
+        <!-- Título 404 -->
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 uppercase" style="font-family: 'Bebas Neue', cursive;">
+            404 - Página no encontrada
+        </h1>
+        <!-- Mensaje descriptivo -->
+        <p class="text-white text-lg mb-8">
+            Lo siento, pero la página que estás buscando no existe o ha sido movida.
+        </p>
+        <!-- Botón para regresar a la Home -->
+        <a href="/" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded uppercase transition">
+            Ir a Inicio
+        </a>
     </div>
-
-    <!-- Footer -->
-    <footer class="absolute bottom-0 w-full py-4 bg-gray-800 text-center text-white">
-        <p>© 2025 Tu sitio web | Todos los derechos reservados</p>
-    </footer>
-
 </body>
 </html>

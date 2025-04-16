@@ -14,7 +14,7 @@
     <!-- Main.css -->
     <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
-<body>
+<body class="bg-black text-red-600" style="font-family: 'Arvo', serif;">
     {% include header.html %}
 
     <div class="max-w-3xl mx-auto px-2 py-3">
@@ -28,7 +28,7 @@
             <span>{{ page.date | date: "%B %d, %Y" }} · 
                 {% for cat in page.categories %}
                     <a href="/categorias/{{ cat | slugify }}/"
-                           class="bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-red-700 transition">
+                           class="bg-red-600 text-white text-xs px-2 py-0.5 rounded hover:bg-red-700 transition">
                           {{ cat }}
                     </a>
                 {% endfor %}                
@@ -36,7 +36,7 @@
         </div>     
         <!-- Excerpt -->
         {% if page.excerpt %}
-            <p class="text-md text-red-600 text-center mb-4 uppercase">
+            <p class="text-md text-white text-center mb-4 uppercase">
                 {{ page.excerpt }}
             </p>
         {% endif %}

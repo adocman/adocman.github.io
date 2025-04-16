@@ -1,3 +1,9 @@
+:root {
+    --primary-red: #e7000b; /* Rojo intenso */
+    --secondary-black: #080808; 
+    --accent-white: #fffff9;
+}
+
 body {
     background-color: #080808;
     margin: 0 3rem;

@@ -5,7 +5,7 @@ date: 2025-03-24 00:00:00 -0300
 categories: idiomas
 tags: coreano particulas
 excerpt: Partículas en Coreano
-image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/particulas-en-coreano-cover.png?raw=true
+image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/cover-particulas-coreano.png?raw=true
 reading_time: "25 minutos"
 permalink: "/:categories/:title"
 ---
@@ -343,12 +343,3 @@ Para terminar, te invito a que tomes una hoja de papel o abras una aplicación d
    * “Leo un libro en la biblioteca.”
 
 Con cada oración, pon en práctica las partículas que marcan el tópico, el sujeto, el lugar y el objeto. Cuanto más practiques, más natural te resultará identificar y aplicar estas pequeñas pero importantes palabras en coreano. Puedes ir jugando con otras palabras para incrementar tu vocabulario y comprender mejor las situaciones al leer.
-
-## Resumen final
-
-En este post, hemos cubierto todo lo básico para comprender el uso de la **partícula** en coreano. Recuerda lo siguiente:
-
-* **Partículas de tópico y sujeto (은/는 y 이/가):** Utilizadas para marcar el tema de la oración y el agente de la acción.
-* **Partículas de lugar y tiempo (에/에서):** Indican dónde y cuándo se realiza la acción.
-* **Partícula de posesión (의):** Une al poseedor con el objeto poseído.
-* **Partículas de objeto (을/를):** Señalan el objeto directo de la acción.

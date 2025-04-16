@@ -1,12 +1,13 @@
 <header>
   <nav class="p-4">
     <!-- Desktop header: grid de 3 columnas -->
-    <div class="hidden md:grid grid-cols-3 items-center max-w-8xl mx-auto my-6">
+    <div class="hidden md:grid grid-cols-3 items-center max-w-8xl mx-auto my-6 uppercase text-sm">
       <!-- Columna 1: Navegación -->
       <div class="flex justify-start space-x-4">
         <a href="/" class="text-white hover:text-red">Inicio</a>
         <a href="/about/" class="text-white hover:text-red-600">Acerca de</a>
         <a href="/blog/" class="text-white hover:text-red-600">Blog</a>
+        <a href="/links/" class="text-white hover:text-red-600">Mis links</a>
       </div>
       
       <!-- Columna 2: Nombre y descripción centrados -->
@@ -54,15 +55,16 @@
       <div class="px-4 pt-2 pb-4 space-y-4">
         <!-- Enlaces de navegación -->
         <hr>
-        <div class="flex flex-col items-center space-y-2 uppercase">
+        <div class="flex flex-col items-center space-y-2 uppercase text-sm">
           <a href="/" class="block text-white hover:text-red-600">Inicio</a>
           <a href="/about/" class="block text-white hover:text-red-600">Acerca de</a>
           <a href="/blog/" class="text-white hover:text-red-600">Blog</a>
+          <a href="/links/" class="text-white hover:text-red-600">Mis links</a>
         </div>
         <hr class="mt-2">  
         <!-- Menú de Categorías -->
-        <div class="uppercase text-center">
-          <h3 class="text-md font-bold mb-2 text-white">Categorías</h3>
+        <div class="uppercase text-sm">
+          <h3 class="font-bold mb-2 text-white">Categorías</h3>
           <ul class="text-xs flex flex-wrap justify-center gap-2">
             {% for category in site.categories %}
               <li>
@@ -90,7 +92,7 @@
     </div>  
     <!-- Menú de Categorías Desktop (debajo del <hr>, centrado) -->
     <hr class="mt-2 border-stone-800">
-    <div class="hidden md:flex justify-start max-w-8xl mx-auto py-4 uppercase my-6">
+    <div class="hidden md:flex justify-start max-w-8xl mx-auto py-4 my-6 uppercase text-sm">
       <ul class="flex space-x-4">
         {% for category in site.categories %}
           <li>

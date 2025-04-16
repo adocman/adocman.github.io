@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }}</title>
+    
+    <!-- Fuentes optimizadas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS + RemixIcon optimizados -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+    
+    <!-- Animaciones personalizadas mejoradas -->
+    <style>
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        .glow-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 24px -6px transparent;
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 4px 24px -6px var(--primary-red);
+            transform: translateY(-4px);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,80,80,0.8), rgba(220,38,38,0.4));
+            pointer-events: none;
+            animation: particle-float 12s infinite linear;
+            filter: blur(1px);
+            transform-origin: center center;
+            mix-blend-mode: screen;
+        }
+
+        @keyframes particle-float {
+            0%, 100% { 
+                transform: translateY(0) translateX(0) scale(0.8);
+                opacity: 0.2;
+            }
+            25% { 
+                transform: translateY(-40vh) translateX(15vw) scale(1.2);
+                opacity: 0.4;
+            }
+            50% { 
+                transform: translateY(20vh) translateX(-25vw) scale(0.6);
+                opacity: 0.3;
+            }
+            75% { 
+                transform: translateY(-30vh) translateX(10vw) scale(1.1);
+                opacity: 0.25;
+            }
+        }
+
+        /* Efecto de interacción con el mouse */
+        body:hover .particle {
+            animation-duration: 8s;
+            filter: brightness(1.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden px-12">
+    {% include header.html %}  
+    <!-- Sistema de partículas interactivo -->
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" id="particle-container">
+        <!-- Las partículas se generarán dinámicamente via JavaScript -->
+    </div>
+
+    <main class="max-w-2xl mx-auto px-4 py-12 relative z-10">
+        <!-- Sección de perfil con animación mejorada -->
+        <div class="text-center mb-16 animate-fade-in">
+            <div class="relative inline-block group">
+                <div class="absolute inset-0 rounded-full bg-red-600/20 blur-xl group-hover:bg-red-600/30 transition-all"></div>
+                <img src="/assets/images/profile.jpeg" 
+                     alt="Aaron Docman"
+                     class="w-36 h-36 rounded-full border-[3px] border-red-600 mx-auto mb-6
+                            transition-transform duration-300 hover:scale-105">
+            </div>
+            
+            <h1 class="text-5xl mb-3 text-red-600 font-bold tracking-wide" style="font-family: 'Bebas Neue', cursive;">
+                Aarón Docman
+            </h1>
+            <p class="text-gray-300/90 font-arvo mb-6 max-w-md mx-auto text-lg leading-relaxed">
+                Ingeniero Civil en Computación e Informática • Entusiasta de la Programación y los Idiomas • Creador de Contenido
+            </p>
+        </div>
+
+        <!-- Grid de enlaces optimizado -->
+        <div class="grid gap-4 mx-auto max-w-lg transform translate-y-8 opacity-0 animate-slide-up-fade-in">
+            <!-- Enlace GitHub -->
+            <a href="https://github.com/adocman" 
+               class="glow-hover flex items-center justify-between p-5 bg-gray-900/50 backdrop-blur-lg border border-red-600/30 rounded-xl
+                      hover:border-red-600/50 hover:bg-gradient-to-br from-red-600/10 to-black/20">
+                <div class="flex items-center gap-4">
+                    <i class="ri-github-fill text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-white font-arvo">GitHub</h3>
+                        <p class="text-red-400/70 text-sm font-arvo mt-1">Proyectos open-source y contribuciones</p>
+                    </div>
+                </div>
+                <i class="ri-arrow-right-up-line text-red-600/80"></i>
+            </a>
+
+            <!-- Enlace Blog mejorado -->
+            <a href="/blog" 
+               class="glow-hover flex items-center justify-between p-5 bg-gray-900/50 backdrop-blur-lg border border-red-600/30 rounded-xl
+                      hover:border-red-600/50 hover:bg-gradient-to-br from-red-600/10 to-black/20">
+                <div class="flex items-center gap-4">
+                    <i class="ri-article-line text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-white font-arvo">Blog</h3>
+                        <p class="text-red-400/70 text-sm font-arvo mt-1">Artículos sobre desarrollo, ML, idiomas, productividad y más</p>
+                    </div>
+                </div>
+                <i class="ri-arrow-right-up-line text-red-600/80"></i>
+            </a>
+
+            <!-- Enlace YouTube actualizado -->
+            <a href="https://www.youtube.com/@adocman" 
+               class="glow-hover flex items-center justify-between p-5 bg-gray-900/50 backdrop-blur-lg border border-red-600/30 rounded-xl
+                      hover:border-red-600/50 hover:bg-gradient-to-br from-red-600/10 to-black/20">
+                <div class="flex items-center gap-4">
+                    <i class="ri-youtube-fill text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-white font-arvo">Canal de YouTube</h3>
+                        <p class="text-red-400/70 text-sm font-arvo mt-1">Tutoriales y divulgación de computación e informática</p>
+                    </div>
+                </div>
+                <i class="ri-arrow-right-up-line text-red-600/80"></i>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/adocman" 
+               class="glow-hover flex items-center justify-between p-5 bg-gray-900/50 backdrop-blur-lg border border-red-600/30 rounded-xl
+                      hover:border-red-600/50 hover:bg-gradient-to-br from-red-600/10 to-black/20">
+                <div class="flex items-center gap-4">
+                    <i class="ri-instagram-fill text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-white font-arvo">Instagram</h3>
+                        <p class="text-red-300/80 text-sm font-arvo mt-1">Contenido rápido sobre computación e informática</p>
+                    </div>
+                </div>
+                <i class="ri-arrow-right-up-line text-red-600"></i>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@adocman" 
+               class="glow-hover flex items-center justify-between p-5 bg-gray-900/50 backdrop-blur-lg border border-red-600/30 rounded-xl
+                      hover:border-red-600/50 hover:bg-gradient-to-br from-red-600/10 to-black/20">
+                <div class="flex items-center gap-4">
+                    <i class="ri-tiktok-fill text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-white font-arvo">TikTok</h3>
+                        <p class="text-red-300/80 text-sm font-arvo mt-1">Videos en formato corto sobre computación e informática</p>
+                    </div>
+                </div>
+                <i class="ri-arrow-right-up-line text-red-600"></i>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/adocman" 
+               class="glow-hover flex items-center justify-between p-5 bg-gray-900/50 backdrop-blur-lg border border-red-600/30 rounded-xl
+                      hover:border-red-600/50 hover:bg-gradient-to-br from-red-600/10 to-black/20">
+                <div class="flex items-center gap-4">
+                    <i class="ri-linkedin-fill text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-white font-arvo">LinkedIn</h3>
+                        <p class="text-red-300/80 text-sm font-arvo mt-1">Recursos educativos semanales sobre Computación e Informática</p>
+                    </div>
+                </div>
+                <i class="ri-arrow-right-up-line text-red-600"></i>
+            </a>
+
+            <!-- Threads -->
+            <a href="https://www.threads.net/@adocman" 
+               class="glow-hover flex items-center justify-between p-5 bg-gray-900/50 backdrop-blur-lg border border-red-600/30 rounded-xl
+                      hover:border-red-600/50 hover:bg-gradient-to-br from-red-600/10 to-black/20">
+                <div class="flex items-center gap-4">
+                    <i class="ri-threads-fill text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-white font-arvo">Threads</h3>
+                        <p class="text-red-300/80 text-sm font-arvo mt-1">Pensamientos sobre tecnologías y mindset</p>
+                    </div>
+                </div>
+                <i class="ri-arrow-right-up-line text-red-600"></i>
+            </a>
+
+            <!-- Newsletter destacada -->
+            <a href="/newsletter" 
+               class="glow-hover flex items-center justify-between p-5 bg-red-600/10 backdrop-blur-lg border border-red-600/50 rounded-xl
+                      hover:bg-red-600/15 hover:border-red-600/70">
+                <div class="flex items-center gap-4">
+                    <i class="ri-mail-send-line text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-white font-arvo">Midnight Journal</h3>
+                        <p class="text-red-300/80 text-sm font-arvo mt-1">Newsletter mensual con contenido exclusivo</p>
+                    </div>
+                </div>
+                <i class="ri-arrow-right-up-line text-red-600"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Animaciones optimizadas -->
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slide-up-fade-in {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 1.2s ease-out;
+        }
+
+        .animate-slide-up-fade-in {
+            animation: slide-up-fade-in 1s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+
+        .animate-fade-in-delayed {
+            animation: fade-in 1s ease-out forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+    </style>
+    {% include footer.html %}  
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('particle-container');
+            const particleCount = 18;
+            
+            const createParticle = () => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Configuración aleatoria
+                const size = Math.random() * 4 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const delay = Math.random() * -12;
+                const duration = 8 + Math.random() * 8;
+                
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${left}%;
+                    top: ${top}%;
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                    background: radial-gradient(circle at 30% 30%, 
+                        rgba(255, ${80 + Math.random() * 40}, ${80 + Math.random() * 40}, 0.8),
+                        rgba(220, 38, 38, 0.3));
+                `;
+                
+                container.appendChild(particle);
+            }
+        
+            // Crear partículas iniciales
+            for(let i = 0; i < particleCount; i++) {
+                createParticle();
+            }
+            
+            // Efecto de interacción con el mouse
+            document.addEventListener('mousemove', (e) => {
+                const particles = document.getElementsByClassName('particle');
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                
+                Array.from(particles).forEach(particle => {
+                    const rect = particle.getBoundingClientRect();
+                    const particleX = rect.left + rect.width/2;
+                    const particleY = rect.top + rect.height/2;
+                    
+                    const distance = Math.sqrt(
+                        Math.pow(mouseX - particleX, 2) + 
+                        Math.pow(mouseY - particleY, 2)
+                    );
+                    
+                    if(distance < 200) {
+                        const angle = Math.atan2(
+                            mouseY - particleY, 
+                            mouseX - particleX
+                        );
+                        
+                        const force = (200 - distance) * 0.1;
+                        particle.style.transform = `translate(
+                            ${Math.cos(angle) * force}px, 
+                            ${Math.sin(angle) * force}px
+                        )`;
+                    }
+                });
+            });
+        });
+        </script>
+</body>
+</html>
