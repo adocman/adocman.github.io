@@ -7,16 +7,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
-    
+    <!-- Google Fonts: Arvo para texto y Bebas Neue para títulos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat:wght@300;600&family=Roboto:wght@300&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- Main.css -->
     <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
-<body class="bg-black text-blue-900">
+<body>
     {% include header.html %}
 
     <div class="max-w-3xl mx-auto px-2 py-3">
         <!-- Título del Post -->
-        <h1 class="text-4xl md:text-6xl font-bold text-center text-red-600 mb-2 uppercase">
+        <h1 class="text-4xl md:text-6xl font-bold text-center text-red-600 mb-2 uppercase" style="font-family: 'Bebas Neue', cursive;">
             {{ page.title }}
         </h1>
 
@@ -24,7 +27,10 @@
         <div class="text-center text-red-600 text-sm mb-2 uppercase">
             <span>{{ page.date | date: "%B %d, %Y" }} · 
                 {% for cat in page.categories %}
-                    <span class="bg-red-600 text-white px-2 py-1 rounded text-xs">{{ cat }}</span>
+                    <a href="/categorias/{{ cat | slugify }}/"
+                           class="bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-red-700 transition">
+                          {{ cat }}
+                    </a>
                 {% endfor %}                
                 · {{ page.reading_time }}</span>
         </div>     

@@ -6,6 +6,10 @@
   <title>{{ page.title }}</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
+  <!-- Google Fonts: Arvo para texto y Bebas Neue para títulos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat:wght@300;600&family=Roboto:wght@300&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
 <body class="bg-black text-red-600">
@@ -13,14 +17,14 @@
 
   <main class="py-8">
     <div class="max-w-4xl mx-auto px-4">
-      <h1 class="text-3xl font-bold mb-6">{{ page.title }}</h1>
+      <h1 class="text-6xl font-bold mb-6" style="font-family: 'Bebas Neue', cursive;">{{ page.title }}</h1>
 
       <!-- Listado de categorías -->
       <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
         {% for category in site.categories %}
           <li class="bg-red-600 text-white p-4 rounded-md text-center">
             <a href="{{ "/categorias/" | relative_url }}{{ category[0] | slugify }}/" class="text-lg font-bold hover:underline">
-              {{ category[0] | capitalize }} ({{ category[1] | size }})
+              {{ category[0] | capitalize }} - {{ category[1] | size }} posts
             </a>
           </li>
         {% endfor %}

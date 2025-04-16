@@ -1,95 +1,262 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ site.title }}</title>
-
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
-  <!-- Main.css -->
-  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
-</head>
-<body class="text-red-600">
-  {% include header.html %}    
-
-  <main class="py-8">
-    <div class="max-w-8xl mx-auto px-4 flex flex-col md:flex-row gap-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site.title }}</title>
+    
+    <!-- Google Fonts: Arvo para textos y Bebas Neue para títulos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat:wght@300;600&family=Roboto:wght@300&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- Carga de Tailwind CSS y Remixicon -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css"
+      rel="stylesheet"
+    />
+    <!-- Main.css -->
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}" />
+  </head>
+  <body style="font-family: 'Arvo', serif;">
+    
+    {% include header.html %}
+    
+    <main>
+      <!-- HERO SECTION: Dos columnas (foto + descripción) -->
+      <section id="hero" class="py-16 bg-cover bg-center" style="background-image: url('/assets/images/hero-bg.jpg');">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
+          <!-- Columna Izquierda: Imagen de perfil -->
+          <div class="md:w-1/2 flex justify-center">
+            <img src="/assets/images/profile.jpeg" alt="Aaron Docman" class="rounded-full w-80">
+          </div>
+          <!-- Columna Derecha: Texto de bienvenida -->
+          <div class="md:w-1/2 mt-8 md:mt-0 md:pl-12 text-white">
+            <h1 class="text-6xl font-bold uppercase" style="font-family: 'Bebas Neue', cursive;">
+              ¡Hola!
+            </h1>
+            <p class="mt-4 text-xl">
+              Soy Aarón Docman, Ingeniero civil en computación e informática, emprendedor, apasionado por el Machine Learning, aprender idiomas, amante del trekking y la lectura.
+            </p>
+            <p class="mt-2 text-xl">
+              A través de mis posts ayudo a futuros programadores / ingenieros informáticos a potenciar su productividad y habilidades.
+            </p>
+          </div>
+        </div>
+      </section>
       
-      <!-- Contenedor de Posts (3/5 de ancho en desktop) -->
-      <div class="w-full md:w-4/5">
-        <div class="flex flex-col items-center space-y-6">
-          {% for post in site.posts %}
-            <article class="shadow-md overflow-hidden flex flex-col md:flex-row w-full">
-              
-              <!-- Imagen con enlace (1/3) -->
-              {% if post.image %}
-              <a href="{{ post.url }}" class="w-full md:w-2/5 block">
-                <div class="w-full aspect-[16/9] border-2 border-white rounded">
-                  <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
-                </div>
+      <!-- CTA NEWSLETTER: "Midnight Journal" -->
+      <section id="newsletter-cta" class="py-16 ">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+          <h2 class="text-6xl font-bold uppercase text-red-600 mb-4" style="font-family: 'Bebas Neue', cursive;">
+            Midnight Journal
+          </h2>
+          <p class="text-xl mb-8 text-white">
+            Un espacio de reflexión, motivación y productividad dirigido a ingenieros informáticos con tips y contenido exclusivo mensualmente.
+          </p>
+          <!-- Inserta aquí el snippet de Mailchimp -->
+          <form action="YOUR_MAILCHIMP_FORM_ACTION_URL" method="post" class="flex flex-col sm:flex-row justify-center gap-4">
+            <input type="email" name="EMAIL" placeholder="Ingresa tu email" class="p-3 rounded w-full sm:w-auto" required>
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded uppercase">
+              Suscribirse
+            </button>
+          </form>
+        </div>
+      </section>
+      
+    <!-- CTA: ¿CÓMO PUEDO AYUDARTE? -->
+    <section id="cta-servicios" class="py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold uppercase text-red-600 mb-8" style="font-family: 'Bebas Neue', cursive;">
+            ¿Cómo puedo ayudarte?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+            <!-- Tarjeta 1 -->
+            <a href="/categorias/idiomas" class="bg-gray-300 hover:bg-red-600 text-black hover:text-white font-bold py-8 px-6 rounded uppercase transform transition-all duration-300 md:odd:translate-x-0 md:even:translate-x-12">
+            <h3 class="text-4xl mb-2" style="font-family: 'Bebas Neue', cursive;">🌐 Aprender Otros Idiomas</h3>
+            <p class="text-lg">Domina inglés, coreano y más, y abre tus horizontes en el mundo tecnológico.</p>
+            </a>
+            <!-- Tarjeta 2 -->
+            <a href="/categorias/lifelong-learning" class="bg-gray-300 hover:bg-red-600 text-black hover:text-white font-bold py-8 px-6 rounded uppercase transform transition-all duration-300 md:odd:translate-x-12 md:even:translate-x-0">
+            <h3 class="text-4xl mb-2" style="font-family: 'Bebas Neue', cursive;">📖 Aprender a Aprender</h3>
+            <p class="text-lg">Mejora tus técnicas de estudio y organiza tu aprendizaje para exámenes y vida profesional.</p>
+            </a>
+            <!-- Tarjeta 3 -->
+            <a href="/categorias/productividad" class="bg-gray-300 hover:bg-red-600 text-black hover:text-white font-bold py-8 px-6 rounded uppercase transform transition-all duration-300 md:odd:translate-x-0 md:even:translate-x-12">
+            <h3 class="text-4xl mb-2" style="font-family: 'Bebas Neue', cursive;">⚡ Ser más Productivo</h3>
+            <p class="text-lg">Optimiza tu tiempo y alcanza tus objetivos con estrategias probadas para ingenieros.</p>
+            </a>
+            <!-- Tarjeta 4 -->
+            <a href="/categorias/programacion" class="bg-gray-300 hover:bg-red-600 text-black hover:text-white font-bold py-8 px-6 rounded uppercase transform transition-all duration-300 md:odd:translate-x-12 md:even:translate-x-0">
+            <h3 class="text-4xl mb-2" style="font-family: 'Bebas Neue', cursive;">💻 Quiero Programar Mejor</h3>
+            <p class="text-lg">Refina tu código y domina las mejores prácticas en estructuras de datos y POO.</p>
+            </a>
+            <!-- Tarjeta 5 -->
+            <a href="/categorias/resumenes" class="bg-gray-300 hover:bg-red-600 text-black hover:text-white font-bold py-8 px-6 rounded uppercase transform transition-all duration-300 md:odd:translate-x-0 md:even:translate-x-12">
+            <h3 class="text-4xl mb-2" style="font-family: 'Bebas Neue', cursive;">📚 Resúmenes de Libros</h3>
+            <p class="text-lg">Descubre insights clave de libros y expande tu conocimiento en menos tiempo.</p>
+            </a>
+            <!-- Tarjeta 6 -->
+            <a href="/blog.html" class="bg-gray-300 hover:bg-red-600 text-black hover:text-white font-bold py-8 px-6 rounded uppercase transform transition-all duration-300 md:odd:translate-x-12 md:even:translate-x-0">
+            <h3 class="text-4xl mb-2" style="font-family: 'Bebas Neue', cursive;">📰 Quiero ver el Blog</h3>
+            <p class="text-lg">Explora todas las publicaciones y recursos que ofrecemos para potenciar tu carrera.</p>
+            </a>
+        </div>
+        </div>
+    </section>
+      
+      <!-- SECCIÓN PRODUCTOS -->
+      <section id="productos" class="py-16">
+        <div class="max-w-7xl mx-auto px-4">
+          <h2 class="text-4xl font-bold uppercase text-red-600 mb-8" style="font-family: 'Bebas Neue', cursive;">
+            Productos
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Producto 1 -->
+            <div class="rounded overflow-hidden shadow-lg">
+              <a href="https://gumroad.com/product1" target="_blank">
+                <img src="/assets/images/product1.jpg" alt="Producto 1" class="w-full h-48 object-cover">
               </a>
-            {% endif %}
-              
-              <!-- Contenido (2/3) -->
-              <div class="w-full md:w-3/5 p-6 flex flex-col justify-between">
-                <!-- Título y Categorías -->
-                <div class="flex flex-wrap justify-between items-center mb-2">
-                  {% if post.categories %}
-                    <div class="flex flex-wrap gap-2 uppercase">
-                      {% for cat in post.categories %}
-                        <a href="/categorias/{{ cat | slugify }}/"
-                           class="bg-red-600 text-white text-xs px-2 py-1 rounded">
-                          {{ cat }}
-                        </a>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                  <h2 class="text-2xl font-bold flex-grow uppercase text-red-600">
-                    <a href="{{ post.url }}" class="hover:underline">{{ post.title }}</a>
-                  </h2>
-                </div>
-
-                <!-- Excerpt con límite de líneas
-                {% if post.excerpt %}
-                  <p class="text-white mb-4 line-clamp-2 md:line-clamp-3">
-                    {{ post.excerpt }}
-                  </p>
-                {% endif %} -->
-
-                <!-- Fecha y tiempo de lectura -->
-                <p class="text-white text-xs md:mb-2 order-2 md:order-none uppercase">
-                  {{ post.date | date: "%B %d, %Y" }} &middot; {{ post.reading_time }}
+              <div class="p-4">
+                <h3 class="text-2xl font-bold uppercase text-red-600 mb-2" style="font-family: 'Bebas Neue', cursive;">
+                  <a href="https://gumroad.com/product1" target="_blank">Producto 1</a>
+                </h3>
+                <p class="text-gray-300">
+                  Descripción breve del producto 1.
                 </p>
-
-                <!-- Botón "Leer más" solo en desktop -->
-                <a href="{{ post.url }}" class="border border-red-600 text-red-600 text-center py-2 px-6 rounded-md hover:bg-black hover:text-white transition w-fit self-start hidden md:inline-block">
-                  Leer más
+              </div>
+            </div>
+            <!-- Producto 2 -->
+            <div class="rounded overflow-hidden shadow-lg">
+              <a href="https://gumroad.com/product2" target="_blank">
+                <img src="/assets/images/product2.jpg" alt="Producto 2" class="w-full h-48 object-cover">
+              </a>
+              <div class="p-4">
+                <h3 class="text-2xl font-bold uppercase text-red-600 mb-2" style="font-family: 'Bebas Neue', cursive;">
+                  <a href="https://gumroad.com/product2" target="_blank">Producto 2</a>
+                </h3>
+                <p class="text-gray-300">
+                  Descripción breve del producto 2.
+                </p>
+              </div>
+            </div>
+            <!-- Producto 3 -->
+            <div class="rounded overflow-hidden shadow-lg">
+              <a href="https://gumroad.com/product3" target="_blank">
+                <img src="/assets/images/product3.jpg" alt="Producto 3" class="w-full h-48 object-cover">
+              </a>
+              <div class="p-4">
+                <h3 class="text-2xl font-bold uppercase text-red-600 mb-2" style="font-family: 'Bebas Neue', cursive;">
+                  <a href="https://gumroad.com/product3" target="_blank">Producto 3</a>
+                </h3>
+                <p class="text-gray-300">
+                  Descripción breve del producto 3.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECCIÓN VIDEOS DE YOUTUBE -->
+      <section id="youtube-videos" class="py-16 ">
+        <div class="max-w-7xl mx-auto px-4">
+          <h2 class="text-4xl font-bold uppercase text-red-600 mb-8" style="font-family: 'Bebas Neue', cursive;">
+            Últimos Videos de YouTube
+          </h2>
+          <div class="overflow-x-auto">
+            <div class="flex space-x-4">
+              <!-- Video 1 -->
+              <div class="min-w-full sm:min-w-0 sm:w-1/3">
+                <a href="https://www.youtube.com/watch?v=video1" target="_blank">
+                  <img src="/assets/images/video1.jpg" alt="Video 1" class="w-full h-48 object-cover rounded">
                 </a>
               </div>
-            </article>
-            <div class="flex-grow border-t border-stone-900"></div>
-          {% endfor %}
+              <!-- Video 2 -->
+              <div class="min-w-full sm:min-w-0 sm:w-1/3">
+                <a href="https://www.youtube.com/watch?v=video2" target="_blank">
+                  <img src="/assets/images/video2.jpg" alt="Video 2" class="w-full h-48 object-cover rounded">
+                </a>
+              </div>
+              <!-- Video 3 -->
+              <div class="min-w-full sm:min-w-0 sm:w-1/3">
+                <a href="https://www.youtube.com/watch?v=video3" target="_blank">
+                  <img src="/assets/images/video3.jpg" alt="Video 3" class="w-full h-48 object-cover rounded">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8 text-center">
+            <a href="https://www.youtube.com/tu-canal" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded uppercase">
+              Ver YouTube
+            </a>
+          </div>
         </div>
-      </div>
-
-      <!-- Menú de Categorías (solo desktop) -->
-      <aside class="w-full md:w-1/5 hidden md:block uppercase">
-        <h2 class="text-lg font-bold mb-4 text-red-600">Categorías</h2>
-        <ul class="space-y-2">
-          {% for category in site.categories %}
-            <li>
-              <a href="/categorias/{{ category[0] | slugify }}/" 
-                class="block py-2 px-4 bg-black rounded text-white hover:underline">
-                {{ category[0] }} - {{ category[1] | size }} posts
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </aside>
-    </div>
-  </main>
-
-  {% include footer.html %}
-</body>
+      </section>
+      
+      <!-- SECCIÓN PUBLICACIONES POPULARES EN THREADS -->
+      <section id="threads" class="py-16">
+        <div class="max-w-4xl mx-auto px-4">
+          <h2 class="text-4xl font-bold uppercase text-red-600 mb-8" style="font-family: 'Bebas Neue', cursive;">
+            Más Populares en Threads
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Publicación 1 -->
+            <article class="rounded p-4 shadow">
+              <h3 class="text-2xl font-bold uppercase text-red-600" style="font-family: 'Bebas Neue', cursive;">
+                <a href="https://threads.net/thread1" target="_blank">Publicación 1</a>
+              </h3>
+              <p class="text-gray-300 mt-2">
+                Breve descripción de la publicación más popular en Threads.
+              </p>
+            </article>
+            <!-- Publicación 2 -->
+            <article class="rounded p-4 shadow">
+              <h3 class="text-2xl font-bold uppercase text-red-600" style="font-family: 'Bebas Neue', cursive;">
+                <a href="https://threads.net/thread2" target="_blank">Publicación 2</a>
+              </h3>
+              <p class="text-gray-300 mt-2">
+                Breve descripción de la publicación.
+              </p>
+            </article>
+            <!-- Publicación 3 -->
+            <article class="rounded p-4 shadow">
+              <h3 class="text-2xl font-bold uppercase text-red-600" style="font-family: 'Bebas Neue', cursive;">
+                <a href="https://threads.net/thread3" target="_blank">Publicación 3</a>
+              </h3>
+              <p class="text-gray-300 mt-2">
+                Breve descripción de la publicación.
+              </p>
+            </article>
+            <!-- Publicación 4 -->
+            <article class="rounded p-4 shadow">
+              <h3 class="text-2xl font-bold uppercase text-red-600" style="font-family: 'Bebas Neue', cursive;">
+                <a href="https://threads.net/thread4" target="_blank">Publicación 4</a>
+              </h3>
+              <p class="text-gray-300 mt-2">
+                Breve descripción de la publicación.
+              </p>
+            </article>
+            <!-- Publicación 5 -->
+            <article class="rounded p-4 shadow">
+              <h3 class="text-2xl font-bold uppercase text-red-600" style="font-family: 'Bebas Neue', cursive;">
+                <a href="https://threads.net/thread5" target="_blank">Publicación 5</a>
+              </h3>
+              <p class="text-gray-300 mt-2">
+                Breve descripción de la publicación.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+    
+    {% include footer.html %}
+  
+  </body>
 </html>

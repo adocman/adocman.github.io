@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Categoría: {{ page.category }} | {{ site.title }}</title>
+  <title>{{ site.title }}</title>
   
   <!-- Google Fonts: Arvo para texto y Bebas Neue para títulos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,23 +17,17 @@
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
 </head>
 <body class="text-red-600" style="font-family: 'Arvo', serif;">
-  {% include header.html %}
-  
+  {% include header.html %}    
+
   <main class="py-8">
-    <!-- Título de la categoría -->
-    <div class="relative flex py-5 items-center mb-12">
-      <div class="flex-grow border-t border-gray-400"></div>
-      <span class="text-6xl mx-4 text-red-600" style="font-family: 'Bebas Neue', cursive;">{{ page.category }}</span>
-     <div class="flex-grow border-t border-gray-400"></div>
-   </div>
-    <!-- Contenedor principal: en móvil y tablet en columna, en lg en fila -->
+    <!-- Contenedor principal: en móvil y tablet se visualiza en columna, en lg en fila -->
     <div class="max-w-8xl mx-auto px-4 flex flex-col lg:flex-row gap-8">
       
-      <!-- Contenedor de Posts Filtrados (para lg: 4/5 del ancho) -->
-      <div class="w-full lg:w-4/5">        
+      <!-- Contenedor de Posts (full width en móvil/tablet, lg: 4/5 del ancho) -->
+      <div class="w-full lg:w-4/5">
         <div class="flex flex-col space-y-6">
-          {% for post in site.categories[page.category] %}
-            <!-- Artículo: layout vertical en móvil/tablet, horizontal en lg -->
+          {% for post in site.posts %}
+            <!-- Artículo: layout vertical en móvil y tablet, horizontal en lg -->
             <article class="shadow-md overflow-hidden flex flex-col lg:flex-row w-full rounded">
               
               <!-- Imagen con enlace: full width en móvil/tablet, lg: 2/5 del ancho -->
@@ -50,14 +44,7 @@
                 
                 <!-- Contenido textual -->
                 <div>
-                  <!-- TÍTULO -->
-                  <h2 class="text-6xl font-bold uppercase text-red-600 mb-2" style="font-family: 'Bebas Neue', cursive;">
-                    <a href="{{ post.url }}" class="hover:underline">
-                      {{ post.title }}
-                    </a>
-                  </h2>
-                  
-                  <!-- CATEGORÍAS (si aplica, en una misma línea) -->
+                  <!-- CATEGORÍAS (arriba) -->
                   {% if post.categories %}
                     <div class="flex flex-row flex-wrap gap-2 mb-2 uppercase">
                       {% for cat in post.categories %}
@@ -68,8 +55,15 @@
                       {% endfor %}
                     </div>
                   {% endif %}
-                                    
-                  <!-- FECHA Y TIEMPO DE LECTURA -->
+                  
+                  <!-- TÍTULO (con Bebas Neue) -->
+                  <h2 class="text-4xl font-bold uppercase text-red-600 mb-2" style="font-family: 'Bebas Neue', cursive;">
+                    <a href="{{ post.url }}" class="hover:underline">
+                      {{ post.title }}
+                    </a>
+                  </h2>
+                  
+                  <!-- FECHA Y TIEMPO DE LECTURA (debajo del título) -->
                   <p class="text-gray-600 text-xs mb-4 uppercase">
                     {{ post.date | date: "%B %d, %Y" }} &middot; {{ post.reading_time }}
                   </p>
@@ -85,21 +79,29 @@
                 </div>
               </div>
             </article>
-            
+
             <!-- Separador entre artículos -->
             <div class="border-t border-stone-800"></div>
           {% endfor %}
         </div>
       </div>
-      
-      <!-- Menú de Categorías -->
+
+      <!-- Menú de Categorías y Newsletter -->
       <aside class="w-full lg:w-1/5">
-        <!-- Versión para móvil/tablet -->
+        <!-- Versión para móvil/tablet: Newsletter y Categorías -->
         <div class="block lg:hidden mb-4">
-          <h2 class="text-4xl font-bold mb-2 uppercase text-red-600" style="font-family: 'Bebas Neue', cursive;">
-            
-            Categorías
-          </h2>
+          <!-- Bloque Newsletter para dispositivos pequeños -->
+          <div class="mb-6 p-4 rounded-xl bg-gray-800 text-white">
+            <h2 class="text-xl font-bold uppercase" style="font-family: 'Bebas Neue', cursive;">Newsletter</h2>
+            <p class="mt-2 text-sm">Suscríbete y recibe contenido exclusivo.</p>
+            <form action="YOUR_NEWSLETTER_FORM_URL" method="post" class="mt-4">
+              <input type="email" name="EMAIL" placeholder="Tu email" required class="w-full p-2 rounded mb-2">
+              <button type="submit" class="w-full bg-red-600 hover:bg-red-700 py-2 rounded uppercase font-bold">Suscribirse</button>
+            </form>
+          </div>
+
+          <!-- Menú de Categorías para dispositivos pequeños -->
+          <h2 class="text-lg font-bold mb-2 text-red-600 uppercase" style="font-family: 'Bebas Neue', cursive;">Categorías</h2>
           <ul class="flex flex-wrap gap-2">
             {% for category in site.categories %}
               <li>
@@ -138,9 +140,9 @@
           </ul>
         </div>
       </aside>
-      
     </div>
   </main>
+
   {% include footer.html %}
 </body>
 </html>

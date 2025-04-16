@@ -1,7 +1,7 @@
 body {
-    background-color: #000000;
+    background-color: #080808;
     margin: 0 3rem;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arvo', serif;
     color: #fffff9; /* text-blue-900 */
 }
 
@@ -13,8 +13,9 @@ body {
     line-height: 1.8;
 }
 
-/* Encabezados */
+/* Encabezados usando Bebas Neue */
 .post h1 {
+    font-family: 'Bebas Neue', cursive;
     font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
@@ -23,6 +24,7 @@ body {
 }
 
 .post h2 {
+    font-family: 'Bebas Neue', cursive;
     font-size: 2rem;
     font-weight: bold;
     color: #fffff9;
@@ -32,6 +34,7 @@ body {
 }
 
 .post h3 {
+    font-family: 'Bebas Neue', cursive;
     font-size: 1.75rem;
     font-weight: bold;
     color: #fffff9;
@@ -69,7 +72,7 @@ body {
 
 .post code {
     font-family: 'Courier New', monospace;
-    background-color: #fffff9;
+    color: #080808;
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
 }

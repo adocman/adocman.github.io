@@ -1,16 +1,17 @@
 <header>
-  <nav class="p-4 bg-black">
+  <nav class="p-4">
     <!-- Desktop header: grid de 3 columnas -->
-    <div class="hidden md:grid grid-cols-3 items-center max-w-7xl mx-auto">
+    <div class="hidden md:grid grid-cols-3 items-center max-w-8xl mx-auto my-6">
       <!-- Columna 1: Navegación -->
       <div class="flex justify-start space-x-4">
         <a href="/" class="text-white hover:text-red">Inicio</a>
         <a href="/about/" class="text-white hover:text-red-600">Acerca de</a>
+        <a href="/blog/" class="text-white hover:text-red-600">Blog</a>
       </div>
       
       <!-- Columna 2: Nombre y descripción centrados -->
       <div class="flex flex-col items-center">
-        <a href="/" class="text-red-600 text-2xl font-bold">ADOCMAN</a>
+        <a href="/" class="text-red-600 text-6xl font-bold" style="font-family: 'Bebas Neue', cursive;">ADOCMAN</a>
         <p class="text-sm text-white">COMPARTIENDO MIS APUNTES</p>
       </div>
       
@@ -32,7 +33,7 @@
     <div class="md:hidden relative">
       <!-- Nombre y descripción centrados -->
       <div class="text-center">
-        <a href="/" class="text-red-600 text-2xl font-bold block">ADOCMAN</a>
+        <a href="/" class="text-red-600 text-8xl font-bold block" style="font-family: 'Bebas Neue', cursive;">ADOCMAN</a>
         <p class="text-sm text-white">COMPARTIENDO MIS APUNTES</p>
       </div>
       <!-- Botón de menú hamburguesa posicionado en la esquina superior derecha -->
@@ -56,6 +57,7 @@
         <div class="flex flex-col items-center space-y-2 uppercase">
           <a href="/" class="block text-white hover:text-red-600">Inicio</a>
           <a href="/about/" class="block text-white hover:text-red-600">Acerca de</a>
+          <a href="/blog/" class="text-white hover:text-red-600">Blog</a>
         </div>
         <hr class="mt-2">  
         <!-- Menú de Categorías -->
@@ -87,8 +89,8 @@
       </div>
     </div>  
     <!-- Menú de Categorías Desktop (debajo del <hr>, centrado) -->
-    <hr class="mt-2">
-    <div class="hidden md:flex justify-start max-w-7xl mx-auto py-4 uppercase">
+    <hr class="mt-2 border-stone-800">
+    <div class="hidden md:flex justify-start max-w-8xl mx-auto py-4 uppercase my-6">
       <ul class="flex space-x-4">
         {% for category in site.categories %}
           <li>
@@ -99,7 +101,7 @@
         {% endfor %}
       </ul>
     </div>
-    <hr class="mb-2">
+    <hr class="mb-2 border-stone-800">
   </nav>
   
   <script>
