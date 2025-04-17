@@ -2,7 +2,7 @@
 html {
   scroll-behavior: smooth;
   /* Cursor circular blanco 20×20 */
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="10" cy="10" r="10" fill="%23ffffff"/></svg>') 10 10, auto;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="10" fill="%23ffffff"/></svg>') 10 10, auto;
 }
 
 :root {
@@ -45,7 +45,6 @@ body {
   font-size: 1.125rem;
   background-color: var(--bg-main);
   color: var(--text-color);
-  margin: 0 .5rem;
 }
 
 /* Cursor heredado en todos los elementos */
@@ -156,8 +155,8 @@ body.light {
 /* — TOC Sidebar — */
 #toc {
   position: sticky;
-  top: 4rem; /* ajusta si cambias altura del header */
-  max-height: calc(100vh - 4rem);
+  /* top: 4rem; */
+  /* max-height: calc(100vh - 4rem); */
 }
 #toc-list li { list-style: none; }
 #toc-list li ul { margin-left: 1rem; }
