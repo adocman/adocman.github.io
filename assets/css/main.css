@@ -136,8 +136,7 @@ button, .theme-toggle {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 button:hover, .theme-toggle:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transform: scale(1.15);
 }
 
 /* Degradado animado como fondo opcional */
