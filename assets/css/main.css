@@ -2,7 +2,7 @@
 html {
   scroll-behavior: smooth;
   /* Cursor circular blanco 20×20 */
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="10" fill="%23ffffff"/></svg>') 10 10, auto;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="10" cy="10" r="10" fill="%23ffffff"/></svg>') 10 10, auto;
 }
 
 :root {
@@ -45,7 +45,7 @@ body {
   font-size: 1.125rem;
   background-color: var(--bg-main);
   color: var(--text-color);
-  margin: 0 1rem;
+  margin: 0 .5rem;
 }
 
 /* Cursor heredado en todos los elementos */
@@ -159,8 +159,6 @@ body.light {
   top: 4rem; /* ajusta si cambias altura del header */
   max-height: calc(100vh - 4rem);
 }
-
-/* links jerarquizados */
 #toc-list li { list-style: none; }
 #toc-list li ul { margin-left: 1rem; }
 #toc-list a {
@@ -172,17 +170,15 @@ body.light {
   font-size: 0.875rem;
   transition: background-color 0.2s, color 0.2s;
 }
-
-/* hover/activo */
 #toc-list a:hover {
-  background-color: rgba(37, 99, 235, 0.1); /* primary-blue al 10% */
+  background-color: rgba(37, 99, 235, 0.1);
 }
 #toc-list a.active {
   background-color: var(--primary-blue);
   color: #fff;
 }
 
-/* evita que los headings queden bajo header fijo */
+/* Evita que los headings queden ocultos tras el header fijo */
 .post h2,
 .post h3 {
   scroll-margin-top: 4rem;

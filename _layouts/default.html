@@ -42,9 +42,7 @@
               </summary>
               <ul class="pl-4 mt-1 space-y-1">
                 {% for post in category[1] %}
-                <li>
-                  <a href="{{ post.url }}" class="block py-1 hover:underline">{{ post.title }}</a>
-                </li>
+                <li><a href="{{ post.url }}" class="block py-1 hover:underline">{{ post.title }}</a></li>
                 {% endfor %}
               </ul>
             </details>
@@ -55,7 +53,7 @@
     </div>
   </div>
 
-  <!-- SIDEBAR escritorio -->
+  <!-- SIDEBAR escritorio (izquierda) -->
   <aside class="hidden md:block w-64 bg-sidebar border-r overflow-auto">
     <div class="p-4 flex items-center justify-between">
       <span class="font-bold text-xl text-slate-50">Aaron Docman</span>
@@ -65,14 +63,12 @@
       {% for category in site.categories %}
       <li>
         <details>
-          <summary class="flex justify-between items-center p-2 hover:bg-slate-700 rounded cursor-pointer details-summary">
+          <summary class="flex justify-between items-center p-2 hover:bg-slate-700 rounded cursor-pointer">
             {{ category[0] }} <span>&rsaquo;</span>
           </summary>
           <ul class="pl-4 mt-1 space-y-1">
             {% for post in category[1] %}
-            <li>
-              <a href="{{ post.url }}" class="block py-1 hover:underline">{{ post.title }}</a>
-            </li>
+            <li><a href="{{ post.url }}" class="block py-1 hover:underline">{{ post.title }}</a></li>
             {% endfor %}
           </ul>
         </details>
@@ -81,11 +77,12 @@
     </ul>
   </aside>
 
-  <!-- CONTENIDO -->
-  <main id="content" class="flex-1 overflow-auto p-6">{{ content }}</main>
+  <!-- CONTENIDO (centro) -->
+  <main id="content" class="flex-1 overflow-auto p-6">
+    {{ content }}
+  </main>
 
-  
-  <!-- TOC Sidebar (solo desktop) -->
+  <!-- TOC Sidebar (derecha, desktop-only) -->
   <aside id="toc" class="hidden lg:block w-64 bg-sidebar border-l overflow-auto p-4">
     <div class="font-bold text-lg mb-4 text-slate-50">En este artículo</div>
     <nav>

@@ -42,60 +42,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
   });
 
-  // — Generar Table of Contents y Scroll‑Spy —
-  const tocList = document.getElementById('toc-list');
-  if (tocList) {
-    const headers = document.querySelectorAll('main#content h2, main#content h3');
-    let currentLevel = 2;
-    const listStack = [tocList];
+// — Generar Table of Contents y Scroll‑Spy —
+const tocList = document.getElementById('toc-list');
+if (tocList) {
+  const headers = document.querySelectorAll('main#content h2, main#content h3');
+  let currentLevel = 2;
+  const stack = [tocList];
 
-    headers.forEach(h => {
-      // crear id si no existe
-      if (!h.id) {
-        h.id = h.textContent
-               .toLowerCase()
-               .trim()
-               .replace(/\s+/g, '-')
-               .replace(/[^\w\-]/g, '');
+  headers.forEach(h => {
+    if (!h.id) {
+      h.id = h.textContent
+             .toLowerCase()
+             .trim()
+             .replace(/\s+/g, '-')
+             .replace(/[^\w\-]/g, '');
+    }
+    const level = Number(h.tagName.charAt(1));
+    const li    = document.createElement('li');
+    const a     = document.createElement('a');
+    a.href        = `#${h.id}`;
+    a.textContent = h.textContent;
+    li.appendChild(a);
+
+    if (level > currentLevel) {
+      const ul = document.createElement('ul');
+      ul.classList.add('pl-4', 'space-y-1');
+      stack[0].lastElementChild.appendChild(ul);
+      stack.unshift(ul);
+    } else if (level < currentLevel) {
+      stack.shift();
+    }
+    currentLevel = level;
+    stack[0].appendChild(li);
+  });
+
+  // Scroll‑Spy
+  const links = tocList.querySelectorAll('a');
+  window.addEventListener('scroll', () => {
+    const fromTop = window.scrollY + 120;
+    links.forEach(link => {
+      const section = document.getElementById(link.hash.slice(1));
+      if (!section) return;
+      if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
       }
-      const level = Number(h.tagName.charAt(1));
-      const li    = document.createElement('li');
-      const a     = document.createElement('a');
-      a.href       = `#${h.id}`;
-      a.textContent= h.textContent;
-      li.appendChild(a);
-
-      if (level > currentLevel) {
-        // anidar lista
-        const ul = document.createElement('ul');
-        ul.classList.add('pl-4', 'space-y-1');
-        listStack[0].lastElementChild.appendChild(ul);
-        listStack.unshift(ul);
-      } else if (level < currentLevel) {
-        listStack.shift();
-      }
-      currentLevel = level;
-      listStack[0].appendChild(li);
     });
-
-    // Scroll‑Spy
-    const links = tocList.querySelectorAll('a');
-    window.addEventListener('scroll', () => {
-      const fromTop = window.scrollY + 120; // offset si tuvieras header fijo
-      links.forEach(link => {
-        const section = document.getElementById(link.hash.slice(1));
-        if (!section) return;
-        if (
-          section.offsetTop <= fromTop &&
-          section.offsetTop + section.offsetHeight > fromTop
-        ) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
-    });
-  }
+  });
+}
 
   
 
