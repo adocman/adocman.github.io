@@ -153,6 +153,47 @@ body.light {
   animation: gradientBG 12s ease infinite;
 }
 
+/* ————————————————————————————————————————————
+   TABLE OF CONTENTS SIDEBAR
+———————————————————————————————————————————— */
+:root {
+  /* Añade si quieres reutilizar en JS */
+  --primary-blue-rgb: 37, 99, 235;
+}
+
+#toc {
+  position: sticky;
+  top: 4rem; /* para despejar el header */
+  max-height: calc(100vh - 4rem);
+}
+
+#toc-list li {
+  list-style: none;
+  margin: 0;
+}
+
+#toc-list a {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#toc-list li ul {
+  margin-left: 1rem;
+}
+
+#toc-list a:hover {
+  background-color: rgba(var(--primary-blue-rgb), 0.1);
+}
+
+#toc-list a.active {
+  background-color: var(--primary-blue);
+  color: #fff;
+}
 
 /* Resto de estilos sin cambios */
 .transition-scale { @apply transition-transform duration-300 ease-in-out; }
