@@ -64,7 +64,7 @@ aside details summary:hover span,
 /* Links de posts en menú */
 aside ul a:hover,
 #mobile-menu ul a:hover {
-  animation: glow-blue 1s infinite alternate;
+  /* animation: glow-blue 1s infinite alternate; */
 }
 
 /* Glassmorphism para sidebar y menú móvil */
