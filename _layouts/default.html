@@ -56,7 +56,9 @@
   <!-- SIDEBAR escritorio (izquierda) -->
   <aside class="hidden md:block w-64 bg-sidebar border-r overflow-auto">
     <div class="p-4 flex items-center justify-between">
-      <span class="font-bold text-xl text-slate-50">Aaron Docman</span>
+      <span class="font-bold text-xl text-slate-50">
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      </span>
       <button class="theme-toggle p-2 text-slate-50 focus:outline-none">🌙</button>
     </div>
     <ul class="px-2 space-y-2 text-slate-50">
@@ -82,13 +84,15 @@
     {{ content }}
   </main>
 
-  <!-- TOC Sidebar (derecha, desktop-only) -->
-  <aside id="toc" class="hidden lg:block w-64 bg-sidebar border-l overflow-auto p-4">
-    <div class="font-bold text-lg mb-4 text-blue-600">Tabla de contenidos</div>
-    <nav>
-      <ul id="toc-list" class="space-y-2 text-slate-50"></ul>
-    </nav>
-  </aside>
+  {% if page.layout == "post" %}
+    <!-- TOC Sidebar (derecha, desktop-only) -->
+    <aside id="toc" class="hidden lg:block w-64 bg-sidebar border-l overflow-auto p-4">
+      <div class="font-bold text-lg mb-4 text-blue-600">Tabla de contenidos</div>
+      <nav>
+        <ul id="toc-list" class="space-y-2 text-slate-50"></ul>
+      </nav>
+    </aside>
+  {% endif %}
 
   <!-- SUBIR -->
   <button id="back-to-top" class="hidden fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg">Subir</button>
