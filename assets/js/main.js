@@ -43,29 +43,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // — Generar Table of Contents y Scroll‑Spy —
-  const tocContainer = document.getElementById('toc-list');
-  if (tocContainer) {
-    const headers = document.querySelectorAll('#content article.post h2, #content article.post h3');
+  const tocList = document.getElementById('toc-list');
+  if (tocList) {
+    const headers = document.querySelectorAll('main#content h2, main#content h3');
     let currentLevel = 2;
-    let listStack = [tocContainer];
+    const listStack = [tocList];
 
     headers.forEach(h => {
-      // Generar id si no existe
+      // crear id si no existe
       if (!h.id) {
-        h.id = h.textContent.toLowerCase()
-                        .trim()
-                        .replace(/\s+/g, '-')
-                        .replace(/[^\w\-]/g, '');
+        h.id = h.textContent
+               .toLowerCase()
+               .trim()
+               .replace(/\s+/g, '-')
+               .replace(/[^\w\-]/g, '');
       }
-      const level = parseInt(h.tagName.charAt(1));
-      const li = document.createElement('li');
-      const a  = document.createElement('a');
+      const level = Number(h.tagName.charAt(1));
+      const li    = document.createElement('li');
+      const a     = document.createElement('a');
       a.href       = `#${h.id}`;
       a.textContent= h.textContent;
       li.appendChild(a);
 
       if (level > currentLevel) {
-        // anidar
+        // anidar lista
         const ul = document.createElement('ul');
         ul.classList.add('pl-4', 'space-y-1');
         listStack[0].lastElementChild.appendChild(ul);
@@ -77,14 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
       listStack[0].appendChild(li);
     });
 
-    // Scroll‑spy
-    const tocLinks = tocContainer.querySelectorAll('a');
+    // Scroll‑Spy
+    const links = tocList.querySelectorAll('a');
     window.addEventListener('scroll', () => {
-      const fromTop = window.scrollY + 120;
-      tocLinks.forEach(link => {
+      const fromTop = window.scrollY + 120; // offset si tuvieras header fijo
+      links.forEach(link => {
         const section = document.getElementById(link.hash.slice(1));
         if (!section) return;
-        if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+        if (
+          section.offsetTop <= fromTop &&
+          section.offsetTop + section.offsetHeight > fromTop
+        ) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
@@ -92,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
   
 
   // Fade-in custom (para <h2>, <blockquote> o .fade-in)
