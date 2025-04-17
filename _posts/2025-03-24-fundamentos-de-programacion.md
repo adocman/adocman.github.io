@@ -5,7 +5,6 @@ date: 2025-03-24 00:00:00 -0300
 categories: tecnologia
 tags: programacion python
 excerpt: La programación es la clave para resolver problemas abstractos mediante código. Aquí exploro conceptos fundamentales como variables, operadores, estructuras de control, funciones y POO con ejemplos prácticos en Python.
-image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/cover-fundamentos-de-programacion.png?raw=true
 reading_time: "5 minutos"
 permalink: "/:categories/:title"
 ---

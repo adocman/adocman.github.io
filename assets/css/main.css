@@ -1,149 +1,178 @@
+/* Scroll suave solo para anclas */
+html {
+  scroll-behavior: smooth;
+  /* Cursor circular blanco 20×20 */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="10" fill="%23ffffff"/></svg>') 10 10, auto;
+}
+
 :root {
-    --primary-red: #e7000b; /* Rojo intenso */
-    --secondary-black: #080808; 
-    --accent-white: #fffff9;
+  --primary-blue: #3b82f6;
+  --bg-main:      #0f172a;
+  --bg-sidebar:   #1e293b;
+  --text-color:   #f8fafc;
+  --code-bg:      #111827;
+}
+
+body.light {
+  --primary-blue: #2563eb;
+  --bg-main:      #e2e8f0;   /* slate-200 en lugar de blanco puro */
+  --bg-sidebar:   #f1f5f9;   /* slate-100 más suave */
+  --text-color:   #1e293b;
+  --code-bg:      #0f172a;
+}
+
+body.light /* Menú móvil */ 
+#mobile-menu,
+body.light /* Sidebar escritorio */ 
+aside {
+  color: var(--text-color) !important;
+}
+
+/* Asegura que los enlaces del menú también hereden */
+body.light #mobile-menu a,
+body.light aside a {
+  color: var(--text-color) !important;
+}
+body.light aside li {
+  color: var(--text-color) !important;
+}
+body.light aside span {
+  color: var(--text-color) !important;
 }
 
 body {
-    background-color: #080808;
-    margin: 0 3rem;
-    font-family: 'Arvo', serif;
-    color: #fffff9; /* text-blue-900 */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.125rem;
+  background-color: var(--bg-main);
+  color: var(--text-color);
+  margin: 0 1rem;
 }
 
-/* Estilos generales del artículo */
-.post {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 0;
-    line-height: 1.8;
+/* Cursor heredado en todos los elementos */
+*, *::before, *::after {
+  cursor: inherit;
 }
 
-/* Encabezados usando Bebas Neue */
-.post h1 {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-    color: #e7000b;
-    margin-bottom: 1rem;
+/* Glow animado solo en categorías y posts del menú */
+@keyframes glow-blue {
+  from { box-shadow: 0 0 4px var(--primary-blue); }
+  to   { box-shadow: 0 0 12px var(--primary-blue); }
+}
+/* Sidebar desktop */
+aside details summary:hover span,
+/* Mobile menu */
+#mobile-menu details summary:hover span,
+/* Links de posts en menú */
+aside ul a:hover,
+#mobile-menu ul a:hover {
+  animation: glow-blue 1s infinite alternate;
 }
 
-.post h2 {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #fffff9;
-    border-bottom: 2px solid #e7000b;
-    padding-bottom: 0.5rem;
-    margin-top: 2rem;
+/* Glassmorphism para sidebar y menú móvil */
+aside,
+#mobile-menu > div {
+  background: var(--bg-sidebar);  /* slate‑800 con transparencia */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-.post h3 {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.75rem;
-    font-weight: bold;
-    color: #fffff9;
-    margin-top: 1.5rem;
+/* Transición al hover */
+aside:hover,
+#mobile-menu:hover > div {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
 }
 
-/* Párrafos */
-.post p {
-    font-size: 1.1rem;
-    color: #fffff9;
-    margin-bottom: 1rem;
+/* Scrollbar global */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-blue);
+  border-radius: 4px;
+  border: 2px solid var(--bg-main);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-blue);
+  opacity: 0.8;
 }
 
-/* Listas */
-.post ul, .post ol {
-    margin-left: 1.5rem;
-    padding-left: 1rem;
+/* Scroll snap */
+.scroll-smooth { scroll-behavior: smooth; }
+.snap-y { scroll-snap-type: y mandatory; }
+.snap-start { scroll-snap-align: start; }
+
+/* Fade-in custom */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.post ul {
-    list-style-type: disc;
+/* Links “underline‑grow” */
+a:hover {
+  background-image: linear-gradient(120deg, var(--primary-blue) 0%, var(--primary-blue) 100%);
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  transition: background-size 0.3s ease;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+  color: var(--text-color);
+}
+a:hover {
+  background-size: 100% 2px;
 }
 
-.post ol {
-    list-style-type: decimal;
+/* Botones con escala y sombra */
+button, .theme-toggle {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+button:hover, .theme-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
 }
 
-/* Bloques de código */
-.post pre {
-    background-color: #fffff9;
-    padding: 1rem;
-    border-radius: 5px;
-    overflow-x: auto;
+/* Degradado animado como fondo opcional */
+@keyframes gradientBG {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+body.light {
+  background: var(--bg-main);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
 }
 
-.post code {
-    font-family: 'Courier New', monospace;
-    color: #080808;
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-}
 
-/* Citas */
-.post blockquote {
-    border-left: 4px solid #e7000b;
-    padding-left: 1rem;
-    font-style: italic;
-    color: #fffff9;
-    margin: 1.5rem 0;
-}
+/* Resto de estilos sin cambios */
+.transition-scale { @apply transition-transform duration-300 ease-in-out; }
+.post { max-width:800px; margin:0 auto; padding:2rem 0; line-height:1.8; }
+.post h1, .post h2, .post h3 { font-family:'Bebas Neue', cursive; color:var(--primary-blue); margin-top:2rem; }
+.post h1 { font-size:3rem; text-align:center; margin-bottom:1rem; }
+.post h2 { font-size:2.5rem; border-bottom:2px solid var(--primary-blue); padding-bottom:0.5rem; }
+.post h3 { font-size:2rem; }
+.post p { font-size:1.2rem; margin-bottom:1rem; }
+.post ul, .post ol { margin-left:1.5rem; padding-left:1rem; }
+.post pre { background-color:var(--code-bg); padding:1rem; border-radius:5px; overflow-x:auto; font-family:'Roboto Mono', monospace; color:var(--text-color); }
+.post code { font-family:'Roboto Mono', monospace; background-color:var(--code-bg); padding:0.2rem 0.4rem; border-radius:4px; }
+.post blockquote { border-left:4px solid var(--primary-blue); padding-left:1rem; font-style:italic; margin:1.5rem 0; }
+.post table { width:100%; border-collapse:collapse; margin:1.5rem 0; }
+.post th, .post td { border:1px solid var(--primary-blue); padding:1rem; text-align:left; color:var(--text-color); }
+.post th { background-color:var(--primary-blue); color:#fff; }
+.post tr:nth-child(even) { background-color:#1e293b; }
+.post tr:hover { background-color:#334155; }
+.post caption { font-size:1.25rem; font-weight:bold; color:var(--primary-blue); margin-bottom:0.5rem; }
 
-/* Imágenes */
-.post img {
-    width: 100%;
-    border-radius: 8px;
-    margin: 1rem 0;
-}
-
-/* Enlaces */
-.post a {
-    color: #e7000b;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.post a:hover {
-    color: #fffff9;
-}
-
-/* Estilos para las tablas */
-.post table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
-    table-layout: fixed;  /* Hace que todas las columnas tengan el mismo ancho */
-}
-
-.post th, .post td {
-    border: 1px solid #e7000b;
-    padding: 1rem;
-    text-align: left;
-    font-size: 1rem;
-    color: #fffff9;
-    word-wrap: break-word;  /* Asegura que el texto largo se ajuste dentro de las celdas */
-}
-
-.post th {
-    background-color: #e7000b;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-.post tr:nth-child(even) {
-    background-color: #f4f4f4;
-}
-
-.post tr:hover {
-    background-color: #e1e1e1;
-}
-
-.post caption {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #e7000b;
-    margin-bottom: 0.5rem;
-}
+@keyframes rotate-chev { from { transform:rotate(0deg);} to { transform:rotate(90deg);} }
+aside details summary span, #mobile-menu details summary span { display:inline-block; transition:transform 0.2s ease; }
+.open .details-summary span { animation:rotate-chev 0.2s forwards; }

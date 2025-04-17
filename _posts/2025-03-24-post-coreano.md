@@ -5,7 +5,6 @@ date: 2025-03-24 00:00:00 -0300
 categories: idiomas
 tags: coreano particulas
 excerpt: Partículas en Coreano
-image: https://github.com/adocman/adocman.github.io/blob/main/assets/images/cover-particulas-coreano.png?raw=true
 reading_time: "25 minutos"
 permalink: "/:categories/:title"
 ---

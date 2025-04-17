@@ -1,61 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }}</title>
+---
+layout: default
+---
+<main id="content" class="flex-1 overflow-auto p-6 scroll-smooth snap-y snap-mandatory">
+  <section class="snap-start">
+    <article class="post" data-aos="fade-up">
 
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
-    <!-- Google Fonts: Arvo para texto y Bebas Neue para títulos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat:wght@300;600&family=Roboto:wght@300&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <!-- Main.css -->
-    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
-</head>
-<body class="bg-black text-red-600" style="font-family: 'Arvo', serif;">
-    {% include header.html %}
+      <!-- Título -->
+      <h1>{{ page.title }}</h1>
+    
+      <!-- Metadatos -->
+      <p class="text-sm mb-4 text-slate-400">
+        {{ page.date | date: "%B %d, %Y" }} ·
+        {% for cat in page.categories %}
+          <a href="/categorias/{{ cat | slugify }}/" class="text-blue-600 hover:underline" title="ver">{{ cat }}</a>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+        · {{ page.reading_time }}
+      </p>
+    
+      <!-- Extracto -->
+      {% if page.excerpt %}
+        <blockquote data-aos="fade-in">{{ page.excerpt }}</blockquote>
+      {% endif %}
+    
+      <!-- Contenido principal -->
+      {{ content }}
+    </article>
+  </section>
+</main>
 
-    <div class="max-w-3xl mx-auto px-2 py-3">
-        <!-- Título del Post -->
-        <h1 class="text-4xl md:text-6xl font-bold text-center text-red-600 mb-2 uppercase" style="font-family: 'Bebas Neue', cursive;">
-            {{ page.title }}
-        </h1>
-
-        <!-- Fecha, categorías y tiempo de lectura -->
-        <div class="text-center text-red-600 text-sm mb-2 uppercase">
-            <span>{{ page.date | date: "%B %d, %Y" }} · 
-                {% for cat in page.categories %}
-                    <a href="/categorias/{{ cat | slugify }}/"
-                           class="bg-red-600 text-white text-xs px-2 py-0.5 rounded hover:bg-red-700 transition">
-                          {{ cat }}
-                    </a>
-                {% endfor %}                
-                · {{ page.reading_time }}</span>
-        </div>     
-        <!-- Excerpt -->
-        {% if page.excerpt %}
-            <p class="text-md text-white text-center mb-4 uppercase">
-                {{ page.excerpt }}
-            </p>
-        {% endif %}
-
-        <!-- Imágen destacada -->
-        {% if page.image %}
-            <div class="">
-                <img src="{{ page.image }}" alt="">
-            </div>
-        {% endif %}        
-
-        <!-- Contenido del post con estilos personalizados -->
-        <main class="prose prose-blue md:prose-lg lg:prose-xl max-w-none">
-            <article class="post">
-                {{ content }}
-            </article>
-        </main>
-    </div>
-
-    {% include footer.html %}
-</body>
-</html>

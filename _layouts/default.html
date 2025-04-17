@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} » {% endif %}{{ site.title }}</title>
+  <!-- Fuentes y CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+</head>
+<body class="flex h-screen overflow-hidden">
+  <!-- Progress bar -->
+  <div id="progress" class="fixed top-0 left-0 h-1 bg-blue-600 w-0 z-50"></div>
+
+  <!-- HEADER móvil -->
+  <header class="md:hidden fixed top-0 left-0 right-0 bg-slate-900 z-20 flex items-center p-4">
+    <button id="mobile-menu-button" class="p-2 text-slate-50 focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+    <span class="ml-4 font-bold text-lg text-slate-50">{{ site.title }}</span>
+    <button class="theme-toggle ml-auto p-2 text-slate-50 focus:outline-none">🌙</button>
+  </header>
+
+  <!-- MENÚ móvil -->
+  <div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-60 z-30">
+    <div class="bg-slate-800 w-full h-full p-4 overflow-auto">
+      <button id="mobile-menu-close" class="mb-4 p-2 text-slate-50 focus:outline-none">Cerrar ✕</button>
+      <nav>
+        <ul class="space-y-2 text-slate-50">
+          {% for category in site.categories %}
+          <li>
+            <details>
+              <summary class="flex justify-between items-center cursor-pointer py-2 px-3 hover:bg-slate-700 rounded">
+                {{ category[0] }} <span>&rsaquo;</span>
+              </summary>
+              <ul class="pl-4 mt-1 space-y-1">
+                {% for post in category[1] %}
+                <li>
+                  <a href="{{ post.url }}" class="block py-1 hover:underline">{{ post.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </details>
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <!-- SIDEBAR escritorio -->
+  <aside class="hidden md:block w-64 bg-sidebar border-r overflow-auto">
+    <div class="p-4 flex items-center justify-between">
+      <span class="font-bold text-xl text-slate-50">Aaron Docman</span>
+      <button class="theme-toggle p-2 text-slate-50 focus:outline-none">🌙</button>
+    </div>
+    <ul class="px-2 space-y-2 text-slate-50">
+      {% for category in site.categories %}
+      <li>
+        <details>
+          <summary class="flex justify-between items-center p-2 hover:bg-slate-700 rounded cursor-pointer details-summary">
+            {{ category[0] }} <span>&rsaquo;</span>
+          </summary>
+          <ul class="pl-4 mt-1 space-y-1">
+            {% for post in category[1] %}
+            <li>
+              <a href="{{ post.url }}" class="block py-1 hover:underline">{{ post.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </details>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main id="content" class="flex-1 overflow-auto p-6">{{ content }}</main>
+
+  <!-- SUBIR -->
+  <button id="back-to-top" class="hidden fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg">Subir</button>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://unpkg.com/lottie-web/build/player/lottie.min.js"></script>
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

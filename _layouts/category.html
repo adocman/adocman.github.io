@@ -1,146 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Categoría: {{ page.category }} | {{ site.title }}</title>
-  
-  <!-- Google Fonts: Arvo para texto y Bebas Neue para títulos -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Montserrat:wght@300;600&family=Roboto:wght@300&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  
-  <!-- Carga de Tailwind CSS y Remixicon -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css" rel="stylesheet">
-  <!-- Main.css -->
-  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
-</head>
-<body class="text-red-600" style="font-family: 'Arvo', serif;">
-  {% include header.html %}
-  
-  <main class="py-8">
-    <!-- Título de la categoría -->
-    <div class="relative flex py-5 items-center mb-12">
-      <div class="flex-grow border-t border-gray-400"></div>
-      <span class="text-6xl mx-4 text-red-600" style="font-family: 'Bebas Neue', cursive;">{{ page.category }}</span>
-     <div class="flex-grow border-t border-gray-400"></div>
-   </div>
-    <!-- Contenedor principal: en móvil y tablet en columna, en lg en fila -->
-    <div class="max-w-8xl mx-auto px-4 flex flex-col lg:flex-row gap-8">
-      
-      <!-- Contenedor de Posts Filtrados (para lg: 4/5 del ancho) -->
-      <div class="w-full lg:w-4/5">        
-        <div class="flex flex-col space-y-6">
-          {% for post in site.categories[page.category] %}
-            <!-- Artículo: layout vertical en móvil/tablet, horizontal en lg -->
-            <article class="shadow-md overflow-hidden flex flex-col lg:flex-row w-full rounded">
-              
-              <!-- Imagen con enlace: full width en móvil/tablet, lg: 2/5 del ancho -->
-              {% if post.image %}
-                <a href="{{ post.url }}" class="w-full lg:w-2/5 block">
-                  <div class="w-full aspect-[16/9] border-2 border-white rounded overflow-hidden">
-                    <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
-                  </div>
-                </a>
-              {% endif %}
-              
-              <!-- Contenido del artículo: full width en móvil/tablet, lg: 3/5 del ancho -->
-              <div class="w-full lg:w-3/5 p-4 lg:p-6 flex flex-col justify-between">
-                
-                <!-- Contenido textual -->
-                <div>
-                  <!-- TÍTULO -->
-                  <h2 class="text-6xl font-bold uppercase text-red-600 mb-2" style="font-family: 'Bebas Neue', cursive;">
-                    <a href="{{ post.url }}" class="hover:underline">
-                      {{ post.title }}
-                    </a>
-                  </h2>
-                  
-                  <!-- CATEGORÍAS (si aplica, en una misma línea) -->
-                  {% if post.categories %}
-                    <div class="flex flex-row flex-wrap gap-2 mb-2 uppercase">
-                      {% for cat in post.categories %}
-                        <a href="/categorias/{{ cat | slugify }}/"
-                           class="bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-red-700 transition">
-                          {{ cat }}
-                        </a>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                                    
-                  <!-- FECHA Y TIEMPO DE LECTURA -->
-                  <p class="text-gray-600 text-xs mb-4 uppercase">
-                    {{ post.date | date: "%B %d, %Y" }} &middot; {{ post.reading_time }}
-                  </p>
-                </div>
-                
-                <!-- BOTÓN "LEER MÁS": ocupa full width en móvil/tablet y inline-block en lg -->
-                <div class="mt-4">
-                  <a href="{{ post.url }}"
-                     class="border border-red-600 text-red-600 text-center py-2 px-6 rounded-md 
-                            hover:bg-black hover:text-white transition w-full lg:w-fit block text-sm lg:inline-block">
-                    Leer más
-                  </a>
-                </div>
-              </div>
-            </article>
-            
-            <!-- Separador entre artículos -->
-            <div class="border-t border-stone-800"></div>
-          {% endfor %}
-        </div>
-      </div>
-      
-      <!-- Menú de Categorías -->
-      <aside class="w-full lg:w-1/5">
-        <!-- Versión para móvil/tablet -->
-        <div class="block lg:hidden mb-4">
-          <h2 class="text-4xl font-bold mb-2 uppercase text-red-600" style="font-family: 'Bebas Neue', cursive;">
-            
-            Categorías
-          </h2>
-          <ul class="flex flex-wrap gap-2">
-            {% for category in site.categories %}
-              <li>
-                <a href="/categorias/{{ category[0] | slugify }}/" 
-                  class="block py-1 px-3 rounded text-white text-xs hover:underline">
-                  {{ category[0] }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-
-        <!-- Versión para lg: Newsletter sobre Categorías -->
-        <div class="hidden lg:block">
-          <!-- Bloque Newsletter -->
-          <div class="mb-8 p-6 rounded-xl text-white">
-            <h2 class="text-4xl font-bold mb-2 uppercase" style="font-family: 'Bebas Neue', cursive;">Newsletter</h2>
-            <p class="mb-4">Suscríbete y recibe contenido exclusivo en tu correo.</p>
-            <form action="YOUR_NEWSLETTER_FORM_URL" method="post" class="flex flex-col">
-              <input type="email" name="EMAIL" placeholder="Tu email" required class="w-full p-3 rounded mb-4 text-white">
-              <button type="submit" class="bg-red-600 hover:bg-red-700 py-3 rounded uppercase font-bold">Suscribirse</button>
-            </form>
-          </div>
-
-          <!-- Menú de Categorías -->
-          <h2 class="text-4xl font-bold mb-4 text-red-600 uppercase" style="font-family: 'Bebas Neue', cursive;">Categorías</h2>
-          <ul class="space-y-2">
-            {% for category in site.categories %}
-              <li>
-                <a href="/categorias/{{ category[0] | slugify }}/" 
-                   class="block py-2 px-4 rounded text-white hover:underline transition">
-                  {{ category[0] }} - {{ category[1] | size }} posts
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </aside>
-      
-    </div>
-  </main>
-  {% include footer.html %}
-</body>
-</html>
+---
+layout: default
+---
+<section class="max-w-3xl mx-auto py-8" data-aos="fade-up">
+  <h1 class="text-4xl font-bold mb-6 text-slate-50">{{ page.title }}</h1>
+  <ul class="space-y-4">
+    {% assign posts = site.categories[page.category] %}
+    {% for post in posts %}
+      <li data-aos="fade-in" data-aos-delay="100">
+        <a href="{{ post.url }}" class="text-blue-600 hover:underline">{{ post.title }}</a>
+        <p class="text-slate-400 text-sm">
+          {{ post.date | date: "%B %d, %Y" }} · {{ post.reading_time }}
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
