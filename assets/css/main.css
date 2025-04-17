@@ -182,12 +182,67 @@ body.light {
   scroll-margin-top: 0.25rem;
 }
 
+/* — Hover underline‑grow unificado en a y summary — */
+aside ul a,
+#mobile-menu ul a,
+#toc-list a,
+aside details summary {
+  display: block;
+  position: relative;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* La barra bajo el texto */
+aside ul a::after,
+#mobile-menu ul a::after,
+#toc-list a::after,
+aside details summary::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-blue);
+  transition: width 0.3s ease;
+}
+
+/* Hover: expande la barra */
+aside ul a:hover::after,
+#mobile-menu ul a:hover::after,
+#toc-list a:hover::after,
+aside details summary:hover::after {
+  width: 100%;
+}
+
+/* Hover: opcionalmente oscurece ligeramente el texto */
+aside ul a:hover,
+#mobile-menu ul a:hover,
+#toc-list a:hover,
+aside details summary:hover {
+  color: var(--primary-blue);
+}
+
+/* — Asegurar legibilidad de categorías en menú móvil (light theme) — */
+body.light #mobile-menu,
+body.light #mobile-menu * {
+  color: var(--text-color) !important;
+}
+
+/* — Asegurar legibilidad de categorías en sidebar (light theme) — */
+body.light aside,
+body.light aside * {
+  color: var(--text-color) !important;
+}
+
 
 /* Resto de estilos sin cambios */
 .transition-scale { @apply transition-transform duration-300 ease-in-out; }
 .post { max-width:800px; margin:0 auto; padding:2rem 0; line-height:1.8; }
 .post h1, .post h2, .post h3 { font-family:'Bebas Neue', cursive; color:var(--primary-blue); margin-top:0.25rem; }
-.post h1 { font-size:3rem; text-align:center; margin-bottom:1rem; }
+.post h1 { font-size:3rem; text-align:center; margin-bottom:1rem; margin-top:0.5rem }
 .post h2 { font-size:2.5rem; border-bottom:2px solid var(--primary-blue); padding-bottom:0.5rem; }
 .post h3 { font-size:2rem; }
 .post p { font-size:1.2rem; margin-bottom:1rem; }
