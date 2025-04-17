@@ -155,7 +155,7 @@ body.light {
 /* — TOC Sidebar — */
 #toc {
   position: sticky;
-  /* top: 4rem; */
+  /* top: 0.25rem; */
   /* max-height: calc(100vh - 4rem); */
 }
 #toc-list li { list-style: none; }
@@ -180,14 +180,14 @@ body.light {
 /* Evita que los headings queden ocultos tras el header fijo */
 .post h2,
 .post h3 {
-  scroll-margin-top: 4rem;
+  scroll-margin-top: 0.25rem;
 }
 
 
 /* Resto de estilos sin cambios */
 .transition-scale { @apply transition-transform duration-300 ease-in-out; }
 .post { max-width:800px; margin:0 auto; padding:2rem 0; line-height:1.8; }
-.post h1, .post h2, .post h3 { font-family:'Bebas Neue', cursive; color:var(--primary-blue); margin-top:2rem; }
+.post h1, .post h2, .post h3 { font-family:'Bebas Neue', cursive; color:var(--primary-blue); margin-top:0.25rem; }
 .post h1 { font-size:3rem; text-align:center; margin-bottom:1rem; }
 .post h2 { font-size:2.5rem; border-bottom:2px solid var(--primary-blue); padding-bottom:0.5rem; }
 .post h3 { font-size:2rem; }
