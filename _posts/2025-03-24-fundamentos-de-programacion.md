@@ -6,6 +6,7 @@ categories: programacion
 tags: programacion python
 excerpt: La programación es la clave para resolver problemas abstractos mediante código. Aquí exploro conceptos fundamentales como variables, operadores, estructuras de control, funciones y POO con ejemplos prácticos en Python.
 reading_time: "5 minutos"
+image: ""
 permalink: "/:categories/:title"
 ---
 ## Resumen y Contexto
