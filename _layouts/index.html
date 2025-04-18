@@ -155,7 +155,7 @@ permalink: /
     <div class="container mx-auto px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Apuntes de Coreano</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% assign coreano = site.categories.coreano | sort: "date" | reverse %}
+        {% assign coreano = site.categories.coreano %}
         {% for post in coreano limit:5 %}
         <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
           <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
@@ -174,7 +174,7 @@ permalink: /
     <div class="container mx-auto px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Posts de Programación</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% assign programacion = site.categories.programación | sort: "date" | reverse %}
+        {% assign programacion = site.categories.programación %}
         {% for post in programacion limit:5 %}
         <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
           <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
@@ -193,7 +193,7 @@ permalink: /
     <div class="container mx-auto px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Recursos de Aprendizaje</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% assign aprendizaje = site.categories.aprendizaje | sort: "date" | reverse %}
+        {% assign aprendizaje = site.categories.aprendizaje %}
         {% for post in aprendizaje limit:5 %}
         <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
           <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
