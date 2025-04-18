@@ -164,56 +164,62 @@ permalink: /
   <!-- SECCIÓN POSTS PROGRAMACIÓN -->
   <section id="programacion" class="fade-in bg-[var(--bg-main)] text-[var(--text-color)]">
     <div class="w-full relative pb-12 px-5 md:px-10 xl:px-16">
-      <div class="mx-auto w-full sm:px-0 max-w-[1200px]">
-        
-        <!-- HEADER “slider‑style” -->
-        <div id="programacion-header"
-            class="border-t border-[rgba(255,255,255,0.1)] pt-6 pb-6 grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <!-- Texto + CTA -->
+      <div class="mx-auto w-full max-w-[1200px]">
+
+        <!-- HEADER: título + primer post grande -->
+        <div class="border-t border-[rgba(255,255,255,0.1)] pt-6 pb-6 grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <!-- Columna título/CTA -->
           <div class="space-y-4">
             <p class="uppercase font-semibold text-[var(--primary-blue)]">Programación</p>
             <p class="text-lg leading-relaxed">
-              Apuntes, resumenes y guías de programación.
+              Apuntes, resúmenes y guías de programación para todos los niveles.
             </p>
             <a href="/categorias/programacion/" class="inline-block underline font-semibold text-[var(--primary-blue)]">
               Ver todas las entradas
             </a>
           </div>
-          <!-- Post destacado -->
+
+          <!-- Columna primer post -->
           {% assign featured = site.categories.programacion | first %}
-          <a href="{{ featured.url }}" class="relative group block overflow-hidden rounded-lg shadow-lg">
+          <a href="{{ featured.url }}" class="block group overflow-hidden rounded-lg shadow-lg bg-[var(--bg-sidebar)]">
             <div class="aspect-w-16 aspect-h-9">
               <img src="{{ featured.image }}" 
                   alt="{{ featured.title }}" 
                   class="object-cover w-full h-full transition-transform group-hover:scale-105" />
             </div>
-            <p class="absolute bottom-2 right-2 bg-[var(--bg-sidebar)] text-[var(--text-color)] text-xs px-2 py-1 rounded">
-              {{ featured.date | date: "%b %d, %Y" }}
-            </p>
+            <div class="p-4">
+              <p class="text-xs opacity-75 mb-1">
+                {{ featured.date | date: "%b %d, %Y" }} · {{ featured.reading_time }}
+              </p>
+              <h3 class="text-2xl font-bold text-[var(--primary-blue)] mb-2 group-hover:underline">
+                {{ featured.title }}
+              </h3>
+              <p class="text-sm opacity-80">{{ featured.excerpt | strip_html | truncate: 120 }}</p>
+            </div>
           </a>
         </div>
-        
-        <!-- GRID SECUNDARIO CON HASTA 3 POSTS -->
-        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-          {% for post in site.categories.programacion limit:3 %}
-          <a href="{{ post.url }}" class="block space-y-3 group">
-            <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-sm">
+
+        <!-- GRID DE LOS SIGUIENTES 2 POSTS -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {% for post in site.categories.programacion offset:1 limit:2 %}
+          <a href="{{ post.url }}" class="block group overflow-hidden rounded-lg shadow-sm bg-[var(--bg-sidebar)]">
+            <div class="aspect-w-16 aspect-h-9">
               <img src="{{ post.image }}" 
                   alt="{{ post.title }}" 
                   class="object-cover w-full h-full transition-transform group-hover:scale-105" />
             </div>
-            <div class="space-y-1">
+            <div class="p-4 space-y-1">
               <p class="text-xs opacity-75">
                 {{ post.date | date: "%b %d, %Y" }} · {{ post.reading_time }}
               </p>
-              <h3 class="text-base font-semibold text-[var(--primary-blue)] group-hover:underline">
+              <h4 class="text-lg font-semibold text-[var(--primary-blue)] group-hover:underline">
                 {{ post.title }}
-              </h3>
+              </h4>
             </div>
           </a>
           {% endfor %}
         </div>
-        
+
       </div>
     </div>
   </section>
