@@ -2,46 +2,54 @@
 layout: default
 permalink: /
 ---
-<main id="landing" class="flex-1 overflow-auto">
+<!-- Hoja de estilos y script específicos para la landing -->
+<link rel="stylesheet" href="{{ '/assets/css/landing.css' | relative_url }}">
+<script defer src="{{ '/assets/js/landing.js' | relative_url }}"></script>
 
-  <!-- Hero Section -->
-  <section
-    class="flex items-center justify-center h-screen bg-gradient-to-b from-blue-600 to-blue-400 text-center px-4">
-    <div>
-      <h1 class="text-6xl font-extrabold text-white mb-4">Aaron Docman</h1>
-      <p class="text-xl text-white/80 max-w-2xl mx-auto">
-        Ingeniero Civil en Computación e Informática, apasionado por la POO, el desarrollo personal y la enseñanza.
-      </p>
-    </div>
+<main id="landing" class="landing">
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <h1 class="hero-title">Aprender compartiendo</h1>
+    <p class="hero-subtitle">
+      ¡Hola! Soy Aaron. Aquí simplifico conceptos en notas claras
+      para potenciar mi aprendizaje con el método Feynman y Active Recall.
+    </p>
   </section>
 
-  <!-- Grid de Categorías -->
-  <section class="py-16 bg-white">
-    <h2 class="text-3xl font-bold mb-8 text-center text-gray-900">Categorías</h2>
-    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi" class="section section--white fade-in">
+    <h2>Un poco sobre mí</h2>
+    <p>
+      No soy un experto, solo un apasionado por aprender y compartir lo que descubro. Como tú,
+      disfruto del proceso, anoto mis ideas y creo que enseñar a otros es la mejor forma
+      de entender a fondo cualquier tema.
+    </p>
+  </section>
+
+  <!-- CATEGORÍAS -->
+  <section id="categorias" class="section section--grey fade-in">
+    <h2>¿Qué quieres revisar hoy?</h2>
+    <div class="grid-cards">
       {% for category in site.categories %}
         <a href="{{ '/categorias/' | append: category[0] | slugify | append:'/' }}"
-           class="p-6 bg-gray-100 hover:bg-gray-200 transition rounded-lg">
-          <h3 class="text-xl font-semibold text-gray-900 capitalize">{{ category[0] }}</h3>
-          <p class="mt-2 text-gray-700">{{ category[1] | size }} posts</p>
+           class="card card--category">
+          <h3>{{ category[0] | capitalize }}</h3>
+          <span>{{ category[1].size }} apuntes</span>
         </a>
       {% endfor %}
     </div>
   </section>
 
-  <!-- Lista de Posts -->
-  <section class="py-16 bg-gray-50">
-    <h2 class="text-3xl font-bold mb-8 text-center text-gray-900">Últimos Posts</h2>
-    <div class="max-w-4xl mx-auto space-y-8 px-4">
+  <!-- ÚLTIMOS POSTS -->
+  <section id="ultimos-posts" class="section section--white fade-in">
+    <h2>¿Qué hay de nuevo?</h2>
+    <div class="stack-cards">
       {% for post in site.posts limit:5 %}
-        <article class="p-6 bg-white shadow-sm rounded-lg transition hover:shadow-lg">
-          <h3 class="text-2xl font-bold mb-2">
-            <a href="{{ post.url }}" class="hover:underline">{{ post.title }}</a>
-          </h3>
-          <p class="text-sm text-gray-500 mb-4">
-            {{ post.date | date: "%B %d, %Y" }} · {{ post.reading_time }}
-          </p>
-          <p class="text-gray-700">{{ post.excerpt }}</p>
+        <article class="card card--post">
+          <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+          <small>{{ post.date | date: "%B %d, %Y" }} · {{ post.reading_time }}</small>
+          <p>{{ post.excerpt }}</p>
         </article>
       {% endfor %}
     </div>
