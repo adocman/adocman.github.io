@@ -162,23 +162,62 @@ permalink: /
   </section>
 
   <!-- SECCIÓN POSTS PROGRAMACIÓN -->
-  <section id="posts-programacion" class="py-16 bg-[var(--bg-main)] text-[var(--text-color)]">
-    <div class="container mx-auto px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Posts de Programación</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% assign programacion = site.categories.programacion %}
-        {% for post in programacion limit:5 %}
-        <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
-          <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
-          <h3 class="text-lg font-semibold text-[var(--primary-blue)] hover:underline mb-2">
-            <a href="{{ post.url }}">{{ post.title }}</a>
-          </h3>
-          <p class="text-sm opacity-80">{{ post.excerpt }}</p>
-        </article>
-        {% endfor %}
+  <section id="programacion" class="fade-in bg-[var(--bg-main)] text-[var(--text-color)]">
+    <div class="w-full relative pb-12 px-5 md:px-10 xl:px-16">
+      <div class="mx-auto w-full sm:px-0 max-w-[1200px]">
+        
+        <!-- HEADER “slider‑style” -->
+        <div id="programacion-header"
+            class="border-t border-[rgba(255,255,255,0.1)] pt-6 pb-6 grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <!-- Texto + CTA -->
+          <div class="space-y-4">
+            <p class="uppercase font-semibold text-[var(--primary-blue)]">Programación</p>
+            <p class="text-lg leading-relaxed">
+              Sumérgete en tutoriales, guías y ejemplos prácticos de programación para llevar tus proyectos al siguiente nivel.
+            </p>
+            <a href="/categorias/programacion/" class="inline-block underline font-semibold text-[var(--primary-blue)]">
+              Ver todas las entradas →
+            </a>
+          </div>
+          <!-- Post destacado -->
+          {% assign featured = site.categories.programacion | first %}
+          <a href="{{ featured.url }}" class="relative group block overflow-hidden rounded-lg shadow-lg">
+            <div class="aspect-w-16 aspect-h-9">
+              <img src="{{ featured.image }}" 
+                  alt="{{ featured.title }}" 
+                  class="object-cover w-full h-full transition-transform group-hover:scale-105" />
+            </div>
+            <p class="absolute bottom-2 right-2 bg-[var(--bg-sidebar)] text-[var(--text-color)] text-xs px-2 py-1 rounded">
+              {{ featured.date | date: "%b %d, %Y" }}
+            </p>
+          </a>
+        </div>
+        
+        <!-- GRID SECUNDARIO CON HASTA 5 POSTS -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+          {% for post in site.categories.programacion limit:5 %}
+          <a href="{{ post.url }}" class="block space-y-3 group">
+            <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-sm">
+              <img src="{{ post.image }}" 
+                  alt="{{ post.title }}" 
+                  class="object-cover w-full h-full transition-transform group-hover:scale-105" />
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs opacity-75">
+                {{ post.date | date: "%b %d, %Y" }} · {{ post.reading_time }}
+              </p>
+              <h3 class="text-base font-semibold text-[var(--primary-blue)] group-hover:underline">
+                {{ post.title }}
+              </h3>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+        
       </div>
     </div>
   </section>
+
 
   <!-- SECCIÓN POSTS APRENDIZAJE -->
   <section id="posts-aprendizaje" class="py-16 bg-[var(--bg-main)] text-[var(--text-color)]">
