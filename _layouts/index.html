@@ -9,15 +9,74 @@ permalink: /
 <main id="landing" class="landing">
 
   <!-- HERO -->
-  <section id="hero" class="hero fade-in">
-    <h1 class="hero-title">Bienvenid@ a mi segundo cerebro</h1>
-    <p class="hero-subtitle">
-      Si te interesan las Ciencias de la Computación, la ingeniería Informática o los idiomas como el Inglés y el Coreano este es tu lugar. 
-    </p>
-    <p class="hero-subtitle">
-      A través de este sitio comparto mis apuntes y resumenes almacenados en mi segundo cerebro. 
-    </p>
+  <section id="hero" class="hero fade-in relative overflow-hidden">
+    <div class="container mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- Texto + CTA -->
+      <div class="space-y-8">
+        <h1 class="hero-title max-w-xl">
+          Bienvenid@ a mi segundo cerebro
+        </h1>
+        <p class="hero-subtitle max-w-lg">
+          Si te interesan las Ciencias de la Computación, la Ingeniería Informática o los idiomas como Inglés y Coreano, este es tu lugar.
+        </p>
+        <!-- Formulario de suscripción -->
+        <form action="#" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+          <input
+            type="email"
+            placeholder="Ingresa tu correo"
+            required
+            class="w-full sm:flex-1 px-4 py-3 rounded shadow focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] text-[var(--text-color)] bg-[var(--bg-main)] border border-[var(--primary-blue)] placeholder:text-[var(--text-color)]/70 transition"
+          />
+          <button
+            type="submit"
+            class="btn-primary px-6 py-3 rounded shadow-sm whitespace-nowrap"
+          >
+            Suscribirse →
+          </button>
+        </form>
+        <!-- Reviews / No CC -->
+        <div class="flex flex-wrap items-center space-x-6 text-sm text-[var(--text-color)]/75">
+          <div class="flex items-center space-x-2">
+            <!-- SVG estrella -->
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921..." />
+            </svg>
+            <span>1,456+ Reviews</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <!-- SVG tarjeta -->
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z..." />
+            </svg>
+            <span>No Credit Card Required</span>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Vídeo embebido -->
+      <div class="w-full aspect-video rounded-lg overflow-hidden shadow-lg">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/4bnJG2UDr9A"
+          title="Video de bienvenida"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  
+    <!-- Logos / marcas -->
+    <div class="container mx-auto px-6 py-12 flex flex-wrap justify-center items-center gap-12 opacity-75">
+      <img src="/assets/logos/airbnb.svg" alt="Airbnb" class="h-8 hover:opacity-100 transition" />
+      <img src="/assets/logos/google.svg" alt="Google" class="h-8 hover:opacity-100 transition" />
+      <img src="/assets/logos/nike.svg" alt="Nike" class="h-8 hover:opacity-100 transition" />
+      <img src="/assets/logos/uber.svg" alt="Uber" class="h-8 hover:opacity-100 transition" />
+      <img src="/assets/logos/stripe.svg" alt="Stripe" class="h-8 hover:opacity-100 transition" />
+      <img src="/assets/logos/mashable.svg" alt="Mashable" class="h-8 hover:opacity-100 transition" />
+    </div>
   </section>
+  
 
   <!-- FEATURE SECTION adapted -->
   <section id="feature" class="section fade-in" style="background-color: var(--bg-sidebar); color: var(--text-color);">
@@ -170,6 +229,7 @@ permalink: /
         {% endfor %}
       </div>
     </div>
+    <button><a href="{{ '/categorias/' }}"></a></button>
   </section>
 
 </main>
