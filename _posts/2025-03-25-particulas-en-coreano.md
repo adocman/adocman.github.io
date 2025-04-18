@@ -2,7 +2,7 @@
 layout: post
 title: "Partículas en coreano"
 date: 2025-03-21 00:00:00 -0300
-categories: idiomas
+categories: coreano
 tags: coreano particulas evergreen
 excerpt: En coreano, las partículas son esenciales para entender la función de cada palabra en una oración. Desde marcar el tema (은/는) o el sujeto (이/가) hasta indicar lugar (에/에서) y posesión (의), estas pequeñas “etiquetas” permiten que el orden de las palabras sea flexible sin perder el significado.
 reading_time: "5 minutos"

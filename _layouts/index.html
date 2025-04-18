@@ -91,11 +91,68 @@ permalink: /
     </div>
   </section>
 
+  <!-- SECCIÓN POSTS COREANO -->
+  <section id="posts-coreano" class="py-16 bg-[var(--bg-main)] text-[var(--text-color)]">
+    <div class="container mx-auto px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Apuntes de Coreano</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% assign coreano = site.categories.coreano | sort: "date" | reverse %}
+        {% for post in coreano limit:5 %}
+        <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
+          <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
+          <h3 class="text-lg font-semibold text-[var(--primary-blue)] hover:underline mb-2">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </h3>
+          <p class="text-sm opacity-80">{{ post.excerpt }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN POSTS PROGRAMACIÓN -->
+  <section id="posts-programacion" class="py-16 bg-[var(--bg-main)] text-[var(--text-color)]">
+    <div class="container mx-auto px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Posts de Programación</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% assign programacion = site.categories.programación | sort: "date" | reverse %}
+        {% for post in programacion limit:5 %}
+        <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
+          <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
+          <h3 class="text-lg font-semibold text-[var(--primary-blue)] hover:underline mb-2">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </h3>
+          <p class="text-sm opacity-80">{{ post.excerpt }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN POSTS APRENDIZAJE -->
+  <section id="posts-aprendizaje" class="py-16 bg-[var(--bg-main)] text-[var(--text-color)]">
+    <div class="container mx-auto px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Recursos de Aprendizaje</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% assign aprendizaje = site.categories.aprendizaje | sort: "date" | reverse %}
+        {% for post in aprendizaje limit:5 %}
+        <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
+          <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
+          <h3 class="text-lg font-semibold text-[var(--primary-blue)] hover:underline mb-2">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+          </h3>
+          <p class="text-sm opacity-80">{{ post.excerpt }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
   <!-- BLOG SECTION -->
   <section id="blog" class="section fade-in" style="background-color: var(--bg-main); color: var(--text-color);">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
       <div class="mx-auto max-w-2xl lg:mx-0 mb-8">
-        <h2 class="text-4xl font-bold" style="color: var(--primary-blue);">Blog</h2>
+        <h2 class="text-4xl font-bold" style="color: var(--primary-blue);">BLOG</h2>
         <p class="mt-2 text-lg">Resúmenes y apuntes recientes.</p>
       </div>
       <div class="mx-auto grid max-w-none grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 border-t" style="border-color: rgba(255,255,255,0.1);">

@@ -2,7 +2,7 @@
 layout: post
 title: "Programación Orientada a Objetos"
 date: 2025-03-23 00:00:00 -0300
-categories: tecnologia
+categories: programacion
 tags: poo python
 excerpt: La Programación Orientada a Objetos (POO) permite modelar lo que queramos mediante clases y objetos, organizando el código de forma modular y reutilizable.
 reading_time: "5 minutos"
