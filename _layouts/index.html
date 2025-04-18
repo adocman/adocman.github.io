@@ -173,10 +173,10 @@ permalink: /
           <div class="space-y-4">
             <p class="uppercase font-semibold text-[var(--primary-blue)]">Programación</p>
             <p class="text-lg leading-relaxed">
-              Sumérgete en tutoriales, guías y ejemplos prácticos de programación para llevar tus proyectos al siguiente nivel.
+              Apuntes, resumenes y guías de programación.
             </p>
             <a href="/categorias/programacion/" class="inline-block underline font-semibold text-[var(--primary-blue)]">
-              Ver todas las entradas →
+              Ver todas las entradas
             </a>
           </div>
           <!-- Post destacado -->
@@ -193,9 +193,9 @@ permalink: /
           </a>
         </div>
         
-        <!-- GRID SECUNDARIO CON HASTA 5 POSTS -->
-        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-          {% for post in site.categories.programacion limit:5 %}
+        <!-- GRID SECUNDARIO CON HASTA 3 POSTS -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+          {% for post in site.categories.programacion limit:3 %}
           <a href="{{ post.url }}" class="block space-y-3 group">
             <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-sm">
               <img src="{{ post.image }}" 
