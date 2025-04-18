@@ -1,110 +1,64 @@
 /* Scroll suave solo para anclas */
 html {
   scroll-behavior: smooth;
-  /* Cursor circular blanco 20×20 */
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="10" fill="%23ffffff"/></svg>') 10 10, auto;
 }
 
+/* Variables de tema */
 :root {
   --primary-blue: #3b82f6;
   --bg-main:      #0f172a;
-  --bg-sidebar:   #1e293b;
+  --bg-sidebar:   #091220;
   --text-color:   #f8fafc;
   --code-bg:      #111827;
 }
-
 body.light {
   --primary-blue: #2563eb;
-  --bg-main:      #e2e8f0;   /* slate-200 en lugar de blanco puro */
-  --bg-sidebar:   #f1f5f9;   /* slate-100 más suave */
+  --bg-main:      #e2e8f0;
+  --bg-sidebar:   #f1f5f9;
   --text-color:   #1e293b;
   --code-bg:      #0f172a;
 }
 
-body.light /* Menú móvil */ 
-#mobile-menu,
-body.light /* Sidebar escritorio */ 
-aside {
-  color: var(--text-color) !important;
-}
-
-/* Asegura que los enlaces del menú también hereden */
-body.light #mobile-menu a,
-body.light aside a {
-  color: var(--text-color) !important;
-}
-body.light aside li {
-  color: var(--text-color) !important;
-}
-body.light aside span {
-  color: var(--text-color) !important;
-}
-
+/* Base */
 body {
+  margin: 0 .1rem;
   font-family: 'Montserrat', sans-serif;
   font-size: 1.125rem;
   background-color: var(--bg-main);
   color: var(--text-color);
 }
+*, *::before, *::after { cursor: inherit; }
 
-/* Cursor heredado en todos los elementos */
-*, *::before, *::after {
-  cursor: inherit;
-}
-
-/* Glow animado solo en categorías y posts del menú */
-@keyframes glow-blue {
-  from { box-shadow: 0 0 4px var(--primary-blue); }
-  to   { box-shadow: 0 0 12px var(--primary-blue); }
-}
-/* Sidebar desktop */
-aside details summary:hover span,
-/* Mobile menu */
-#mobile-menu details summary:hover span,
-/* Links de posts en menú */
-aside ul a:hover,
-#mobile-menu ul a:hover {
-  /* animation: glow-blue 1s infinite alternate; */
-}
-
-/* Glassmorphism para sidebar y menú móvil */
+/* Glassmorphism en sidebar */
 aside,
 #mobile-menu > div {
-  background: var(--bg-sidebar);  /* slate‑800 con transparencia */
+  background: var(--bg-sidebar);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.1);
 }
-
-/* Transición al hover */
 aside:hover,
 #mobile-menu:hover > div {
   box-shadow: 0 12px 32px rgba(0,0,0,0.5);
   transition: all 0.3s ease;
 }
 
-/* Scrollbar global */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: var(--primary-blue);
   border-radius: 4px;
   border: 2px solid var(--bg-main);
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-blue);
-  opacity: 0.8;
-}
+::-webkit-scrollbar-thumb:hover { opacity: 0.8; }
 
 /* Scroll snap */
 .scroll-smooth { scroll-behavior: smooth; }
-.snap-y { scroll-snap-type: y mandatory; }
+.snap-y     { scroll-snap-type: y mandatory; }
 .snap-start { scroll-snap-align: start; }
 
-/* Fade-in custom */
+/* Fade‑in genérico */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -115,23 +69,7 @@ aside:hover,
   transform: translateY(0);
 }
 
-/* Links “underline‑grow” */
-a:hover {
-  background-image: linear-gradient(120deg, var(--primary-blue) 0%, var(--primary-blue) 100%);
-  background-repeat: no-repeat;
-  background-size: 0% 2px;
-  background-position: 0 100%;
-  transition: background-size 0.3s ease;
-  padding-left: 4px;
-  padding-right: 4px;
-  border-radius: 4px;
-  color: var(--text-color);
-}
-a:hover {
-  background-size: 100% 2px;
-}
-
-/* Botones con escala y sombra */
+/* Transiciones y sombras */
 button, .theme-toggle {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -139,7 +77,7 @@ button:hover, .theme-toggle:hover {
   transform: scale(1.15);
 }
 
-/* Degradado animado como fondo opcional */
+/* Degradado animado en fondo light */
 @keyframes gradientBG {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
@@ -151,112 +89,71 @@ body.light {
   animation: gradientBG 12s ease infinite;
 }
 
-/* — TOC Sidebar — */
-#toc {
-  position: sticky;
-  /* top: 0.25rem; */
-  /* max-height: calc(100vh - 4rem); */
-}
-#toc-list li { list-style: none; }
-#toc-list li ul { margin-left: 1rem; }
-#toc-list a {
-  display: block;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: 0.875rem;
-  transition: background-color 0.2s, color 0.2s;
-}
-#toc-list a:hover {
-  background-color: rgba(37, 99, 235, 0.1);
-}
-#toc-list a.active {
-  background-color: var(--primary-blue);
-  color: #fff;
-}
-
-/* Evita que los headings queden ocultos tras el header fijo */
-.post h2,
-.post h3 {
-  scroll-margin-top: 0.25rem;
-}
-
-/* — Hover underline‑grow unificado en a y summary — */
-aside ul a,
+/* — Hover underline‑grow unificado en summary y enlaces — */
+aside details summary,
 #mobile-menu ul a,
 #toc-list a,
-aside details summary {
+aside ul a {
   display: block;
   position: relative;
-  color: var(--text-color);
   text-decoration: none;
+  color: var(--text-color);
   transition: color 0.2s ease;
+  /* Asegura que el elemento ocupe todo el ancho y múltiples líneas */
+  width: 100%;
 }
 
-/* La barra bajo el texto */
-aside ul a::after,
+aside details summary::after,
 #mobile-menu ul a::after,
 #toc-list a::after,
-aside details summary::after {
+aside ul a::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -2px;
   width: 0;
   height: 2px;
   background: var(--primary-blue);
   transition: width 0.3s ease;
 }
 
-/* Hover: expande la barra */
-aside ul a:hover::after,
+/* Crecimiento y retracción simétricos */
+aside details summary:hover::after,
 #mobile-menu ul a:hover::after,
 #toc-list a:hover::after,
-aside details summary:hover::after {
+aside ul a:hover::after {
   width: 100%;
 }
 
-/* Hover: opcionalmente oscurece ligeramente el texto */
-aside ul a:hover,
+aside details summary:hover,
 #mobile-menu ul a:hover,
 #toc-list a:hover,
-aside details summary:hover {
+aside ul a:hover {
   color: var(--primary-blue);
 }
 
-/* — Asegurar legibilidad de categorías en menú móvil (light theme) — */
-body.light #mobile-menu,
-body.light #mobile-menu * {
-  color: var(--text-color) !important;
-}
+/* Post content typography */
+.post { max-width: 800px; margin: 0 auto; padding: 2rem 0; line-height: 1.8; }
+.post h1 { font-family: 'Bebas Neue', cursive; font-size: 3rem; text-align: center; margin: 0.5rem 0 1rem; color: var(--primary-blue); }
+.post h2 { font-family: 'Bebas Neue', cursive; font-size: 2.5rem; color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); padding-bottom: 0.5rem; margin: 2rem 0 1rem; }
+.post h3 { font-family: 'Bebas Neue', cursive; font-size: 2rem; color: var(--primary-blue); margin-top: 1.5rem; }
+.post p { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-color); }
+.post ul, .post ol { margin-left: 1.5rem; padding-left: 1rem; }
+.post pre { background-color: var(--code-bg); padding: 1rem; border-radius: 5px; overflow-x: auto; font-family: 'Roboto Mono', monospace; color: var(--text-color); }
+.post code { font-family: 'Roboto Mono', monospace; background-color: var(--code-bg); padding: 0.2rem 0.4rem; border-radius: 4px; }
+.post blockquote { border-left: 4px solid var(--primary-blue); padding-left: 1rem; font-style: italic; color: var(--text-color); margin: 1.5rem 0; }
+.post img { width: 100%; border-radius: 8px; margin: 1rem 0; }
+.post a { color: var(--primary-blue); font-weight: bold; text-decoration: none; }
+.post a:hover { text-decoration: underline; }
+.post table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+.post th, .post td { border: 1px solid var(--primary-blue); padding: 1rem; text-align: left; color: var(--text-color); }
+.post th { background-color: var(--primary-blue); color: #fff; }
+.post tr:nth-child(even) { background-color: #1e293b; }
+.post tr:hover { background-color: #334155; }
+.post caption { font-size: 1.25rem; font-weight: bold; color: var(--primary-blue); margin-bottom: 0.5rem; }
 
-/* — Asegurar legibilidad de categorías en sidebar (light theme) — */
-body.light aside,
-body.light aside * {
-  color: var(--text-color) !important;
-}
-
-
-/* Resto de estilos sin cambios */
-.transition-scale { @apply transition-transform duration-300 ease-in-out; }
-.post { max-width:800px; margin:0 auto; padding:2rem 0; line-height:1.8; }
-.post h1, .post h2, .post h3 { font-family:'Bebas Neue', cursive; color:var(--primary-blue); margin-top:0.25rem; }
-.post h1 { font-size:3rem; text-align:center; margin-bottom:1rem; margin-top:0.5rem }
-.post h2 { font-size:2.5rem; border-bottom:2px solid var(--primary-blue); padding-bottom:0.5rem; }
-.post h3 { font-size:2rem; }
-.post p { font-size:1.2rem; margin-bottom:1rem; }
-.post ul, .post ol { margin-left:1.5rem; padding-left:1rem; }
-.post pre { background-color:var(--code-bg); padding:1rem; border-radius:5px; overflow-x:auto; font-family:'Roboto Mono', monospace; color:var(--text-color); }
-.post code { font-family:'Roboto Mono', monospace; background-color:var(--code-bg); padding:0.2rem 0.4rem; border-radius:4px; }
-.post blockquote { border-left:4px solid var(--primary-blue); padding-left:1rem; font-style:italic; margin:1.5rem 0; }
-.post table { width:100%; border-collapse:collapse; margin:1.5rem 0; }
-.post th, .post td { border:1px solid var(--primary-blue); padding:1rem; text-align:left; color:var(--text-color); }
-.post th { background-color:var(--primary-blue); color:#fff; }
-.post tr:nth-child(even) { background-color:#1e293b; }
-.post tr:hover { background-color:#334155; }
-.post caption { font-size:1.25rem; font-weight:bold; color:var(--primary-blue); margin-bottom:0.5rem; }
-
-@keyframes rotate-chev { from { transform:rotate(0deg);} to { transform:rotate(90deg);} }
-aside details summary span, #mobile-menu details summary span { display:inline-block; transition:transform 0.2s ease; }
-.open .details-summary span { animation:rotate-chev 0.2s forwards; }
+/* Chevron rotation */
+@keyframes rotate-chev { from { transform: rotate(0deg); } to { transform: rotate(90deg);} }
+aside details summary span,
+#mobile-menu details summary span { display: inline-block; transition: transform 0.2s ease; }
+.open .details-summary span { animation: rotate-chev 0.2s forwards; }
