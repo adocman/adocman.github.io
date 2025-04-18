@@ -14,7 +14,7 @@ permalink: /
       <!-- Texto + CTA -->
       <div class="space-y-8">
         <h1 class="hero-title max-w-xl">
-          Bienvenid@ a mi segundo cerebro
+          Bienvenid@ a mi Segundo Cerebro
         </h1>
         <p class="hero-subtitle max-w-lg">
           Si te interesan las Ciencias de la Computación, la Ingeniería Informática o los idiomas como Inglés y Coreano, este es tu lugar.
@@ -31,24 +31,16 @@ permalink: /
             type="submit"
             class="btn-primary px-6 py-3 rounded shadow-sm whitespace-nowrap"
           >
-            Suscribirse →
+            Suscribirme
           </button>
         </form>
         <!-- Reviews / No CC -->
         <div class="flex flex-wrap items-center space-x-6 text-sm text-[var(--text-color)]/75">
           <div class="flex items-center space-x-2">
-            <!-- SVG estrella -->
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921..." />
-            </svg>
-            <span>Contenido Exclusivo</span>
+            <span>Newsletter con Contenido Exclusivo</span>
           </div>
           <div class="flex items-center space-x-2">
-            <!-- SVG tarjeta -->
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z..." />
-            </svg>
-            <span>El 1 de cada mes</span>
+            <span>El primer día de cada mes</span>
           </div>
         </div>
       </div>
@@ -174,7 +166,7 @@ permalink: /
     <div class="container mx-auto px-6 lg:px-8">
       <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Posts de Programación</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% assign programacion = site.categories.programación %}
+        {% assign programacion = site.categories.programacion %}
         {% for post in programacion limit:5 %}
         <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
           <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
