@@ -14,7 +14,7 @@ body.light {
   --bg-main:      #e2e8f0;
   --bg-sidebar:   #f1f5f9;
   --text-color:   #1e293b;
-  --code-bg:      #0f172a;
+  --code-bg:      #f1f5f9;
 }
 body {
   margin: 0;
