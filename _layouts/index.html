@@ -5,37 +5,22 @@ permalink: /
 <main id="landing" class="landing">
 
   <!-- HERO -->
-  <section id="hero" class="hero fade-in relative">
-    <div class="container mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+  <section id="hero" class="hero fade-in relative overflow-hidden">
+    <div class="container mx-auto px-5 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <!-- Texto + CTA -->
-      <div class="space-y-8">
+      <div class="space-y-8 text-left ml-12">
         <h1 class="hero-title max-w-xl">
           Bienvenid@ a mi Segundo Cerebro
         </h1>
-        <p class="hero-subtitle max-w-lg">
-          Si te interesan las Ciencias de la Computación, la Ingeniería Informática o los idiomas como Inglés y Coreano, este es tu lugar.
+        <p class="hero-subtitle max-w-xl">
+          Si te interesan las técnicas de aprendizaje, las Ciencias de la Computación, la Ingeniería Informática o los idiomas como Inglés y Coreano, este es tu lugar.
         </p>
         <!-- Formulario de suscripción -->
-        <form action="#" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-          <input
-            type="email"
-            placeholder="Ingresa tu correo"
-            required
-            class="w-full sm:flex-1 px-4 py-3 rounded shadow focus:outline-none focus:ring-2 focus:ring-[var(--primary-blue)] text-[var(--text-color)] bg-[var(--bg-main)] border border-[var(--primary-blue)] placeholder:text-[var(--text-color)]/70 transition"
-          />
-          <button
-            type="submit"
-            class="btn-primary px-6 py-3 rounded shadow-sm whitespace-nowrap"
-          >
-            Suscribirme
+        <a href="https://www.youtube.com/@adocman">
+          <button class="btn-primary py-3 rounded shadow-sm">
+            Ver canal
           </button>
-        </form>
-        <!-- Reviews / No CC -->
-        <div class="flex flex-wrap items-center space-x-6 text-sm text-[var(--text-color)]/75">
-          <div class="flex items-center space-x-2">
-            <span>Newsletter con contenido exclusivo el primer día de cada mes</span>
-          </div>
-        </div>
+        </a>
       </div>
   
       <!-- Vídeo embebido -->
@@ -54,8 +39,8 @@ permalink: /
   
 
   <!-- FEATURE SECTION adapted -->
-  <section id="feature" class="section" style="background-color: var(--bg-sidebar); color: var(--text-color);">
-    <div class="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:px-8">
+  <section id="feature" class="section fade-in" style="background-color: var(--bg-sidebar); color: var(--text-color);">
+    <div class="relative isolate overflow-hidden px-5 py-24 md:px-10 lg:px-12 xl:px-16">
       <div class="absolute inset-0 -z-10 overflow-hidden">
         <svg class="absolute top-0 left-[max(50%,25rem)] h-[64rem] w-[128rem] -translate-x-1/2 stroke-[var(--text-color)] opacity-10" aria-hidden="true">
           <defs>
@@ -66,10 +51,9 @@ permalink: /
           <rect width="100%" height="100%" fill="url(#feature-grid)" />
         </svg>
       </div>
-      <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2 lg:items-start">
+      <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div class="lg:pr-4">
-          <p class="text-sm font-semibold" style="color: var(--primary-blue);">Aprender compartiendo. Compartir lo que aprendo</p>
-          <h2 class="mt-2 text-3xl font-bold" style="color: var(--text-color);">¡Hola, soy Aarón Docman Lucero y acá comparto todos mis apuntes y resumenes!</h2>
+          <h2 class="mt-2 text-3xl font-bold" style="color: var(--text-color);">¡Hola, soy Aarón y acá comparto todos mis recursos de aprendizaje!</h2>
           <p class="mt-4 text-base">
             Encuentra notas y resúmenes, todo organizado con claridad, ejemplos prácticos y diagramas para potenciar el aprendizaje.
           </p>
@@ -104,130 +88,159 @@ permalink: /
             </div>
           </dl>
         </div>
-        <div class="-mt-12 p-4 lg:sticky lg:top-4">
-          <img class="w-full rounded-xl shadow-lg" src="/assets/images/profile.jpeg" alt="Captura de apuntes" />
+        <div class="p-4 lg:sticky lg:top-4">
+          <img class="w-full rounded-xl shadow-lg" src="/assets/images/profile.jpeg" alt="Imagen de perfil" />
         </div>
       </div>
     </div>
   </section>
 
   <!-- CATEGORÍAS -->
-  <section id="categorias" class="section fade-in" style="background-color: var(--bg-main); color: var(--text-color);">
-    <h2>¿Qué quieres revisar hoy?</h2>
-    <div class="grid-cards">
-      {% for category in site.categories %}
-        <a href="{{ '/categorias/' | append: category[0] | append:'/' }}"
-           class="block max-w-sm p-6 bg-[var(--bg-sidebar)] border border-[var(--text-color)] rounded-lg shadow-sm hover:bg-[var(--bg-main)] transition-colors">
-          <h3 class="mb-2 text-2xl font-bold tracking-tight text-[var(--text-color)]">{{ category[0] | capitalize }}</h3>
-          <p class="font-normal text-[var(--text-color)]">{{ category[1].size }} apuntes</p>
-        </a>
-      {% endfor %}
-    </div>
-  </section>
-
-  <!-- SECCIÓN POSTS COREANO -->
-  <section id="posts-coreano" class="py-16 bg-[var(--bg-main)] text-[var(--text-color)]">
-    <div class="container mx-auto px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Apuntes de Coreano</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% assign coreano = site.categories.coreano %}
-        {% for post in coreano limit:5 %}
-        <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
-          <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
-          <h3 class="text-lg font-semibold text-[var(--primary-blue)] hover:underline mb-2">
-            <a href="{{ post.url }}">{{ post.title }}</a>
-          </h3>
-          <p class="text-sm opacity-80">{{ post.excerpt }}</p>
-        </article>
+  <section id="categorias" class="section fade-in " style="background-color: var(--bg-main); color: var(--text-color);">
+    <div class="container px-5 md:px-10 lg:px-12 xl:px-16">
+      <h2>¿Qué quieres revisar hoy?</h2>
+      <div class="grid-cards">
+        {% for category in site.categories %}
+          <a href="{{ '/categorias/' | append: category[0] | append:'/' }}"
+            class="block max-w-sm p-6 bg-[var(--bg-sidebar)] border border-[var(--text-color)] rounded-lg shadow-sm hover:bg-[var(--bg-main)] transition-colors">
+            <h3 class="mb-2 text-2xl font-bold tracking-tight text-[var(--text-color)]">{{ category[0] | capitalize }}</h3>
+            <p class="font-normal text-[var(--text-color)]">{{ category[1].size }} apuntes</p>
+          </a>
         {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN POSTS PROGRAMACIÓN -->
-  <section id="programacion" class="fade-in bg-[var(--bg-main)] text-[var(--text-color)]">
-    <div class="w-full pb-12 px-5 md:px-10 xl:px-16">
-      <div class="mx-auto w-full max-w-[1200px] space-y-10">
-
-        <!-- Fila 1: Header -->
-        <div class="space-y-4 text-center lg:text-left">
-          <p class="uppercase font-semibold text-[var(--primary-blue)]">Programación</p>
-          <p class="text-lg leading-relaxed">
-            Apuntes, resúmenes y guías de programación para todos los niveles.
-          </p>
-          <a href="/categorias/programacion/" class="inline-block underline font-semibold text-[var(--primary-blue)]">
-            Ver todas las entradas
-          </a>
-        </div>
-
-        <!-- Fila 2: Primer post destacado -->
-        {% assign featured = site.categories.programacion | first %}
-        <a href="{{ featured.url }}" class="group block overflow-hidden rounded-lg shadow-lg bg-[var(--bg-sidebar)]">
-          <div class="aspect-w-16 aspect-h-9">
-            <img src="{{ featured.image }}"
-                alt="{{ featured.title }}"
-                class="object-cover w-full h-full transition-transform group-hover:scale-105" />
-          </div>
-        </a>
-
-        <!-- Fila 3: Grid de 3 posts siguientes -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <a href="{{ featured.url }}"></a>
-            <div class="p-6">
-              <p class="text-xs opacity-75 mb-2">
-                {{ featured.date | date: "%b %d, %Y" }} · {{ featured.reading_time }}
-              </p>
-              <h3 class="text-2xl font-bold text-[var(--primary-blue)] mb-3 group-hover:underline">
-                {{ featured.title }}
-              </h3>
-              <p class="text-base opacity-80">{{ featured.excerpt | strip_html | truncate: 150 }}</p>
-            </div>
-          </a>
-          {% for post in site.categories.programacion offset:1 limit:2 %}
-          <a href="{{ post.url }}" class="group block overflow-hidden rounded-lg shadow-sm bg-[var(--bg-sidebar)]">
-            <div class="aspect-w-16 aspect-h-9">
-              <img src="{{ post.image }}"
-                  alt="{{ post.title }}"
-                  class="object-cover w-full h-full transition-transform group-hover:scale-105" />
-            </div>
-            <div class="p-4 space-y-2">
-              <p class="text-xs opacity-75">
-                {{ post.date | date: "%b %d, %Y" }} · {{ post.reading_time }}
-              </p>
-              <h4 class="text-lg font-semibold text-[var(--primary-blue)] group-hover:underline">
-                {{ post.title }}
-              </h4>
-            </div>
-          </a>
-          {% endfor %}
-        </div>
-
       </div>
     </div>
   </section>
 
   <!-- SECCIÓN POSTS APRENDIZAJE -->
-  <section id="posts-aprendizaje" class="py-16 bg-[var(--bg-main)] text-[var(--text-color)]">
-    <div class="container mx-auto px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-[var(--primary-blue)] mb-6">Recursos de Aprendizaje</h2>
+<section id="posts-aprendizaje" class="fade-in bg-[var(--bg-main)] text-[var(--text-color)] py-16">
+  <div class="container px-5 md:px-10 lg:px-12 xl:px-16">
+    <div class="space-y-4 text-center lg:text-left">
+      <p class="text-3xl uppercase font-semibold text-[var(--primary-blue)]">Recursos de Aprendizaje</p>
+      <p class="text-lg leading-relaxed">Apuntes, resúmenes y guías de aprendizaje para todos los niveles.</p>
+      <a href="/categorias/aprendizaje/" class="inline-block underline font-semibold text-[var(--primary-blue)]">
+        Ver todas las entradas
+      </a>
+    </div>
+
+    {% assign aprendizaje = site.categories.aprendizaje %}
+    {% assign featuredApr = aprendizaje | first %}
+    <a href="{{ featuredApr.url }}" class="group block overflow-hidden rounded-lg shadow-lg bg-[var(--bg-sidebar)] mt-10">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{{ featuredApr.image }}" alt="{{ featuredApr.title }}"
+             class="object-cover w-full h-full transition-transform group-hover:scale-105" />
+      </div>
+      <div class="p-6">
+        <p class="text-xs opacity-75 mb-2">{{ featuredApr.date | date: "%b %d, %Y" }} · {{ featuredApr.reading_time }}</p>
+        <h3 class="text-2xl font-bold text-[var(--primary-blue)] mb-3 group-hover:underline">{{ featuredApr.title }}</h3>
+        <p class="text-base opacity-80">{{ featuredApr.excerpt | strip_html | truncate:150 }}</p>
+      </div>
+    </a>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      {% for post in aprendizaje offset:1 limit:2 %}
+      <a href="{{ post.url }}" class="group block overflow-hidden rounded-lg shadow-sm bg-[var(--bg-sidebar)]">
+        <div class="aspect-w-16 aspect-h-9">
+          <img src="{{ post.image }}" alt="{{ post.title }}"
+               class="object-cover w-full h-full transition-transform group-hover:scale-105" />
+        </div>
+        <div class="p-4 space-y-2">
+          <p class="text-xs opacity-75">{{ post.date | date: "%b %d, %Y" }} · {{ post.reading_time }}</p>
+          <h4 class="text-lg font-semibold text-[var(--primary-blue)] group-hover:underline">{{ post.title }}</h4>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN POSTS PROGRAMACIÓN -->
+<section id="programacion" class="fade-in bg-[var(--bg-main)] text-[var(--text-color)] py-16">
+  <div class="w-full px-5 md:px-10 lg:px-12 xl:px-16">
+    <div class="mx-auto w-full space-y-10">
+      <div class="space-y-4 text-center lg:text-left">
+        <p class="text-3xl uppercase font-semibold text-[var(--primary-blue)]">Programación</p>
+        <p class="text-lg leading-relaxed">Apuntes, resúmenes y guías de programación para todos los niveles.</p>
+        <a href="/categorias/programacion/" class="inline-block underline font-semibold text-[var(--primary-blue)]">
+          Ver todas las entradas
+        </a>
+      </div>
+
+      {% assign featuredProg = site.categories.programacion | first %}
+      <a href="{{ featuredProg.url }}" class="group block overflow-hidden rounded-lg shadow-lg bg-[var(--bg-sidebar)]">
+        <div class="aspect-w-16 aspect-h-9">
+          <img src="{{ featuredProg.image }}" alt="{{ featuredProg.title }}"
+               class="object-cover w-full h-full transition-transform group-hover:scale-105" />
+        </div>
+        <div class="p-6">
+          <p class="text-xs opacity-75 mb-2">{{ featuredProg.date | date: "%b %d, %Y" }} · {{ featuredProg.reading_time }}</p>
+          <h3 class="text-2xl font-bold text-[var(--primary-blue)] mb-3 group-hover:underline">{{ featuredProg.title }}</h3>
+          <p class="text-base opacity-80">{{ featuredProg.excerpt | strip_html | truncate:150 }}</p>
+        </div>
+      </a>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% assign aprendizaje = site.categories.aprendizaje %}
-        {% for post in aprendizaje limit:5 %}
-        <article class="p-6 bg-[var(--bg-sidebar)] rounded-lg shadow-sm transition-transform hover:scale-[1.02]">
-          <time class="block text-xs opacity-75 mb-2">{{ post.date | date: "%b %d, %Y" }}</time>
-          <h3 class="text-lg font-semibold text-[var(--primary-blue)] hover:underline mb-2">
-            <a href="{{ post.url }}">{{ post.title }}</a>
-          </h3>
-          <p class="text-sm opacity-80">{{ post.excerpt }}</p>
-        </article>
+        {% for post in site.categories.programacion offset:1 limit:2 %}
+        <a href="{{ post.url }}" class="group block overflow-hidden rounded-lg shadow-sm bg-[var(--bg-sidebar)]">
+          <div class="aspect-w-16 aspect-h-9">
+            <img src="{{ post.image }}" alt="{{ post.title }}"
+                 class="object-cover w-full h-full transition-transform group-hover:scale-105" />
+          </div>
+          <div class="p-4 space-y-2">
+            <p class="text-xs opacity-75">{{ post.date | date: "%b %d, %Y" }} · {{ post.reading_time }}</p>
+            <h4 class="text-lg font-semibold text-[var(--primary-blue)] group-hover:underline">{{ post.title }}</h4>
+          </div>
+        </a>
         {% endfor %}
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- SECCIÓN POSTS COREANO -->
+<section id="posts-coreano" class="fade-in bg-[var(--bg-main)] text-[var(--text-color)] py-16">
+  <div class="container px-5 md:px-10 lg:px-12 xl:px-16">
+    <div class="space-y-4 text-center lg:text-left">
+      <p class="text-3xl uppercase font-semibold text-[var(--primary-blue)]">Apuntes de Coreano</p>
+      <p class="text-lg leading-relaxed">Apuntes, resúmenes y guías de coreano para todos los niveles.</p>
+      <a href="/categorias/coreano/" class="inline-block underline font-semibold text-[var(--primary-blue)]">
+        Ver todas las entradas
+      </a>
+    </div>
+
+    {% assign featuredKor = site.categories.coreano | first %}
+    <a href="{{ featuredKor.url }}" class="group block overflow-hidden rounded-lg shadow-lg bg-[var(--bg-sidebar)] mt-10">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{{ featuredKor.image }}" alt="{{ featuredKor.title }}"
+             class="object-cover w-full h-full transition-transform group-hover:scale-105" />
+      </div>
+      <div class="p-6">
+        <p class="text-xs opacity-75 mb-2">{{ featuredKor.date | date: "%b %d, %Y" }} · {{ featuredKor.reading_time }}</p>
+        <h3 class="text-2xl font-bold text-[var(--primary-blue)] mb-3 group-hover:underline">{{ featuredKor.title }}</h3>
+        <p class="text-base opacity-80">{{ featuredKor.excerpt | strip_html | truncate:150 }}</p>
+      </div>
+    </a>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      {% for post in site.categories.coreano offset:1 limit:2 %}
+      <a href="{{ post.url }}" class="group block overflow-hidden rounded-lg shadow-sm bg-[var(--bg-sidebar)]">
+        <div class="aspect-w-16 aspect-h-9">
+          <img src="{{ post.image }}" alt="{{ post.title }}"
+               class="object-cover w-full h-full transition-transform group-hover:scale-105" />
+        </div>
+        <div class="p-4 space-y-2">
+          <p class="text-xs opacity-75">{{ post.date | date: "%b %d, %Y" }} · {{ post.reading_time }}</p>
+          <h4 class="text-lg font-semibold text-[var(--primary-blue)] group-hover:underline">{{ post.title }}</h4>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 
   <!-- BLOG SECTION -->
   <section id="blog" class="section fade-in" style="background-color: var(--bg-main); color: var(--text-color);">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32">
+    <div class="container px-5 md:px-10 lg:px-12 xl:px-16">
       <div class="mx-auto max-w-2xl lg:mx-0 mb-8">
         <h2 class="text-4xl font-bold" style="color: var(--primary-blue);">BLOG</h2>
         <p class="mt-2 text-lg">Resúmenes y apuntes recientes.</p>
