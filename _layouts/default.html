@@ -19,19 +19,19 @@
 
   <!-- HEADER móvil -->
   <header class="md:hidden fixed top-0 left-0 right-0 bg-(--bg-sidebar) z-20 flex items-center p-4">
-    <button id="mobile-menu-button" class="p-2 text-slate-50 focus:outline-none">
+    <button id="mobile-menu-button" class="p-2 text-(--text-color) focus:outline-none">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
-    <a href="{{ '/' | relative_url }}"><h2 class="ml-4 font-bold text-4xl text-slate-50">{{ site.title }}</h2></a>
+    <a href="{{ '/' | relative_url }}"><h2 class="ml-4 font-bold text-4xl text-(--text-color)">{{ site.title }}</h2></a>
     <button class="theme-toggle ml-auto p-2 text-slate-50 focus:outline-none">🌙</button>
   </header>
 
   <!-- MENÚ móvil -->
   <div id="mobile-menu" class="hidden fixed inset-0 bg-opacity-60 z-300 bg-(--bg-sidebar)">
     <div class="w-full h-full p-4 overflow-auto">
-      <button id="mobile-menu-close" class="mb-4 p-2 focus:outline-none">✕</button>
+      <button id="mobile-menu-close" class="mb-4 p-2 focus:outline-none text-(--text-color)">✕</button>
       <nav>
         <ul class="space-y-2 capitalize">
           {% for category in site.categories %}
