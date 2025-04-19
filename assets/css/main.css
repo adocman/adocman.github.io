@@ -18,7 +18,7 @@ body.light {
 }
 html {
   scroll-behavior: smooth;
-  /* Cursor circular blanco 20×20 */
+  /* Cursor circular blanco 12x12 */
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"><circle cx="6" cy="6" r="6" fill="%23ffffff"/></svg>') 10 10, auto;
 }
 body {
@@ -31,6 +31,9 @@ body {
 *, *::before, *::after {
   box-sizing: border-box;
   cursor: inherit;
+}
+h1, h2, h3 {
+  font-family: 'Bebas Neue', cursive;
 }
 
 /*──────────────────────────────────────────────────────────────────────────────
