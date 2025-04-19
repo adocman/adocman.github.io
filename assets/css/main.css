@@ -6,7 +6,7 @@
   --bg-main:      #0f172a;
   --bg-sidebar:   #091220;
   --text-color:   #f8fafc;
-  --code-bg:      #111827;
+  --code-bg:      #091220;
   --hero-height:  95vh;
 }
 body.light {
@@ -117,43 +117,12 @@ body.light .hero {
 }
 
 /*──────────────────────────────────────────────────────────────────────────────
-  GRID DE CATEGORÍAS (POST‑IT STYLE)
+  GRID DE CATEGORÍAS
 ──────────────────────────────────────────────────────────────────────────────*/
 .grid-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
   gap: 1.5rem;
-}
-.card {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-.card--category:hover {
-  transform: none !important;
-  box-shadow: none !important;
-}
-/* Post‑it específico */
-.card--postit {
-  background: #fffb8f;
-  border: 2px solid var(--primary-blue);
-  border-radius: 0.5rem;
-  transition: border 0.3s;
-}
-.card--postit h3 {
-  font-size: 1.5rem;
-}
-.card--postit span {
-  font-size: 1rem;
-}
-.card--postit:hover {
-  border-color: var(--bg-main);
 }
 
 /*──────────────────────────────────────────────────────────────────────────────
@@ -297,6 +266,9 @@ body.light {
 .post code { background: var(--code-bg); color: var(--text-color); font-family: 'Roboto Mono', monospace; }
 .post pre { padding: 1rem; border-radius: 5px; overflow-x: auto; }
 .post code { padding: .2rem .4rem; border-radius: 4px; }
+.highlighter-rouge.language-plaintext{
+  background: var(--code-bg); color: var(--text-color); font-family: 'Roboto Mono', monospace;
+}
 .post blockquote {
   border-left: 4px solid var(--primary-blue);
   padding-left: 1rem; font-style: italic; margin: 1.5rem 0;
