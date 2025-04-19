@@ -6,9 +6,9 @@ permalink: /
 
   <!-- HERO -->
   <section id="hero" class="hero fade-in relative overflow-hidden">
-    <div class="container mx-auto sm:px-5 md:px-10 lg:px-12 xl:px-16 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="container mx-auto px-5 sm:px-5 md:px-10 lg:px-12 xl:px-16 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <!-- Texto + CTA -->
-      <div class="space-y-8 text-left ml-12">
+      <div class="space-y-8 text-left">
         <h1 class="hero-title max-w-xl">
           Bienvenid@ a mi Segundo Cerebro
         </h1>
@@ -39,7 +39,7 @@ permalink: /
   
   <!-- FEATURE SECTION adapted -->
   <section id="feature" class="section fade-in" style="background-color: var(--bg-sidebar); color: var(--text-color);">
-    <div class="relative isolate overflow-hidden px-5 py-24 md:px-10 lg:px-12 xl:px-16">
+    <div class="relative isolate overflow-hidden mx-auto py-24">
       <div class="absolute inset-0 -z-10 overflow-hidden">
         <svg class="absolute top-0 left-[max(50%,25rem)] h-[64rem] w-[128rem] -translate-x-1/2 stroke-[var(--text-color)] opacity-10" aria-hidden="true">
           <defs>
@@ -50,7 +50,7 @@ permalink: /
           <rect width="100%" height="100%" fill="url(#feature-grid)" />
         </svg>
       </div>
-      <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center sm:px-5 md:px-10 lg:px-12 xl:px-16">
         <div class="lg:pr-4">
           <h2 class="mt-2 text-3xl font-bold" style="color: var(--text-color);">¡Hola, soy Aarón y acá comparto todos mis recursos de aprendizaje!</h2>
           <p class="mt-4 text-base">
@@ -96,7 +96,7 @@ permalink: /
 
   <!-- CATEGORÍAS -->
   <section id="categorias" class="section fade-in " style="background-color: var(--bg-main); color: var(--text-color);">
-    <div class="container px-5 md:px-10 lg:px-12 xl:px-16">
+    <div class="container px-5 sn:px-5 md:px-10 lg:px-12 xl:px-16">
       <h2>¿Qué quieres revisar hoy?</h2>
       <div class="grid-cards">
         {% for category in site.categories %}
