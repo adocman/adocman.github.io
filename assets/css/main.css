@@ -5,7 +5,7 @@
   --primary-blue: #2563eb;
   --bg-main:      #0f172a;
   --bg-sidebar:   #091220;
-  --text-color:   #f8fafc;
+  --text-color:   #f1f5f9;
   --code-bg:      #091220;
   --alt-code-bg:  #f1f5f9;
   --hero-height:  95vh;
@@ -14,7 +14,7 @@ body.light {
   --primary-blue: #2563eb;
   --bg-main:      #e2e8f0;
   --bg-sidebar:   #f1f5f9;
-  --text-color:   #1e293b;
+  --text-color:   #091220;
   --code-bg:      #f1f5f9;
   --alt-code-bg:  #091220;
 }

@@ -6,6 +6,7 @@ categories: coreano
 tags: coreano
 excerpt: Cheat Sheet de fechas y estaciones del año en Coreano
 reading_time: "10 minutos"
+image: "/assets/images/cheat-sheet-fechas.jpg"
 permalink: "/:categories/:title"
 ---
 ## 📅 Fechas
@@ -104,3 +105,5 @@ permalink: "/:categories/:title"
   > 다섯째 날(5일째)에 시험을 봐요.
   > “Tendré el examen el quinto día.”
   >
+
+[Descargar desde GitHub](https://raw.githubusercontent.com/adocman/adocman.github.io/main/assets/descargas/cheat-sheet-fechas-coreano.pdf){: download="cheat-sheet-fechas-coreano.pdf"}
