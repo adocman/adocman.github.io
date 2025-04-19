@@ -16,11 +16,6 @@ body.light {
   --text-color:   #1e293b;
   --code-bg:      #0f172a;
 }
-html {
-  scroll-behavior: smooth;
-  /* Cursor circular blanco 12x12 */
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"><circle cx="6" cy="6" r="6" fill="%23ffffff"/></svg>') 10 10, auto;
-}
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
