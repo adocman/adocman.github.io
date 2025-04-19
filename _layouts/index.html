@@ -2,14 +2,10 @@
 layout: default
 permalink: /
 ---
-<!-- Landing Page CSS & JS -->
-<link rel="stylesheet" href="{{ '/assets/css/landing.css' | relative_url }}">
-<script defer src="{{ '/assets/js/landing.js' | relative_url }}"></script>
-
 <main id="landing" class="landing">
 
   <!-- HERO -->
-  <section id="hero" class="hero fade-in relative overflow-hidden">
+  <section id="hero" class="hero fade-in relative">
     <div class="container mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <!-- Texto + CTA -->
       <div class="space-y-8">
@@ -37,10 +33,7 @@ permalink: /
         <!-- Reviews / No CC -->
         <div class="flex flex-wrap items-center space-x-6 text-sm text-[var(--text-color)]/75">
           <div class="flex items-center space-x-2">
-            <span>Newsletter con Contenido Exclusivo</span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <span>El primer día de cada mes</span>
+            <span>Newsletter con contenido exclusivo el primer día de cada mes</span>
           </div>
         </div>
       </div>
@@ -57,21 +50,11 @@ permalink: /
         ></iframe>
       </div>
     </div>
-  
-    <!-- Logos / marcas -->
-    <div class="container mx-auto px-6 py-12 flex flex-wrap justify-center items-center gap-12 opacity-75">
-      <img src="/assets/logos/airbnb.svg" alt="Airbnb" class="h-8 hover:opacity-100 transition" />
-      <img src="/assets/logos/google.svg" alt="Google" class="h-8 hover:opacity-100 transition" />
-      <img src="/assets/logos/nike.svg" alt="Nike" class="h-8 hover:opacity-100 transition" />
-      <img src="/assets/logos/uber.svg" alt="Uber" class="h-8 hover:opacity-100 transition" />
-      <img src="/assets/logos/stripe.svg" alt="Stripe" class="h-8 hover:opacity-100 transition" />
-      <img src="/assets/logos/mashable.svg" alt="Mashable" class="h-8 hover:opacity-100 transition" />
-    </div>
   </section>
   
 
   <!-- FEATURE SECTION adapted -->
-  <section id="feature" class="section fade-in" style="background-color: var(--bg-sidebar); color: var(--text-color);">
+  <section id="feature" class="section" style="background-color: var(--bg-sidebar); color: var(--text-color);">
     <div class="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:px-8">
       <div class="absolute inset-0 -z-10 overflow-hidden">
         <svg class="absolute top-0 left-[max(50%,25rem)] h-[64rem] w-[128rem] -translate-x-1/2 stroke-[var(--text-color)] opacity-10" aria-hidden="true">
@@ -222,8 +205,6 @@ permalink: /
       </div>
     </div>
   </section>
-
-
 
   <!-- SECCIÓN POSTS APRENDIZAJE -->
   <section id="posts-aprendizaje" class="py-16 bg-[var(--bg-main)] text-[var(--text-color)]">
