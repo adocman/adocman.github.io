@@ -261,7 +261,7 @@ body.light {
 }
 .post h3 { font-size: 2rem; }
 .post p { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-color); }
-.post ul, .post ol { margin-left: 1.5rem; padding-left: 1rem; }
+.post ul, .post ol { margin-left: .5rem; padding-left: .1rem; }
 .post pre,
 .post code { background: var(--code-bg); color: var(--text-color); font-family: 'Roboto Mono', monospace; }
 .post pre { padding: 1rem; border-radius: 5px; overflow-x: auto; }
