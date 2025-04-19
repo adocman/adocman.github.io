@@ -106,4 +106,4 @@ permalink: "/:categories/:title"
   > “Tendré el examen el quinto día.”
   >
 
-[Descargar desde GitHub](assets/downloads/cheat-sheet-fechas-coreano.pdf){: download="cheat-sheet-fechas-coreano.pdf"}
+[Descargar desde GitHub](https://github.com/adocman/adocman.github.io/blob/14403f690742f4996778475d7f1edb936aea5bf1/assets/downloads/cheat-sheet-fechas-coreano.pdf?raw=true){: download="cheat-sheet-fechas-coreano.pdf"}
