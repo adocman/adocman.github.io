@@ -1,6 +1,4 @@
 // assets/js/sounds.js
-console.log("🔊 sounds.js cargado");
-
 window.soundHover = new Howl({
   src: ['/assets/sounds/hover.mp3'],
   volume: 0.3,
@@ -8,3 +6,4 @@ window.soundHover = new Howl({
 });
 window.soundOpen = new Howl({ src: ['/assets/sounds/open.mp3'],  volume: 0.5 });
 window.soundClose= new Howl({ src: ['/assets/sounds/close.mp3'], volume: 0.5 });
+window.soundClick = new Howl({ src: ['/assets/sounds/click.mp3'], volume: 0.4 }); 
