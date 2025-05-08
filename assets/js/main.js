@@ -1,4 +1,5 @@
 // assets/js/main.js
+
 document.addEventListener('DOMContentLoaded', () => {
   // Menú móvil
   document.getElementById('mobile-menu-button').addEventListener('click', () =>
@@ -19,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Theme toggle buttons
   const themeBtns = document.querySelectorAll('.theme-toggle');
   const applyTheme = mode => {
-    document.body.classList.toggle('light', mode==='light');
-    themeBtns.forEach(b => b.textContent = mode==='light' ? '🌙' : '☀️');
+    document.body.classList.toggle('light', mode === 'light');
+    themeBtns.forEach(b => b.textContent = mode === 'light' ? '🌙' : '☀️');
   };
   const saved = localStorage.theme || 'dark';
   applyTheme(saved);
@@ -33,84 +34,99 @@ document.addEventListener('DOMContentLoaded', () => {
   // Copiar en <pre>
   document.querySelectorAll('pre').forEach(pre => {
     const btn = document.createElement('button');
-    btn.textContent='Copiar'; btn.className='absolute top-2 right-2 bg-blue-600 text-white p-1 rounded';
-    pre.style.position='relative'; pre.append(btn);
+    btn.textContent = 'Copiar';
+    btn.className = 'absolute top-2 right-2 bg-blue-600 text-white p-1 rounded';
+    pre.style.position = 'relative';
+    pre.append(btn);
     btn.addEventListener('click', () => {
       navigator.clipboard.writeText(pre.innerText);
-      btn.textContent='¡Copiado!'; setTimeout(()=>btn.textContent='Copiar',1500);
+      btn.textContent = '¡Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 1500);
     });
-
   });
 
-// — Generar Table of Contents y Scroll‑Spy —
-const tocList = document.getElementById('toc-list');
-if (tocList) {
-  const headers = document.querySelectorAll('main#content h2, main#content h3');
-  let currentLevel = 2;
-  const stack = [tocList];
+  // Table of Contents + Scroll-Spy
+  const tocList = document.getElementById('toc-list');
+  if (tocList) {
+    const headers = document.querySelectorAll('main#content h2, main#content h3');
+    let currentLevel = 2;
+    const stack = [tocList];
+    headers.forEach(h => {
+      if (!h.id) {
+        h.id = h.textContent.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]/g, '');
+      }
+      const level = Number(h.tagName.charAt(1));
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${h.id}`;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      if (level > currentLevel) {
+        const ul = document.createElement('ul');
+        ul.classList.add('pl-4', 'space-y-1');
+        stack[0].lastElementChild.appendChild(ul);
+        stack.unshift(ul);
+      } else if (level < currentLevel) {
+        stack.shift();
+      }
+      currentLevel = level;
+      stack[0].appendChild(li);
+    });
+    const links = tocList.querySelectorAll('a');
+    window.addEventListener('scroll', () => {
+      const fromTop = window.scrollY + 120;
+      links.forEach(link => {
+        const section = document.getElementById(link.hash.slice(1));
+        if (!section) return;
+        if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    });
+  }
 
-  headers.forEach(h => {
-    if (!h.id) {
-      h.id = h.textContent
-             .toLowerCase()
-             .trim()
-             .replace(/\s+/g, '-')
-             .replace(/[^\w\-]/g, '');
-    }
-    const level = Number(h.tagName.charAt(1));
-    const li    = document.createElement('li');
-    const a     = document.createElement('a');
-    a.href        = `#${h.id}`;
-    a.textContent = h.textContent;
-    li.appendChild(a);
-
-    if (level > currentLevel) {
-      const ul = document.createElement('ul');
-      ul.classList.add('pl-4', 'space-y-1');
-      stack[0].lastElementChild.appendChild(ul);
-      stack.unshift(ul);
-    } else if (level < currentLevel) {
-      stack.shift();
-    }
-    currentLevel = level;
-    stack[0].appendChild(li);
-  });
-
-  // Scroll‑Spy
-  const links = tocList.querySelectorAll('a');
-  window.addEventListener('scroll', () => {
-    const fromTop = window.scrollY + 120;
-    links.forEach(link => {
-      const section = document.getElementById(link.hash.slice(1));
-      if (!section) return;
-      if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
+  // Fade-in custom
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
       }
     });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Modal open/close + sounds
+  const modal = document.getElementById('category-modal');
+  const modalBody = document.getElementById('modal-body');
+  const btnClose = document.getElementById('modal-close');
+  document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('pointerenter', () => window.soundHover.play());
+    card.addEventListener('click', async () => {
+      window.soundOpen.play();
+      const category = card.dataset.category;
+      const res = await fetch(`/categorias/${category}/index.html`);
+      const html = await res.text();
+      const temp = document.createElement('div');
+      temp.innerHTML = html;
+      const section = temp.querySelector('#blog');
+      document.getElementById('modal-title').textContent = category.charAt(0).toUpperCase() + category.slice(1);
+      modalBody.innerHTML = section.innerHTML;
+      modalBody.querySelectorAll('a').forEach(a => a.setAttribute('target', '_blank'));
+      modal.classList.remove('hidden');
+    });
   });
-}
-
-  
-
-  // Fade-in custom (para <h2>, <blockquote> o .fade-in)
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
+  btnClose.addEventListener('click', () => {
+    window.soundClose.play();
+    modal.classList.add('hidden');
+  });
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      window.soundClose.play();
+      modal.classList.add('hidden');
     }
   });
-}, { threshold: 0.2 });
-
-document.querySelectorAll('.fade-in').forEach(el => {
-  observer.observe(el);
-});
-
-
-  // Back to top
-  const backBtn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => backBtn.classList.toggle('hidden', window.scrollY<200));
-  backBtn.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+  
 });

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cheat Sheet de Fechas en Coreano"
+title: "Fechas en Coreano"
 date: 2025-03-24 00:00:00 -0300
 categories: coreano
 tags: coreano

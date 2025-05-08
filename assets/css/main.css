@@ -296,6 +296,21 @@ body.light {
 }
 
 /*──────────────────────────────────────────────────────────────────────────────
+  Category Cards
+──────────────────────────────────────────────────────────────────────────────*/
+
+.category-card { cursor: pointer; padding:1.5rem; background:var(--bg-sidebar); }
+.category-card:hover { transform: scale(1.02); }
+
+#modal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/*──────────────────────────────────────────────────────────────────────────────
   CHEVRON ROTATION
 ──────────────────────────────────────────────────────────────────────────────*/
 @keyframes rotate-chev {
