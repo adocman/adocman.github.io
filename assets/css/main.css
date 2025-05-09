@@ -263,17 +263,46 @@ body.light {
 }
 .post h3 { font-size: 2rem; }
 .post p { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-color); }
-.post ul, .post ol { margin-left: .5rem; padding-left: .1rem; }
+.post ul, .post ol {
+  margin-left: .5rem;
+  padding-left: .7rem;
+  list-style-position: inside;
+}
+.post ul {
+  list-style-type: disc;
+}
+.post ol {
+  list-style-type: decimal;
+}
+.post li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
 .post pre,
-.post code { background: var(--code-bg); color: var(--text-color); font-family: 'Roboto Mono', monospace; }
-.post pre { padding: 1rem; border-radius: 5px; overflow-x: auto; }
-.post code { padding: .2rem .4rem; border-radius: 4px; }
+.post code { 
+  background: var(--code-bg); 
+  color: var(--text-color); 
+  font-family: 'Roboto Mono', monospace; 
+}
+.post pre { 
+  padding: 1rem; 
+  border-radius: 5px; 
+  overflow-x: auto; 
+}
+.post code { 
+  padding: .2rem .4rem; 
+  border-radius: 4px; 
+}
 .highlighter-rouge.language-plaintext{
-  background: var(--code-bg); color: var(--text-color); font-family: 'Roboto Mono', monospace;
+  background: var(--code-bg); 
+  color: var(--text-color); 
+  font-family: 'Roboto Mono', monospace;
 }
 .post blockquote {
   border-left: 4px solid var(--primary-blue);
-  padding-left: 1rem; font-style: italic; margin: 1.5rem 0;
+  padding-left: 1rem; 
+  font-style: italic; 
+  margin: 1.5rem 0;
 }
 .post table {
   width: 100%; border-collapse: collapse; margin: 1.5rem 0;

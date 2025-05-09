@@ -4,7 +4,7 @@ title: "Fechas en Coreano"
 date: 2025-03-24 00:00:00 -0300
 categories: coreano
 tags: coreano
-excerpt: Cheat Sheet de fechas y estaciones del año en coreano
+excerpt: Fechas y estaciones del año en coreano
 reading_time: "7 minutos"
 image: "https://github.com/adocman/adocman.github.io/blob/main/assets/images/cheat-sheet-fechas-coreano.png?raw=true"
 permalink: "/:categories/:title"
