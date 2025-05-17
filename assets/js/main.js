@@ -97,36 +97,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.2 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // Modal open/close + sounds
-  const modal = document.getElementById('category-modal');
-  const modalBody = document.getElementById('modal-body');
-  const btnClose = document.getElementById('modal-close');
-  document.querySelectorAll('.category-card').forEach(card => {
-    card.addEventListener('pointerenter', () => window.soundHover.play());
-    card.addEventListener('click', async () => {
-      window.soundOpen.play();
-      const category = card.dataset.category;
-      const res = await fetch(`/categorias/${category}/index.html`);
-      const html = await res.text();
-      const temp = document.createElement('div');
-      temp.innerHTML = html;
-      const section = temp.querySelector('#blog');
-      document.getElementById('modal-title').textContent = category.charAt(0).toUpperCase() + category.slice(1);
-      modalBody.innerHTML = section.innerHTML;
-      modalBody.querySelectorAll('a').forEach(a => a.setAttribute('target', '_blank'));
-      modal.classList.remove('hidden');
-    });
-  });
-  btnClose.addEventListener('click', () => {
-    window.soundClose.play();
-    modal.classList.add('hidden');
-  });
-  modal.addEventListener('click', e => {
-    if (e.target === modal) {
-      window.soundClose.play();
-      modal.classList.add('hidden');
-    }
-  });
   
 });

@@ -2,13 +2,15 @@
 layout: default
 permalink: /
 ---
+<!-- Actualización: Eliminación del modal y actualización de la apertura de categorías -->
+
 <main id="landing" class="landing">
 
   <div class="container px-5 sm:px-5 md:px-10 lg:px-12 xl:px-16 py-16">
     <h2 class="text-6xl font-bold mb-6">Hola! Soy Aarón</h2>
     <p>Ingeniero Civil Informático de día y sobrepensador de noche.</p>
     <br>
-    <p>En este sitio comparto mis apuntes, ideas y recursos sobre lo que aprendo. Si te interesa, sientete libre de usar los recursos (づ｡◕‿‿◕｡)づ</p>
+    <p>En este sitio comparto mis apuntes, ideas y recursos sobre lo que aprendo. Si te interesa, siéntete libre de usar los recursos (づ｡◕‿‿◕｡)づ</p>
   </div>
   
   <!-- CATEGORÍAS -->
@@ -21,6 +23,7 @@ permalink: /
             class="category-card group relative cursor-pointer p-6 bg-[var(--bg-sidebar)] border border-[var(--text-color)] rounded-2xl shadow-lg transition-transform hover:scale-105"
             data-category="{{ category[0] }}"
             tabindex="0"
+            onclick="window.open('/categorias/' + '{{ category[0] }}' + '/index.html', '_blank')"
           >
             <div class="flex items-center justify-between">
               <h3 class="text-2xl font-semibold text-[var(--text-color)]">{{ category[0] | capitalize }}</h3>
@@ -31,31 +34,17 @@ permalink: /
       </div>
     </div>
   </section>
-  
-  <!-- Modal genérico para categorías -->
-  <div id="category-modal" class="inset-0 bg-transparent hidden z-50 flex items-start justify-center overflow-auto p-4">
-    <div id="modal-container" class="bg-[var(--bg-main)] bg-opacity-95 text-[var(--text-color)] rounded-2xl shadow-2xl max-w-3xl w-full mx-auto my-16 relative overflow-hidden border-solid border-2">
-      <!-- botón cerrar -->
-      <button id="modal-close" class="absolute top-4 right-4 text-3xl leading-none hover:text-[var(--primary-blue)] focus:outline-none">×</button>
-      <!-- título dinámico -->
-      <h3 id="modal-title" class="px-6 pt-6 text-2xl font-bold"></h3>
-      <!-- contenido scrollable -->
-      <div id="modal-body" class="px-6 py-4 max-h-[60vh] overflow-y-auto space-y-4">
-        <!-- aquí se inyecta la lista de posts -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Navegación de iconos inferior -->
-  <div class="flex justify-center space-x-6 pt-4 border-t border-[var(--text-color)]/20">
-    <a href="https://www.instagram.com/adocman" target="_blank" class="flex flex-col items-center text-[var(--text-color)] hover:text-primary-blue transition">
-      <img src="/assets/icons/instagram.svg" alt="Instagram" class="w-6 h-6 mb-1" />
-      <span class="text-xs">Instagram</span>
-    </a>
-    <a href="https://www.github.com/adocman" target="_blank" class="flex flex-col items-center text-[var(--text-color)] hover:text-primary-blue transition">
-      <img src="/assets/icons/github.svg" alt="GitHub" class="w-6 h-6 mb-1" />
-      <span class="text-xs">GitHub</span>
-    </a>
-  </div>
 
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Sonido al interactuar con categorías
+  document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('pointerenter', () => window.soundHover.play());
+    card.addEventListener('click', () => {
+      window.soundOpen.play();
+    });
+  });
+});
+</script>
