@@ -2,27 +2,25 @@
   VARIABLES, RESET Y BASE
 ──────────────────────────────────────────────────────────────────────────────*/
 :root {
-  --primary-blue: #BB6800;       /* Terracota seco */
-  --accent-warm: #AD7A32;        /* Ocre suave */
-  --bg-main: #0f0703;            /* Marrón profundo */
-  --bg-sidebar: #1a0c01;         /* Aún más oscuro, como cuero */
-  --text-color: #F8F4ED;         /* Crema suave */
-  --code-bg: #3A1F0C;            /* Marrón para código */
-  --alt-code-bg: #F8F4ED;
+  --primary-blue: #5F90B0;         /* Azul grisáceo suave */
+  --accent-warm: #D38B5D;          /* Terracota desaturado */
+  --bg-main: #1A1410;              /* Marrón oscuro carbón */
+  --bg-sidebar: #2A1F1A;           /* Marrón cálido profundo */
+  --text-color: #F0E9E1;           /* Crema suave */
+  --code-bg: #3A2B26;              /* Marrón intermedio */
+  --alt-code-bg: #F8F1EA;          /* Crema rosado claro */
   --hero-height: 95vh;
 }
 
-
 body.light {
-  --primary-blue: #AD7A32;
-  --accent-warm: #8A6E29;
-  --bg-main: #EFE2D3;
-  --bg-sidebar: #F8F4ED;
-  --text-color: #1E1E1E;
-  --code-bg: #F8F4ED;
-  --alt-code-bg: #452103;
+  --primary-blue: #4BA9FF;
+  --accent-warm: #FF866A;
+  --bg-main: #FDF6EC;
+  --bg-sidebar: #FAF2E4;
+  --text-color: #1C1C1C;
+  --code-bg: #FAF2E4;
+  --alt-code-bg: #3A2B26;
 }
-
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeBtns = document.querySelectorAll('.theme-toggle');
   const applyTheme = mode => {
     document.body.classList.toggle('light', mode === 'light');
-    themeBtns.forEach(b => b.textContent = mode === 'light' ? '🌙' : '☀️');
+    themeBtns.forEach(b => b.textContent = mode === 'light' ? '☀️' : '🌙');
   };
   const saved = localStorage.theme || 'dark';
   applyTheme(saved);
