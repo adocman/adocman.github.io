@@ -10,7 +10,7 @@ layout: default
   <p class="text-sm mb-4 text-slate-400">
     {{ page.date | date: "%B %d, %Y" }} ·
     {% for cat in page.categories %}
-      <a href="/categorias/{{ cat | slugify }}/" class="text-blue-600 hover:underline">{{ cat }}</a>{% unless forloop.last %}, {% endunless %}
+      <a href="/categorias/{{ cat | slugify }}/" class="hover:underline">{{ cat }}</a>{% unless forloop.last %}, {% endunless %}
     {% endfor %}
      · {{ page.reading_time }}
   </p>

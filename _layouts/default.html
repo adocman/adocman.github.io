@@ -15,7 +15,7 @@
 </head>
 <body class="flex h-screen overflow-hidden">
   <!-- Progress bar -->
-  <div id="progress" class="fixed top-0 left-0 h-1 bg-blue-600 w-0 z-50"></div>
+  <div id="progress" class="fixed top-0 left-0 h-1 w-0 z-50"></div>
 
   <!-- HEADER móvil -->
   <header class="md:hidden fixed top-0 left-0 right-0 bg-(--bg-sidebar) z-20 flex items-center p-4">
@@ -56,10 +56,10 @@
   <!-- SIDEBAR escritorio (izquierda) -->
   <aside class="hidden md:block w-64 bg-(--bg-sidebar) border-r overflow-auto capitalize">
     <div class="p-4 flex items-center justify-between">
-      <span class="font-bold text-xl text-blue-600">
+      <span class="font-bold text-xl">
         <a href="{{ '/' | relative_url }}"><h2 class="ml-4 font-bold text-3xl" style="color: var(--text-color);">{{ site.title }}</h2></a>
       </span>
-      <button class="theme-toggle p-2 text-slate-50 focus:outline-none">🌙</button>
+      <button class="theme-toggle p-2 text-slate-50 focus:outline-none" onclick="window.soundOpen.play()">🌙</button>
     </div>
     <ul class="px-2 space-y-2 text-slate-50">
       {% for category in site.categories %}
@@ -87,7 +87,7 @@
   {% if page.layout == "post" %}
     <!-- TOC Sidebar (derecha, desktop-only) -->
     <aside id="toc" class="hidden lg:block w-64 bg-sidebar border-l overflow-auto p-4">
-      <div class="font-bold text-lg mb-4 text-blue-600">Tabla de contenidos</div>
+      <div class="font-bold text-lg mb-4">Tabla de contenidos</div>
       <nav>
         <ul id="toc-list" class="space-y-2 text-slate-50"></ul>
       </nav>
