@@ -10,8 +10,9 @@ permalink: "/:categories/:title"
 ---
 ## 🗓️ Días de la semana ／ 요일
 
+|  Español  | Coreano |
+| :--------: | :-----: |
 |   Lunes   | 월요일 |
-| :--------: | :----: |
 |   Martes   | 화요일 |
 | Miércoles | 수요일 |
 |   Jueves   | 목요일 |
