@@ -24,47 +24,50 @@ permalink: "/:categories/:title"
 
 | Español   | Coreano       |
 | ---------- | ------------- |
-| ENERO      | 1월 (일월)    |
-| FEBRERO    | 2월 (이월)    |
-| MARZO      | 3월 (삼월)    |
-| ABRIL      | 4월 (사월)    |
-| MAYO       | 5월 (오월)    |
-| JUNIO      | 6월 (유월)    |
-| JULIO      | 7월 (칠월)    |
-| AGOSTO     | 8월 (팔월)    |
-| SEPTIEMBRE | 9월 (구월)    |
-| OCTUBRE    | 10월 (시월)   |
-| NOVIEMBRE  | 11월 (십일월) |
-| DICIEMBRE  | 12월 (십이월) |
+| Enero      | 1월 (일월)    |
+| Febrero    | 2월 (이월)    |
+| Marzo      | 3월 (삼월)    |
+| Abril      | 4월 (사월)    |
+| Mayo       | 5월 (오월)    |
+| Junio      | 6월 (유월)    |
+| Julio      | 7월 (칠월)    |
+| Agosto     | 8월 (팔월)    |
+| Septiembre | 9월 (구월)    |
+| Octubre    | 10월 (시월)   |
+| Noviembre  | 11월 (십일월) |
+| Diciembre  | 12월 (십이월) |
 
 ## 📚 Vocabulario común
 
 | Español          | Coreano    |
 | ----------------- | ---------- |
-| DÍA              | 날         |
-| DÍA DE LA SEMANA | 요일       |
-| SEMANA            | 주(일)     |
-| MES               | 달         |
-| AÑO              | 연／년     |
-| DÍA LABORAL      | 평일       |
-| FIN DE SEMANA     | 주말       |
-| ANTES DE AYER     | 그제       |
-| AYER              | 어제       |
-| HOY               | 오늘       |
-| MAÑANA           | 내일       |
-| PASADO MAÑANA    | (내일)모레 |
-| SEMANA PASADA     | 지난주     |
-| ESTA SEMANA       | 이번 주    |
-| PRÓXIMA SEMANA   | 다음 주    |
-| MES PASADO        | 지난달     |
-| ESTE MES          | 이번 달    |
-| PRÓXIMO MES      | 다음 달    |
-| AÑO PASADO       | 작년       |
-| ESTE AÑO         | 올해       |
-| PRÓXIMO AÑO     | 내년       |
+| Día              | 날         |
+| Día de la semana | 요일       |
+| Semana            | 주(일)     |
+| Mes               | 달         |
+| Año              | 연／년     |
+| Día laboral      | 평일       |
+| Fin de semana     | 주말       |
+| Antes de ayer     | 그제       |
+| Ayer              | 어제       |
+| Hoy               | 오늘       |
+| Mañana           | 내일       |
+| Pasado mañana    | (내일)모레 |
+| Semana pasada     | 지난주     |
+| Esta semana       | 이번 주    |
+| Próxima semana   | 다음 주    |
+| Mes pasado        | 지난달     |
+| Este mes          | 이번 달    |
+| Próximo mes      | 다음 달    |
+| Año pasado       | 작년       |
+| Este año         | 올해       |
+| Próximo año     | 내년       |
 
 ## 🍃 Estaciones ／ 계절
 
-| 🌸 Primavera | ☀️ Verano | 🍁 Otoño | ❄️ Invierno |
-| :----------: | :---------: | :-------: | :-----------: |
-|      봄      |    여름    |   가을   |     겨울     |
+| Español | Coreano |
+| :-------: | :-----: |
+| Primavera |   봄   |
+|  Verano  |  여름  |
+|  Otoño  |  가을  |
+| Invierno |  겨울  |
