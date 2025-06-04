@@ -1,19 +1,23 @@
 ---
 layout: post
 title: "Fechas en Coreano"
-date: 2025-03-24 00:00:00 -0300
+date: 2025-06-03 00:00:00 -0300
 categories: coreano
 tags: coreano
 excerpt: Fechas y estaciones del año en coreano
 reading_time: "7 minutos"
-image: "https://github.com/adocman/adocman.github.io/blob/main/assets/images/cheat-sheet-fechas-coreano.png?raw=true"
 permalink: "/:categories/:title"
 ---
 ## 🗓️ Días de la semana ／ 요일
 
-| Lunes | Martes | Miércoles | Jueves | Viernes | Sábado | Domingo |
-| :----: | :----: | :--------: | :----: | :-----: | :-----: | :-----: |
-| 월요일 | 화요일 |   수요일   | 목요일 | 금요일 | 토요일 | 일요일 |
+|   Lunes   | 월요일 |
+| :--------: | :----: |
+|   Martes   | 화요일 |
+| Miércoles | 수요일 |
+|   Jueves   | 목요일 |
+|  Viernes  | 금요일 |
+|  Sábado  | 토요일 |
+|  Domingo  | 일요일 |
 
 ## 📆 Meses del año ／ 달
 
@@ -63,7 +67,3 @@ permalink: "/:categories/:title"
 | 🌸 Primavera | ☀️ Verano | 🍁 Otoño | ❄️ Invierno |
 | :----------: | :---------: | :-------: | :-----------: |
 |      봄      |    여름    |   가을   |     겨울     |
-
-[Descargar Imágen Tema Claro](https://github.com/adocman/adocman.github.io/blob/main/assets/downloads/cheat-sheet-fechas-coreano-claro.jpg?raw=true){: download="cheat-sheet-fechas-coreano-claro.jpg"}
-
-[Descargar Imágen Tema Oscuro](https://github.com/adocman/adocman.github.io/blob/main/assets/downloads/cheat-sheet-fechas-coreano-oscuro.jpg?raw=true){: download="cheat-sheet-fechas-coreano-oscuro.jpg"}
