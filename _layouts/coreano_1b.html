@@ -1,0 +1,1759 @@
+---
+layout: default
+---
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva de Coreano Básico 1B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: The SPA is designed as a single-page, vertically scrollable interactive guide for Korean Basic 1B. It features distinct thematic sections (e.g., "Lugares y Pasado", "Planes y Hobbies", "Familia y Honoríficos"), each containing all relevant learning components. There is no sidebar navigation for units; instead, users scroll through logical content blocks. Each block includes vocabulary flashcards (categorized), collapsible grammar explanations, interactive sentence builders (for specific grammar points), and a short quiz. A comprehensive 30-question final quiz is located at the very end of the page. This structure provides a linear, narrative learning path while still offering interactivity within each theme, making content discovery intuitive and progressive. -->
+    <!-- Visualization & Content Choices: 
+        - General Introduction: Goal: Inform. Viz/Method: Styled text block. Interaction: None. Justification: Sets the stage and explains app functionality. Method: HTML/Tailwind.
+        - Thematic Section Introductions: Goal: Inform. Viz/Method: Styled text blocks. Interaction: None. Justification: Provides context for each major content area. Method: HTML/Tailwind.
+        - Vocabulary (All Categories): Goal: Organize/Inform. Viz/Method: Interactive Flashcards (grouped by type). Interaction: Click to flip. Justification: Promotes active recall and visual distinction between word types. Method: HTML/JS/Tailwind.
+        - Grammar Explanations: Goal: Inform/Organize. Viz/Method: Collapsible Accordions. Interaction: Click to expand/collapse. Justification: Manages information density and allows user-paced learning. Method: HTML/JS/Tailwind.
+        - Sentence Builders (-에서, Past Tense, Future, Honorifics, Direction/Purpose): Goal: Relationships/Engage. Viz/Method: Interactive button-based builders. Interaction: User clicks options to dynamically generate and display sentences. Justification: Makes abstract grammar tangible and provides immediate practical application. Method: HTML/JS/Tailwind.
+        - Section Quizzes: Goal: Assess. Viz/Method: Multiple-choice questions with instant feedback. Interaction: Select answer, get feedback, reset. Justification: Reinforces learning within specific thematic contexts. Method: HTML/JS/Tailwind.
+        - Final Quiz: Goal: Assess. Viz/Method: Comprehensive multiple-choice quiz (30 questions). Interaction: Select answer, get feedback, reset for new attempt. Justification: Provides a holistic evaluation of knowledge gained across all units. Method: HTML/JS/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #BB6800; /* Terracota oscuro */
+            --accent-warm: #AD7A32; /* Ocre suave */
+            --bg-main: #EFE2D3; /* Marrón claro */
+            --bg-card: #F8F4ED; /* Crema muy claro, para fondos de secciones */
+            --text-color: #1E1E1E; /* Negro casi */
+            --border-color: #D1C4B3; /* Un tono más claro de bg-main para bordes sutiles */
+        }
+
+        body {
+            font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-color);
+        }
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard {
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            transform-origin: center center;
+            height: 100%; /* Ensure flashcard takes full height of container */
+        }
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            text-align: center;
+            border-radius: 0.5rem;
+        }
+        .flashcard-face {
+            transform: rotateY(0deg);
+            z-index: 2;
+            background-color: var(--bg-card);
+            border: 1px solid var(--accent-warm);
+            color: var(--text-color);
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+            z-index: 1;
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        .korean-text {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-warm);
+        }
+        .quiz-option {
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: rgba(138, 110, 41, 0.1);
+            border-color: var(--accent-warm);
+            color: var(--text-color);
+        }
+        .quiz-option.incorrect {
+            background-color: rgba(187, 104, 0, 0.1);
+            border-color: var(--primary-blue);
+            color: var(--text-color);
+        }
+        details[open] > summary .arrow-icon {
+            transform: rotate(180deg);
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .interactive-builder-btn {
+            transition: all 0.2s ease-in-out;
+            background-color: var(--bg-card);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .interactive-builder-btn:hover {
+            background-color: var(--accent-warm);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .interactive-builder-btn.selected {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 3px var(--primary-blue);
+            color: white;
+            background-color: var(--primary-blue);
+        }
+        .builder-output {
+            transition: all 0.5s ease;
+            min-height: 120px;
+            padding-bottom: 6rem;
+        }
+        .section-header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+
+        <header class="section-header">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">Guía Interactiva de Coreano Básico 1B</h1>
+            <p class="text-lg md:text-xl opacity-90">Tu herramienta personal para dominar el coreano</p>
+        </header>
+
+        <main id="main-content" class="space-y-12 md:space-y-16">
+            <section id="introduccion" class="bg-white rounded-xl shadow-lg p-8" style="background-color: var(--bg-card); color: var(--text-color);">
+                <h2 class="text-3xl font-bold mb-4 text-center" style="color: var(--primary-blue);">안녕하세요!</h2>
+                <p class="text-lg mb-6">Creé este recurso para estudiar la materia del curso de coreano básico 1B del Instituto Rey Sejong a partir de mis apuntes, siéntete libre de usarlos!</p>
+                <p class="mb-4">En esta guía, encontrarás:</p>
+                <ul class="list-disc list-inside text-left mx-auto mb-6">
+                    <li>Vocabulario: Flashcards para memorizar palabras clave de lugares, verbos y familia.</li>
+                    <li>Gramática: Explicaciones con ejemplos de partículas y conjugaciones de tiempo.</li>
+                    <li>Constructores de Frases: Sirve para ver cómo se combina el vocabulario y el uso de la gramática.</li>
+                    <li>Cuestionarios de Sección: Pequeños tests para verificar el estado de lo aprendido en cada tema.</li>
+                    <li>Cuestionario Final: Un cuestionario de 38 preguntas para evaluar todo.</li>
+                </ul>
+            </section>
+
+            <!-- Sección 1: Lugares, Acciones y el Pasado (Unidad 8) -->
+            <section id="unidad-8" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 1: Lugares, Acciones y el Pasado</h2>
+                    <p class="text-lg opacity-90">(Unidad 8 del libro de coreano práctico: 도서관에서 뭐 했어요? - ¿Qué hiciste en la biblioteca?)</p>
+                    <p class="mt-4 text-gray-700">En esta sección, aprenderás a describir dónde realizas actividades y cómo expresar acciones que ya sucedieron. Es fundamental para hablar sobre tus experiencias.</p>
+                </div>
+
+                ${renderVocabularySection('placesAndNouns', studyData["8"].placesAndNouns, 'Vocabulario: Lugares y Sustantivos')}
+                ${renderVocabularySection('verbsAndActions', studyData["8"].verbsAndActions, 'Vocabulario: Verbos y Acciones')}
+                
+                ${renderGrammarSection(studyData["8"].expressions)}
+
+                ${createSentenceBuilderHtml(studyData["8"].sentenceBuilders[0])}
+                ${createSentenceBuilderHtml(studyData["8"].sentenceBuilders[1])}
+
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 1</h3>
+                    <p class="mb-6">Pon a prueba tus conocimientos sobre lugares, acciones y el pasado.</p>
+                    <div id="quiz-questions-8"></div>
+                </div>
+            </section>
+
+            <!-- Sección 2: Planes, Hobbies y Frecuencia (Unidad 9) -->
+            <section id="unidad-9" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 2: Planes, Hobbies y Frecuencia</h2>
+                    <p class="text-lg opacity-90">(Unidad 9 del libro de coreano práctico: 다음 주말에 같이 축구해요 - La próxima semana jugaremos fútbol juntos)</p>
+                    <p class="mt-4 text-gray-700">Descubre cómo hablar de tus pasatiempos, hacer planes y expresar la frecuencia de tus actividades. ¡Ideal para invitar a amigos o describir tu rutina!</p>
+                </div>
+                ${renderVocabularySection('placesAndNouns', studyData["9"].placesAndNouns, 'Vocabulario: Hobbies y Sustantivos')}
+                ${renderVocabularySection('verbsAndActions', studyData["9"].verbsAndActions, 'Vocabulario: Verbos de Hobbies y Frecuencia')}
+                
+                ${renderGrammarSection(studyData["9"].expressions)}
+
+                ${createSentenceBuilderHtml(studyData["9"].sentenceBuilders[0])}
+
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 2</h3>
+                    <p class="mb-6">Pon a prueba tus conocimientos sobre planes, hobbies y adverbios de frecuencia.</p>
+                    <div id="quiz-questions-9"></div>
+                </div>
+            </section>
+
+            <!-- Sección 3: La Familia y el Habla Honorífica (Unidad 10) -->
+            <section id="unidad-10" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 3: La Familia y el Habla Honorífica</h2>
+                    <p class="text-lg opacity-90">(Unidad 10 del libro de coreano práctico: 낚시를 하러 갔어요 - Fui a pescar)</p>
+                    <p class="mt-4 text-gray-700">Aprende sobre los miembros de la familia y, lo más importante, cómo usar las formas honoríficas para mostrar respeto en coreano. Un aspecto clave de la cultura coreana.</p>
+                </div>
+                ${renderVocabularySection('placesAndNouns', studyData["10"].placesAndNouns, 'Vocabulario: Miembros de la Familia y Sustantivos Honoríficos')}
+                ${renderVocabularySection('verbsAndActions', studyData["10"].verbsAndActions, 'Vocabulario: Verbos Honoríficos')}
+                
+                ${renderGrammarSection(studyData["10"].expressions)}
+
+                ${createSentenceBuilderHtml(studyData["10"].sentenceBuilders[0])}
+                ${createSentenceBuilderHtml(studyData["10"].sentenceBuilders[1])}
+
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 3</h3>
+                    <p class="mb-6">Pon a prueba tus conocimientos sobre vocabulario de la familia y el uso del lenguaje honorífico.</p>
+                    <div id="quiz-questions-10"></div>
+                </div>
+            </section>
+
+            <!-- Sección 4: Deseos, sugerencias y descripciones (Unidad 11) -->
+            <section id="unidad-11" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 4: Deseos, sugerencias y descripciones</h2>
+                    <p class="text-lg opacity-90">(Unidad 11 del libro de coreano práctico: ${studyData["11"].title})</p>
+                    <p class="mt-4 text-gray-700">${studyData["11"].theme} ${studyData["11"].functions}</p>
+                </div>
+                ${renderVocabularySection('adjectives', studyData["11"].adjectives, 'Vocabulario: Adjetivos')}
+                ${renderVocabularySection('verbsAndActions', studyData["11"].verbsAndActions, 'Vocabulario: Verbos')}
+                
+                ${renderGrammarSection(studyData["11"].expressions)}
+
+                ${studyData["11"].sentenceBuilders.map(builder => createSentenceBuilderHtml(builder)).join('')}
+
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 4</h3>
+                    <p class="mb-6">Pon a prueba tus conocimientos sobre deseos, sugerencias y descripciones.</p>
+                    <div id="quiz-questions-11"></div>
+                </div>
+            </section>
+
+            <!-- Sección 5: El clima, la ropa y las predicciones (Unidad 12) -->
+            <section id="unidad-12" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 5: El clima, la ropa y las predicciones</h2>
+                    <p class="text-lg opacity-90">(Unidad 12 del libro de coreano práctico: ${studyData["12"].title})</p>
+                    <p class="mt-4 text-gray-700">${studyData["12"].theme} ${studyData["12"].functions}</p>
+                </div>
+                ${renderVocabularySection('weather', studyData["12"].weather, 'Vocabulario: Clima y fenómenos naturales')}
+                ${renderVocabularySection('clothes', studyData["12"].clothes, 'Vocabulario: Ropa y objetos relacionados al clima')}
+                ${renderVocabularySection('importantVerbs', studyData["12"].importantVerbs, 'Vocabulario: Verbos importantes')}
+                
+                ${renderGrammarSection(studyData["12"].expressions)}
+
+                ${studyData["12"].sentenceBuilders.map(builder => createSentenceBuilderHtml(builder)).join('')}
+
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 5</h3>
+                    <p class="mb-6">Pon a prueba tus conocimientos sobre el clima, la ropa y las predicciones.</p>
+                    <div id="quiz-questions-12"></div>
+                </div>
+            </section>
+
+            <!-- Cuestionario Final -->
+            <section id="final-quiz-section" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Cuestionario Final</h2>
+                    <p class="text-lg opacity-90">¡Demuestra todo lo que has aprendido!</p>
+                    <p class="mt-4 text-gray-700">Este cuestionario de 30 preguntas abarca toda la materia de las unidades. ¡Mucha suerte!</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">Cuestionario Global</h3>
+                    <p class="mb-6">Pon a prueba tus conocimientos de todas las unidades.</p>
+                    <div id="final-quiz-questions">
+                        <!-- Final Quiz questions will be rendered here by JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Consolidated study data
+        const studyData = {
+            "8": {
+                title: "도서관에서 뭐 했어요?",
+                translation: "¿Qué hiciste en la biblioteca?",
+                theme: "Lugares y actividades pasadas.",
+                functions: "Preguntar y responder sobre lugares y acciones pasadas.",
+                placesAndNouns: [
+                    { kor: "공원", esp: "parque" }, { kor: "공연장", esp: "sala de conciertos" },
+                    { kor: "병원", esp: "hospital" }, { kor: "백화점", esp: "centro comercial" },
+                    { kor: "시장", esp: "mercado" }, { kor: "약국", esp: "farmacia" },
+                    { kor: "영화관", esp: "cine" }, { kor: "은행", esp: "banco" },
+                    { kor: "편의점", esp: "tienda de conveniencia" }, { kor: "꽃집", esp: "florería" },
+                    { kor: "도서관", esp: "biblioteca" }, { kor: "수영장", esp: "piscina" },
+                    { kor: "놀이공원", esp: "parque de diversiones" }, { kor: "박물관", esp: "museo" },
+                    { kor: "미용실", esp: "peluquería" }, { kor: "운동장", esp: "cancha de deportes" },
+                    { kor: "우체국", esp: "oficina de correos" }, { kor: "카페", esp: "cafetería" },
+                    { kor: "체육관", esp: "gimnasio" }, { kor: "회사", esp: "empresa" },
+                    { kor: "농구장", esp: "cancha de básquetbol" }
+                ],
+                verbsAndActions: [
+                    { kor: "다녀오다", esp: "ir y volver (hacer una visita)", present: "다녀와요", past: "다녀왔어요" },
+                    { kor: "쇼핑하다", esp: "ir de compras", present: "쇼핑해요", past: "쇼핑했어요" },
+                    { kor: "가다", esp: "ir", present: "가요", past: "갔어요" },
+                    { kor: "만나다", esp: "encontrarse con alguien", present: "만나요", past: "만났어요" },
+                    { kor: "산책하다", esp: "pasear", present: "산책해요", past: "산책했어요" },
+                    { kor: "게임을 하다", esp: "jugar videojuegos/juegos", present: "게임을 해요", past: "게임을 했어요" },
+                    { kor: "낮잠을 자다", esp: "dormir siesta", present: "낮잠을 자요", past: "낮잠을 잤어요" },
+                    { kor: "농구를 하다", esp: "jugar básquetbol", present: "농구를 해요", past: "농구를 했어요" },
+                    { kor: "신청하다", esp: "inscribirse", present: "신청해요", past: "신청했어요" },
+                    { kor: "요리하다", esp: "cocinar", present: "요리해요", past: "요리했어요" },
+                    { kor: "자전거를 타다", esp: "andar en bicicleta", present: "자전거를 타요", past: "자전거를 탔어요" },
+                    { kor: "집안일을 하다", esp: "hacer tareas del hogar", present: "집안일을 해요", past: "집안일을 했어요" },
+                    { kor: "한국어를 배우다", esp: "aprender coreano", present: "한국어를 배워요", past: "한국어를 배웠어요" },
+                    { kor: "꽃을 구경하다", esp: "ver flores (pasear para verlas)", present: "꽃을 구경해요", past: "꽃을 구경했어요" },
+                    { kor: "책을 빌리다", esp: "pedir libros prestados", present: "책을 빌려요", past: "책을 빌렸어요" },
+                    { kor: "수영하다", esp: "nadar", present: "수영해요", past: "수영했어요" },
+                    { kor: "놀다", esp: "jugar/pasarla bien", present: "놀아요", past: "놀았어요" },
+                    { kor: "전시를 구경하다", esp: "ver una exposición", present: "전시를 구경해요", past: "전시를 구경했어요" },
+                    { kor: "머리를 하다", esp: "hacerse el pelo/peinarse", present: "머리를 해요", past: "머리를 했어요" },
+                    { kor: "머리카락을 자르다", esp: "cortarse el pelo", present: "머리카락을 잘라요", past: "머리카락을 잘랐어요" },
+                    { kor: "달리다", esp: "correr", present: "달려요", past: "달렸어요" },
+                    { kor: "보내다", esp: "enviar (cartas, paquetes)", present: "보내요", past: "보냈어요" }
+                ],
+                expressions: [
+                    { 
+                        grammar: "-에서 (lugar de acción)", 
+                        usage: "La partícula `-에서` se utiliza para indicar el lugar donde se realiza una acción. Es el sitio en el que tiene lugar el verbo. <br>Estructura: [Lugar] + 에서 + [Verbo]. <br>Ejemplos: <strong class='korean-text'>도서관에서 책을 빌려요.</strong> (Pido prestado un libro en la biblioteca.), <strong class='korean-text'>카페에서 친구를 만나요.</strong> (Me encuentro con un amigo en la cafetería.)" 
+                    },
+                    { 
+                        grammar: "Pasado: -았어요 / -었어요 / -했어요 / -였어요", 
+                        usage: "Estas terminaciones indican que algo ya sucedió. La forma del pasado depende de la vocal o la terminación de la raíz del verbo.<br>1. Raíz en 아/오: Añadir -았어요 (ej. <strong class='korean-text'>가다 → 갔어요</strong>).<br>2. Raíz en otras vocales: Añadir -었어요 (ej. <strong class='korean-text'>먹다 → 먹었어요</strong>).<br>3. Verbos en 하다: Cambiar a -했어요 (ej. <strong class='korean-text'>공부하다 → 공부했어요</strong>).<br>4. Verbo 이다 (ser): Cambiar a -였어요 (ej. <strong class='korean-text'>학생이에요 → 학생이었어요</strong>)." 
+                    }
+                ],
+                quiz: [
+                    { question: "¿Qué partícula se usa para indicar el lugar donde se realiza una acción?", options: ["-에", "-에서", "-이/가", "-은/는"], correctAnswer: 1 },
+                    { question: "¿Cuál es la forma pasada de '먹다' (comer)?", options: ["먹어요", "먹을 거예요", "먹었어요", "먹으세요"], correctAnswer: 2 },
+                    { question: "¿Qué significa '백화점'?", options: ["Mercado", "Biblioteca", "Centro comercial", "Hospital"], correctAnswer: 2 },
+                    { question: "Traduce 'Fui al mercado'.", options: ["시장에 갔어요", "시장에서 갔어요", "시장이 갔어요", "시장은 갔어요"], correctAnswer: 0 },
+                    { question: "La forma pasada de '하다' (hacer) es:", options: ["해요", "할 거예요", "했어요", "하세요"], correctAnswer: 2 },
+                    { question: "¿Dónde comprarías medicinas?", options: ["백화점", "약국", "병원", "도서관"], correctAnswer: 1 },
+                    { question: "Traduce 'Vi una película en el cine'.", options: ["영화관에서 영화를 봤어요", "영화관으로 영화를 봤어요", "영화관에 영화를 봤어요", "영화관에서 영화를 볼 거예요"], correctAnswer: 0 },
+                    { question: "Si alguien pregunta '어제 뭐 했어요?' (¿Qué hiciste ayer?), una respuesta adecuada sería:", options: ["내일 운동할 거예요", "오늘 요리해요", "친구를 만났어요", "책을 읽고 싶어요"], correctAnswer: 2 },
+                    { question: "¿Qué lugar visitarías para pedir dinero prestado?", options: ["은행", "우체국", "편의점", "식당"], correctAnswer: 0 },
+                    { question: "La terminación -았어요/-었어요 se usa para expresar:", options: ["Futuro", "Presente", "Pasado", "Sugerencia"], correctAnswer: 2 }
+                ],
+                sentenceBuilders: [
+                    {
+                        type: "particula-eseo",
+                        title: "Creador de Frases con '-에서'",
+                        description: "Elige un lugar y una acción para construir una oración usando la partícula -에서.",
+                        places: [
+                            { kor: "학교", esp: "escuela" }, { kor: "도서관", esp: "biblioteca" },
+                            { kor: "카페", esp: "cafetería" }, { kor: "집", esp: "casa" },
+                            { kor: "시장", esp: "mercado" }, { kor: "체육관", esp: "gimnasio" }
+                        ],
+                        actions: [
+                            { kor: "공부해요", esp: "estudio/a" }, { kor: "책을 읽어요", esp: "leo/lee un libro" },
+                            { kor: "커피를 마셔요", esp: "bebo/bebe café" }, { kor: "쉬어요", esp: "descanso/a" },
+                            { kor: "친구를 만나요", esp: "me encuentro/se encuentra con un amigo" }, { kor: "요리해요", esp: "cocino/a" }
+                        ],
+                        build: (place, action) => ({
+                            korean: `${place.kor}에서 ${action.kor}.`,
+                            spanish: `${action.esp} en la ${place.esp}.`
+                        })
+                    },
+                    {
+                        type: "pasado",
+                        title: "Conjugador de Verbos en Pasado",
+                        description: "Selecciona un verbo para ver su forma conjugada en pasado y un ejemplo.",
+                        verbs: [
+                            { kor: "가다", esp: "ir", past: "갔어요", example: "어제 공원에 <strong class='korean-text'>갔어요</strong>. (Ayer fui al parque.)" },
+                            { kor: "먹다", esp: "comer", past: "먹었어요", example: "밥을 맛있게 <strong class='korean-text'>먹었어요</strong>. (Comí la comida deliciosamente.)" },
+                            { kor: "공부하다", esp: "estudiar", past: "공부했어요", example: "어제 많이 <strong class='korean-text'>공부했어요</strong>. (Ayer estudié mucho.)" },
+                            { kor: "오다", esp: "venir", past: "왔어요", example: "친구가 집에 <strong class='korean-text'>왔어요</strong>. (Mi amigo vino a casa.)" },
+                            { kor: "읽다", esp: "leer", past: "읽었어요", example: "도서관에서 책을 <strong class='korean-text'>읽었어요</strong>. (Leí un libro en la biblioteca.)" },
+                            { kor: "운동하다", esp: "hacer ejercicio", past: "운동했어요", example: "체육관에서 <strong class='korean-text'>운동했어요</strong>. (Hice ejercicio en el gimnasio.)" },
+                            { kor: "보다", esp: "ver", past: "봤어요", example: "영화를 <strong class='korean-text'>봤어요</strong>. (Vi una película.)" },
+                            { kor: "자다", esp: "dormir", past: "잤어요", example: "집에서 <strong class='korean-text'>잤어요</strong>. (Dormí en casa.)" },
+                            { kor: "듣다", esp: "escuchar", past: "들었어요", example: "음악을 <strong class='korean-text'>들었어요</strong>. (Escuché música.)" }
+                        ],
+                        build: (verb) => ({
+                            korean: `${verb.past}`,
+                            spanish: `Forma en infinitivo: ${verb.kor} (${verb.esp})<br>${verb.example}`
+                        })
+                    }
+                ]
+            },
+            "9": {
+                title: "다음 주말에 같이 축구해요",
+                translation: "La próxima semana jugaremos fútbol juntos",
+                theme: "Planes y pasatiempos. Invitar y sugerir.",
+                functions: "Preguntar y responder sobre pasatiempos y planes. Hacer invitaciones y sugerencias.",
+                placesAndNouns: [
+                    { kor: "테니스를 치다", esp: "jugar tenis" }, { kor: "축구를 하다", esp: "jugar fútbol" },
+                    { kor: "낚시를 하다", esp: "pescar" }, { kor: "등산을 하다", esp: "hacer senderismo" },
+                    { kor: "그림을 그리다", esp: "dibujar" }, { kor: "기타를 치다", esp: "tocar la guitarra" },
+                    { kor: "춤을 추다", esp: "bailar" }, { kor: "노래를 부르다", esp: "cantar" },
+                    { kor: "음악을 듣다", esp: "escuchar música" }, { kor: "사진을 찍다", esp: "sacar fotos" },
+                    { kor: "요리하다", esp: "cocinar" }, { kor: "컴퓨터 게임", esp: "juegos de computadora" },
+                    { kor: "여행", esp: "viaje" }, { kor: "숙제", esp: "tarea" },
+                    { kor: "수영", esp: "natación" }, { kor: "운전 연습", esp: "práctica de conducción" },
+                    { kor: "방학", esp: "vacaciones escolares" }, { kor: "휴가", esp: "vacaciones" }
+                ],
+                verbsAndActions: [
+                    { kor: "하다", esp: "hacer", future: "할 거예요" },
+                    { kor: "치다", esp: "tocar/jugar", future: "칠 거예요" },
+                    { kor: "배우다", esp: "aprender", future: "배울 거예요" },
+                    { kor: "듣다", esp: "escuchar", future: "들을 거예요" },
+                    { kor: "보다", esp: "ver", future: "볼 거예요" },
+                    { kor: "부르다", esp: "cantar", future: "부를 거예요" },
+                    { kor: "찍다", esp: "sacar", future: "찍을 거예요" },
+                    { kor: "걷다", esp: "caminar", future: "걸을 거예요" }
+                ],
+                expressions: [
+                    { grammar: "Planes a futuro: -(으)ㄹ 거예요", usage: "Se usa para decir que vas a hacer algo o para expresar una intención o predicción futura. <br>1. Raíz del verbo termina en consonante: <strong class='korean-text'>-을 거예요</strong> (ej. <strong class='korean-text'>먹다 → 먹을 거예요</strong>).<br>2. Raíz del verbo termina en vocal: <strong class='korean-text'>-ㄹ 거예요</strong> (ej. <strong class='korean-text'>가다 → 갈 거예요</strong>).<br>Ejemplo: <strong class='korean-text'>친구는 기타를 칠 거예요.</strong> (Mi amigo tocará la guitarra.)" },
+                    { grammar: "Adverbios de frecuencia", usage: "Para expresar con qué frecuencia realizas una acción.<br>Ejemplos: <strong class='korean-text'>매일</strong> (todos los días), <strong class='korean-text'>항상</strong> (siempre), <strong class='korean-text'>자주</strong> (frecuentemente), <strong class='korean-text'>가끔</strong> (a veces), <strong class='korean-text'>별로 안</strong> (casi no), <strong class='korean-text'>거의 안</strong> (casi nunca), <strong class='korean-text'>전혀 안</strong> (nunca).<br>Ejemplo: <strong class='korean-text'>저는 지하철에서 항상 음악을 들어요.</strong> (Siempre escucho música en el metro.)" },
+                    { grammar: "Sugerencias: -(으)ㄹ까요?", usage: "Se usa para hacer una sugerencia o preguntar la opinión de alguien sobre hacer algo juntos. Tipo “¿Vamos?” o “¿Hacemos…?” <br>1. Verbo con 받침 (consonante final): <strong class='korean-text'>-을까요?</strong><br>2. Verbo sin 받침 (vocal final): <strong class='korean-text'>-ㄹ까요?</strong><br>Ejemplo: <strong class='korean-text'>같이 축구를 할까요?</strong> (¿Jugamos fútbol juntos?)" },
+                    { grammar: "Hablar sobre hobbies: 취미가 뭐예요?", usage: "Para preguntar y hablar sobre pasatiempos. <br>Pregunta: <strong class='korean-text'>취미가 뭐예요?</strong> (¿Cuál es tu hobby?) <br>Respuestas: <strong class='korean-text'>제 취미는 … 예요.</strong> (Mi hobby es…), <strong class='korean-text'>저는 …를 좋아해요.</strong> (Me gusta…), <strong class='korean-text'>…에서 … 해요.</strong> (Hago … en …).<br>Ejemplo: <strong class='korean-text'>제 취미는 춤추기예요.</strong> (Mi hobby es bailar.)" }
+                ],
+                quiz: [
+                    { question: "¿Qué expresión se usa para planes futuros o intenciones?", options: ["-어서/-아서", "-(으)ㄹ 거예요", "-고 싶다", "-ㅂ시다"], correctAnswer: 1 },
+                    { question: "¿Qué palabra coreana significa 'a menudo'?", options: ["가끔", "별로 안", "전혀 안", "자주"], correctAnswer: 3 },
+                    { question: "Si quieres sugerir 'Let's watch a movie!', ¿cómo lo dirías usando -(으)ㄹ까요?", options: ["영화를 봐요", "영화를 볼 거예요", "영화를 볼까요?", "영화를 보세요"], correctAnswer: 2 },
+                    { question: "¿Qué significa '요리하다'?", options: ["Dibujar", "Cocinar", "Pescar", "Hacer ejercicio"], correctAnswer: 1 },
+                    { question: "Para expresar 'no mucho', ¿qué usarías?", options: ["자주", "가끔", "별로 안", "전혀 안"], correctAnswer: 2 },
+                    { question: "Traduce 'Escucho música'.", options: ["음악을 들을 거예요", "음악을 들었어요", "음악을 들어요", "음악을 듣고 싶어요"], correctAnswer: 2 },
+                    { question: "Si un amigo te dice '같이 운동해요' (Hagamos ejercicio juntos), ¿qué te está haciendo?", options: ["Preguntando su opinión", "Dándole una orden", "Haciéndole una invitación", "Preguntando sobre su pasado"], correctAnswer: 2 },
+                    { question: "¿Cuál de estos es un pasatiempo?", options: ["학교", "시장", "사진을 찍다", "은행"], correctAnswer: 2 },
+                    { question: "¿Qué significa '다음 주말에'?", options: ["El fin de semana pasado", "Mañana", "La próxima semana", "El próximo fin de semana"], correctAnswer: 3 },
+                    { question: "La forma '-(으)ㄹ까요?' se usa para:", options: ["Declaraciones", "Preguntas honoríficas", "Sugerencias con pregunta", "Acciones completadas"], correctAnswer: 2 }
+                ],
+                sentenceBuilders: [
+                    {
+                        type: "futuro",
+                        title: "Creador de Frases en Futuro: -(으)ㄹ 거예요",
+                        description: "Elige un verbo y un lugar (opcional) para construir una oración en futuro.",
+                        places: [
+                            { kor: "학교에서", esp: "en la escuela" }, { kor: "집에서", esp: "en casa" },
+                            { kor: "공연장에서", esp: "en la sala de conciertos" }, { kor: "도서관에서", esp: "en la biblioteca" },
+                            { kor: "내일", esp: "mañana" }, { kor: "다음 주말에", esp: "el próximo fin de semana" },
+                            { kor: "", esp: "(sin lugar/tiempo)" }
+                        ],
+                        actions: [
+                            { kor: "공부하다", esp: "estudiar", future: "공부할 거예요" },
+                            { kor: "요리하다", esp: "cocinar", future: "요리할 거예요" },
+                            { kor: "축구를 하다", esp: "jugar fútbol", future: "축구를 할 거예요" },
+                            { kor: "영화를 보다", esp: "ver una película", future: "영화를 볼 거예요" },
+                            { kor: "책을 읽다", esp: "leer un libro", future: "책을 읽을 거예요" },
+                            { kor: "음악을 듣다", esp: "escuchar música", future: "음악을 들을 거예요" }
+                        ],
+                        build: (place, action) => ({
+                            korean: `${place.kor} ${action.future}.`,
+                            spanish: `(Voy a ${action.esp} ${place.esp}).`
+                        })
+                    }
+                ]
+            },
+            "10": {
+                title: "낚시를 하러 갔어요",
+                translation: "Fui a pescar",
+                theme: "La familia y el habla honorífica.",
+                functions: "Presentar a los miembros de la familia y hablar sobre visitar lugares. Describir lo que la familia hace o hizo, usando honoríficos.",
+                placesAndNouns: [
+                    { kor: "할아버지", esp: "abuelo paterno" }, { kor: "할머니", esp: "abuela paterna" },
+                    { kor: "아버지", esp: "padre" }, { kor: "어머니", esp: "madre" },
+                    { kor: "형", esp: "hermano mayor (hombre)" }, { kor: "오빠", esp: "hermano mayor (mujer)" },
+                    { kor: "누나", esp: "hermana mayor (hombre)" }, { kor: "언니", esp: "hermana mayor (mujer)" },
+                    { kor: "남동생", esp: "hermano menor" }, { kor: "여동생", esp: "hermana menor" },
+                    { kor: "남편", esp: "esposo" }, { kor: "아내", esp: "esposa" },
+                    { kor: "아들", esp: "hijo" }, { kor: "딸", esp: "hija" },
+                    { kor: "고모", esp: "tía paterna" }, { kor: "삼촌", esp: "tío paterno" },
+                    { kor: "이모", esp: "tía materna" }, { kor: "외삼촌", esp: "tío materno" },
+                    { kor: "큰아버지", esp: "hermano mayor del padre" }, { kor: "고모부", esp: "esposo de la tía paterna" },
+                    { kor: "조카", esp: "sobrino/a" } // Added from quiz
+                ],
+                verbsAndActions: [
+                    { kor: "가다", esp: "ir", honorific: "가시다" },
+                    { kor: "오다", esp: "venir", honorific: "오시다" },
+                    { kor: "먹다 / 마시다", esp: "comer / beber", honorific: "드시다" },
+                    { kor: "자다", esp: "dormir", honorific: "주무시다" },
+                    { kor: "있다", esp: "estar", honorific: "계시다" },
+                    { kor: "말하다", esp: "hablar", honorific: "말씀하시다" },
+                    { kor: "죽다", esp: "morir", honorific: "돌아가시다" },
+                    { kor: "주다", esp: "dar", honorific: "드리다" },
+                    { kor: "보다", esp: "ver", honorific: "뵙다" },
+                    { kor: "묻다", esp: "preguntar", honorific: "여쭙다" },
+                    { kor: "읽다", esp: "leer", honorific: "읽으시다" }, // Added from examples
+                    { kor: "만나다", esp: "encontrarse", honorific: "만나시다" } // Added from examples
+                ],
+                expressions: [
+                    { grammar: "Habla Honorífica: -(으)시- / -시-", usage: "Se usa para mostrar respeto cuando el sujeto es una persona mayor o de mayor jerarquía (padres, profesores, abuelos...).<br>1. Si el verbo termina en consonante: <strong class='korean-text'>-으시-</strong> (ej. <strong class='korean-text'>읽다 → 읽으시다</strong>).<br>2. Si el verbo termina en vocal: <strong class='korean-text'>-시-</strong> (ej. <strong class='korean-text'>가다 → 가시다</strong>).<br>Ejemplo: <strong class='korean-text'>아버지께서 집에 가세요.</strong> (Mi papá va a casa.)" },
+                    { grammar: "Partícula Honorífica: 께서", usage: "Equivale a la partícula <strong class='korean-text'>이/가</strong> pero en forma honorífica, usada con sujetos de respeto.<br>Ejemplo: <strong class='korean-text'>아버지가 집에 가요 (no honorífico) → 아버지께서 집에 가세요 (honorífico).</strong>" },
+                    { grammar: "(으)로 가요 / (으)러 가요", usage: "Para indicar a dónde y por qué vas.<br>1. <strong class='korean-text'>(으)로 가요</strong>: indica <strong class='korean-text'>dirección o destino</strong> (ej. <strong class='korean-text'>집으로 가요</strong> → Voy a casa).<br>2. <strong class='korean-text'>(으)러 가요</strong>: indica <strong class='korean-text'>propósito o motivo</strong> (ej. <strong class='korean-text'>밥을 먹으러 식당에 가요</strong> → Voy al restaurante para comer)." },
+                    { grammar: "Vocabulario honorífico útil", usage: "Algunas palabras tienen formas honoríficas especiales:<br>• 집 → 댁 (casa)<br>• 이름 → 성함 (nombre)<br>• 나이 → 연세 (edad)<br>• 먹다 / 마시다 → 드세요 (comer / beber)<br>• 자다 → 주무세요 (dormir)<br>• 아프다 → 편찮으세요 (estar enfermo)<br>• 있다 → 계세요 (estar)<br>• 없다 → 안 계세요 (no estar)<br>Verbos en honorífico especial: <strong class='korean-text'>주다 → 드리다</strong>, <strong class='korean-text'>보다 → 뵙다</strong>, <strong class='korean-text'>묻다 → 여쭙다</strong>, <strong class='korean-text'>말하다 → 말씀하시다</strong>, <strong class='korean-text'>죽다 → 돌아가시다</strong>." }
+                ],
+                quiz: [
+                    { question: "¿Qué partícula honorífica se usa para el sujeto?", options: ["-에게", "-도", "-께서", "-은/는"], correctAnswer: 2 },
+                    { question: "¿Cuál de estas es la hermana mayor de un hombre?", options: ["오빠", "누나", "형", "언니"], correctAnswer: 1 },
+                    { question: "¿Cómo se expresa 'ir a hacer algo' (propósito)?", options: ["-고 싶다", "-(으)러 가다", "-(으)ㄹ 거예요", "-지만"], correctAnswer: 1 },
+                    { question: "Traduce 'mi padre'.", options: ["할아버지", "삼촌", "아버지", "형"], correctAnswer: 2 },
+                    { question: "La expresión '낚시를 하러 갔어요' significa:", options: ["Fui a pescar", "Quiero pescar", "No pesqué", "Iré a pescar"], correctAnswer: 0 },
+                    { question: "Si tu hermano mayor (si eres hombre) es '형', ¿cómo te referirías a la hermana mayor si eres hombre?", options: ["오빠", "누나", "언니", "동생"], correctAnswer: 1 },
+                    { question: "Para conectar dos verbos como 'estudiar y comer', ¿qué partícula usarías?", options: ["-에서", "-에", "-고", "-으로"], correctAnswer: 2 },
+                    { question: "Si tu padre está leyendo, ¿cómo usarías el honorífico verbal?", options: ["아버지가 읽어요", "아버지께서 읽어요", "아버지가 읽으세요", "아버지께서 읽으세요"], correctAnswer: 3 },
+                    { question: "¿Qué significa '조카'?", options: ["Primo/a", "Tío/a", "Sobrino/a", "Nieto/a"], correctAnswer: 2 },
+                    { question: "¿Cuál de estos es un miembro de la familia por línea materna?", options: ["고모", "삼촌", "이모", "형"], correctAnswer: 2 }
+                ],
+                sentenceBuilders: [
+                    {
+                        type: "honorifico",
+                        title: "Creador de Frases Honoríficas",
+                        description: "Elige un sujeto de respeto y un verbo para ver cómo se conjugan con honoríficos.",
+                        subjects: [
+                            { kor: "아버지께서", esp: "papá (sujeto honorífico)" },
+                            { kor: "할머니께서", esp: "abuela (sujeto honorífico)" },
+                            { kor: "선생님께서", esp: "profesor (sujeto honorífico)" }
+                        ],
+                        honorificVerbs: [
+                            { kor: "가시다", esp: "ir", conjugated: "가세요", example: "오늘 <strong class='korean-text'>가세요</strong>. (Hoy va.)" },
+                            { kor: "오시다", esp: "venir", conjugated: "오세요", example: "빨리 <strong class='korean-text'>오세요</strong>. (Viene rápido.)" },
+                            { kor: "드시다", esp: "comer/beber", conjugated: "드세요", example: "저녁을 <strong class='korean-text'>드세요</strong>. (Cena.)" },
+                            { kor: "주무시다", esp: "dormir", conjugated: "주무세요", example: "편안히 <strong class='korean-text'>주무세요</strong>. (Duerma cómodamente.)" },
+                            { kor: "계시다", esp: "estar", conjugated: "계세요", example: "집에 <strong class='korean-text'>계세요</strong>. (Está en casa.)" },
+                            { kor: "읽으시다", esp: "leer", conjugated: "읽으세요", example: "책을 <strong class='korean-text'>읽으세요</strong>. (Lee un libro.)" }
+                        ],
+                        build: (subject, verb) => ({
+                            korean: `${subject.kor} ${verb.conjugated}.`,
+                            spanish: `${subject.esp} ${verb.esp}.<br>${verb.example}`
+                        })
+                    },
+                    {
+                        type: "destino-proposito",
+                        title: "Destino vs. Propósito: (으)로 가요 / (으)러 가요",
+                        description: "Elige un destino/propósito y un verbo para ver la diferencia entre (으)로 y (으)러.",
+                        destinations: [
+                            { kor: "집", esp: "casa" },
+                            { kor: "공항", esp: "aeropuerto" },
+                            { kor: "산", esp: "montaña" },
+                            { kor: "학교", esp: "escuela" }
+                        ],
+                        purposes: [
+                            { kor: "밥을 먹다", esp: "comer arroz", form: "밥을 먹으러" },
+                            { kor: "책을 빌리다", esp: "pedir libros prestados", form: "책을 빌리러" },
+                            { kor: "운동하다", esp: "hacer ejercicio", form: "운동하러" },
+                            { kor: "쇼핑하다", esp: "ir de compras", form: "쇼핑하러" }
+                        ],
+                        buildDestination: (destination) => ({
+                            korean: `${destination.kor}으로 가요.`,
+                            spanish: `Voy a ${destination.esp}. (Indica **dirección/destino**)`
+                        }),
+                        buildPurpose: (purpose, destination) => ({
+                            korean: `${purpose.form} ${destination.kor}에 가요.`,
+                            spanish: `Voy a ${destination.esp} para ${purpose.esp}. (Indica **propósito/motivo**)`
+                        })
+                    }
+                ]
+            },
+            "11": {
+                title: "Deseos, sugerencias y descripciones",
+                translation: "Wishes, Suggestions and Descriptions",
+                theme: "Expresar deseos, hacer sugerencias y describir cualidades.",
+                functions: "Preguntar y responder sobre lo que se desea, sugerir actividades y describir objetos o personas.",
+                adjectives: [
+                    { kor: "재미있다", esp: "ser entretenido/interesante" }, { kor: "재미없다", esp: "no ser interesante / aburrido" },
+                    { kor: "쉽다", esp: "ser fácil" }, { kor: "어렵다", esp: "ser difícil" },
+                    { kor: "친절하다", esp: "ser amable" }, { kor: "멋있다", esp: "ser genial / con estilo" },
+                    { kor: "예쁘다", esp: "ser bonito/a" }, { kor: "귀엽다", esp: "ser adorable" },
+                    { kor: "좋다", esp: "estar bien / gustar" }, { kor: "나쁘다", esp: "estar mal / ser malo" },
+                    { kor: "기쁘다", esp: "estar alegre" }, { kor: "슬프다", esp: "estar triste" },
+                    { kor: "행복하다", esp: "estar feliz" }, { kor: "무섭다", esp: "dar miedo" },
+                    { kor: "편리하다", esp: "ser conveniente" }, { kor: "불편하다", esp: "ser incómodo" },
+                    { kor: "무겁다", esp: "ser pesado" }, { kor: "가볍다", esp: "ser liviano" },
+                    { kor: "깨끗하다", esp: "estar limpio" }, { kor: "더럽다", esp: "estar sucio" },
+                    { kor: "같다", esp: "ser igual" }, { kor: "다르다", esp: "ser diferente" },
+                    { kor: "멀다", esp: "estar lejos" }, { kor: "가깝다", esp: "estar cerca" },
+                    { kor: "밝다", esp: "estar claro / brillante" }, { kor: "어둡다", esp: "estar oscuro" },
+                    { kor: "뜨겁다", esp: "estar caliente" }, { kor: "차갑다", esp: "estar frío" },
+                    { kor: "편하다", esp: "ser cómodo" }, { kor: "놀랍다", esp: "ser maravilloso / asombroso" }
+                ],
+                verbsAndActions: [
+                    { kor: "가다", esp: "ir" }, { kor: "오다", esp: "venir" },
+                    { kor: "보다", esp: "ver" }, { kor: "쉬다", esp: "descansar" },
+                    { kor: "먹다", esp: "comer" }, { kor: "마시다", esp: "beber" },
+                    { kor: "하다", esp: "hacer" }, { kor: "받다", esp: "recibir" },
+                    { kor: "만들다", esp: "hacer (crear)" }, { kor: "게임하다", esp: "jugar juegos" },
+                    { kor: "수영하다", esp: "nadar" }, { kor: "여행하다", esp: "viajar" }
+                ],
+                expressions: [
+                    { grammar: "-고 싶다 / -고 싶어 하다 (expresar deseos)", usage: "Para expresar deseos:<br>• <strong class='korean-text'>Verbo en infinitivo + 고 싶어요</strong> (para 'quiero...')<br>• <strong class='korean-text'>Verbo + 고 싶어 해요</strong> (para 'quiere...' sobre otra persona)<br>Ej: <strong class='korean-text'>자전거를 받고 싶어요.</strong> (Quiero recibir una bicicleta.), <strong class='korean-text'>어머니는 쉬고 싶어 해요.</strong> (Mamá quiere descansar.)" },
+                    { grammar: "-(으)ㄹ까요? (preguntar opinión / sugerir)", usage: "Para preguntar la opinión del oyente o hacer una sugerencia ('¿hacemos...?', '¿vamos...?').<br>• Verbo con 받침 (consonante final): <strong class='korean-text'>-을까요?</strong><br>• Verbo sin 받침 (vocal final): <strong class='korean-text'>-ㄹ까요?</strong><br>Ej: <strong class='korean-text'>같이 게임을 할까요?</strong> (¿Jugamos juntos?)" },
+                    { grammar: "Combinaciones útiles", usage: "Ejemplos de combinaciones:<br>• <strong class='korean-text'>먹고 싶어요</strong> → Quiero comer | <strong class='korean-text'>먹을까요?</strong> → ¿Comemos?<br>• <strong class='korean-text'>가고 싶어요</strong> → Quiero ir | <strong class='korean-text'>갈까요?</strong> → ¿Vamos?<br>• <strong class='korean-text'>쉬고 싶어요</strong> → Quiero descansar | <strong class='korean-text'>쉴까요?</strong> → ¿Descansamos?<br>• <strong class='korean-text'>게임하고 싶어요</strong> → Quiero jugar | <strong class='korean-text'>게임할까요?</strong> → ¿Jugamos?" }
+                ],
+                quiz: [
+                    { question: "¿Cómo se dice 'Quiero viajar'?", options: ["여행하다 싶어요", "여행하고 싶어요", "여행할 거예요", "여행했어요"], correctAnswer: 1 },
+                    { question: "Para sugerir '¿Bebemos café?', ¿cómo lo dirías usando -(으)ㄹ까요?", options: ["커피를 마셔요?", "커피를 마실 거예요?", "커피를 마실까요?", "커피를 마시세요?"], correctAnswer: 2 },
+                    { question: "¿Qué significa '쉽다'?", options: ["Ser difícil", "Ser fácil", "Ser divertido", "Ser aburrido"], correctAnswer: 1 },
+                    { question: "Si alguien dice '배고프고 싶어요' (Quiero tener hambre), ¿qué expresión está usando?", options: ["Un deseo", "Una sugerencia", "Una descripción", "Una orden"], correctAnswer: 0 }
+                ],
+                sentenceBuilders: [
+                    {
+                        type: "quiero-hacer",
+                        title: "Creador de Frases con -고 싶다 (Quiero hacer...)",
+                        description: "Elige un verbo para expresar lo que quieres hacer.",
+                        verbs: [
+                            { kor: "공부하다", esp: "estudiar", conjugated: "공부하고 싶어요" },
+                            { kor: "여행하다", esp: "viajar", conjugated: "여행하고 싶어요" },
+                            { kor: "책을 읽다", esp: "leer un libro", conjugated: "책을 읽고 싶어요" },
+                            { kor: "커피를 마시다", esp: "beber café", conjugated: "커피를 마시고 싶어요" },
+                            { kor: "수영하다", esp: "nadar", conjugated: "수영하고 싶어요" },
+                            { kor: "노래하다", esp: "cantar", conjugated: "노래하고 싶어요" }
+                        ],
+                        build: (verb) => ({
+                            korean: `${verb.conjugated}.`,
+                            spanish: `(Quiero ${verb.esp}).`
+                        })
+                    },
+                    {
+                        type: "sugerencia",
+                        title: "Creador de Sugerencias con -(으)ㄹ까요? (¿Hacemos...?)",
+                        description: "Elige un verbo para hacer una sugerencia.",
+                        verbs: [
+                            { kor: "가다", esp: "ir", conjugated: "갈까요?" },
+                            { kor: "보다", esp: "ver", conjugated: "볼까요?" },
+                            { kor: "먹다", esp: "comer", conjugated: "먹을까요?" },
+                            { kor: "하다", esp: "hacer", conjugated: "할까요?" },
+                            { kor: "쉬다", esp: "descansar", conjugated: "쉴까요?" },
+                            { kor: "만나다", esp: "encontrarse", conjugated: "만날까요?" }
+                        ],
+                        build: (verb) => ({
+                            korean: `${verb.conjugated}`,
+                            spanish: `(¿${verb.esp.charAt(0).toUpperCase() + verb.esp.slice(1)}mos?)`
+                        })
+                    }
+                ]
+            },
+            "12": {
+                title: "El clima, la ropa y las predicciones",
+                translation: "The Weather, Clothes, and Predictions",
+                theme: "Describir el clima, hablar de ropa y hacer predicciones.",
+                functions: "Informar sobre el tiempo, describir cómo vestirse y expresar probabilidades futuras.",
+                weather: [
+                    { kor: "하늘이 맑아요", esp: "El cielo está despejado" }, { kor: "하늘이 흐려요", esp: "El cielo está nublado" },
+                    { kor: "비가 와요", esp: "Llueve" }, { kor: "눈이 와요", esp: "Nieva" },
+                    { kor: "바람이 불어요", esp: "Sopla viento" }, { kor: "안개가 꼈어요", esp: "Hay niebla" },
+                    { kor: "구름이 꼈어요", esp: "Está nublado / con nubes" }, { kor: "비가 그쳐요", esp: "La lluvia paró" },
+                    { kor: "더워요", esp: "Hace calor" }, { kor: "따뜻해요", esp: "Está templado / cálido" },
+                    { kor: "살살해요", esp: "Está agradable (ni frío ni calor)" }, { kor: "추워요", esp: "Hace frío" }
+                ],
+                clothes: [
+                    { kor: "모자", esp: "Sombrero" }, { kor: "장갑", esp: "Guantes" },
+                    { kor: "우산", esp: "Paraguas" }, { kor: "선크림", esp: "Bloqueador solar" },
+                    { kor: "비옷", esp: "Impermeable" }, { kor: "목도리", esp: "Bufanda" },
+                    { kor: "점퍼", esp: "Chaqueta / Parka" }, { kor: "손수건", esp: "Pañuelo" },
+                    { kor: "선글라스", esp: "Gafas de sol" }
+                ],
+                importantVerbs: [
+                    { kor: "맑다", esp: "Estar despejado" }, { kor: "흐리다", esp: "Estar nublado" },
+                    { kor: "오다", esp: "Venir / caer (lluvia, nieve)" }, { kor: "불다", esp: "Soplar" },
+                    { kor: "끼다", esp: "Cubrirse / llenarse (niebla, nubes)" }, { kor: "그치다", esp: "Detenerse / cesar (lluvia)" },
+                    { kor: "덥다", esp: "Hacer calor" }, { kor: "춥다", esp: "Hacer frío" },
+                    { kor: "따뜻하다", esp: "Ser cálido" }, { kor: "살살하다", esp: "Ser agradable (ni frío ni calor)" }
+                ],
+                expressions: [
+                    { grammar: "-고 (conectar acciones o descripciones)", usage: "Une dos frases o ideas secuencialmente o simultáneamente. <br>Forma: <strong class='korean-text'>Raíz verbal/adjetival + 고</strong><br>Ej: <strong class='korean-text'>바람이 많이 불고, 좀 추워요.</strong> (Sopla mucho viento y hace frío.)" },
+                    { grammar: "-(으)ㄹ 거예요 (probabilidad o suposición)", usage: "Expresa lo que probablemente ocurrirá según conocimiento o experiencia previa.<br>• Raíz sin 받침: <strong class='korean-text'>-ㄹ 거예요</strong><br>• Raíz con 받침: <strong class='korean-text'>-을 거예요</strong><br>Ej: <strong class='korean-text'>비가 올 거예요.</strong> (Probablemente lloverá.)" }
+                ],
+                quiz: [
+                    { question: "¿Qué significa '비가 와요'?", options: ["Hace sol", "Nieva", "Llueve", "Hace viento"], correctAnswer: 2 },
+                    { question: "¿Qué partícula se usa para unir 'Hace calor' y 'Sopla viento' en una frase?", options: ["-에", "-에서", "-고", "-(으)로"], correctAnswer: 2 },
+                    { question: "Si el cielo está despejado, ¿qué expresión usarías?", options: ["하늘이 흐려요", "하늘이 맑아요", "비가 와요", "눈이 와요"], correctAnswer: 1 },
+                    { question: "La expresión '내일은 날씨가 추울 거예요' significa:", options: ["Mañana hará calor", "Mañana hará frío", "Mañana lloverá", "Mañana probablemente hará frío"], correctAnswer: 3 }
+                ],
+                sentenceBuilders: [
+                    {
+                        type: "conector-go",
+                        title: "Conector '-고' (y / y luego)",
+                        description: "Conecta dos frases o ideas con '-고'.",
+                        firstParts: [
+                            { kor: "날씨가 좋아요", esp: "El tiempo es bueno" },
+                            { kor: "밥을 먹어요", esp: "Como" },
+                            { kor: "책을 읽었어요", esp: "Leí un libro" },
+                            { kor: "이 신발은 가벼워요", esp: "Estos zapatos son livianos" }
+                        ],
+                        secondParts: [
+                            { kor: "산책해요", esp: "paseo" },
+                            { kor: "커피를 마셔요", esp: "bebo café" },
+                            { kor: "잤어요", esp: "dormí" },
+                            { kor: "편해요", esp: "son cómodos" }
+                        ],
+                        build: (first, second) => ({
+                            korean: `${first.kor} 고 ${second.kor}.`,
+                            spanish: `${first.esp} y ${second.esp}.`
+                        })
+                    },
+                    {
+                        type: "probabilidad-future",
+                        title: "Probabilidad con -(으)ㄹ 거예요",
+                        description: "Forma frases para expresar lo que probablemente sucederá.",
+                        subjects: [
+                            { kor: "내일", esp: "mañana" },
+                            { kor: "주말에는", esp: "el fin de semana" },
+                            { kor: "비가", esp: "la lluvia" },
+                            { kor: "사람이", esp: "la gente" }
+                        ],
+                        actions: [
+                            { kor: "올 거예요", esp: "lloverá (probablemente)" },
+                            { kor: "추울 거예요", esp: "hará frío (probablemente)" },
+                            { kor: "많을 거예요", esp: "habrá mucho (probablemente)" },
+                            { kor: "맑을 거예요", esp: "estará despejado (probablemente)" }
+                        ],
+                        build: (subject, action) => ({
+                            korean: `${subject.kor} ${action.kor}.`,
+                            spanish: `${subject.esp} ${action.esp}.`
+                        })
+                    }
+                ]
+            }
+        };
+
+        let finalQuizCurrentQuestionIndex = 0;
+        let finalQuizCorrectAnswers = 0;
+        let finalQuizQuestions = [];
+
+        // Helper to render vocabulary sections (flashcards)
+        function renderVocabularySection(vocabType, vocabData, title) {
+            if (!vocabData || vocabData.length === 0) return '';
+            return `
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">${title}</h3>
+                    <p class="mb-6" style="color: var(--text-color);">Haz clic en cada tarjeta para ver la traducción.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        ${vocabData.map(word => `
+                            <div class="flashcard-container h-32" onclick="this.querySelector('.flashcard').classList.toggle('flipped')">
+                                <div class="flashcard w-full h-full relative cursor-pointer">
+                                    <div class="flashcard-face">
+                                        <p class="text-lg font-medium korean-text">${word.kor}</p>
+                                    </div>
+                                    <div class="flashcard-back">
+                                        <p class="text-lg font-medium">${word.esp}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper to render grammar sections (collapsible details)
+        function renderGrammarSection(expressions) {
+            if (!expressions || expressions.length === 0) return '';
+            return `
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">Expresiones Gramaticales</h3>
+                     <div class="space-y-3">
+                         ${expressions.map(exp => `
+                            <details class="p-4 rounded-lg cursor-pointer" style="background-color: var(--bg-main); color: var(--text-color);">
+                                <summary class="flex items-center justify-between font-semibold text-lg korean-text" style="color: var(--primary-blue);">
+                                    <span>${exp.grammar}</span>
+                                    <span class="arrow-icon transform transition-transform duration-200">▼</span>
+                                </summary>
+                                <p class="mt-2" style="color: var(--text-color);">${exp.usage}</p>
+                            </details>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper to render quizzes for sections
+        function renderQuiz(quizId, quizData) {
+            let currentQuizQuestionIndex = 0;
+            let correctQuizAnswers = 0;
+
+            const render = () => {
+                const quizContainer = document.getElementById(quizId);
+                if (!quizContainer) return;
+                // If quizData is empty, display a message and return
+                if (!quizData || quizData.length === 0) {
+                    quizContainer.innerHTML = `
+                        <div class="text-center text-gray-500">
+                            <p>Cuestionario no disponible para esta sección aún. ¡Pronto habrá más contenido!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                if (currentQuizQuestionIndex < quizData.length) {
+                    const q = quizData[currentQuizQuestionIndex];
+                    quizContainer.innerHTML = `
+                        <div class="mb-4">
+                            <p class="text-lg font-medium mb-3">Pregunta ${currentQuizQuestionIndex + 1}/${quizData.length}: ${q.question}</p>
+                            <div class="space-y-2">
+                                ${q.options.map((option, index) => `
+                                    <button class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition-colors duration-200" data-index="${index}" style="background-color: var(--bg-card); border-color: var(--accent-warm); color: var(--text-color);">
+                                        ${option}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <div id="feedback-${quizId}" class="mt-3 text-center font-semibold"></div>
+                            <button id="next-btn-${quizId}" class="mt-4 px-5 py-2 rounded-lg transition-colors duration-200 hidden" style="background-color: var(--primary-blue); color: white; hover:background-color: var(--accent-warm);">Siguiente Pregunta</button>
+                        </div>
+                    `;
+
+                    const options = quizContainer.querySelectorAll('.quiz-option');
+                    const feedbackDiv = document.getElementById(`feedback-${quizId}`);
+                    const nextBtn = document.getElementById(`next-btn-${quizId}`);
+
+                    options.forEach(optionBtn => {
+                        optionBtn.addEventListener('click', function() {
+                            if (optionBtn.dataset.answered) return; 
+
+                            const selectedIndex = parseInt(this.dataset.index);
+                            options.forEach(btn => btn.dataset.answered = 'true');
+
+                            if (selectedIndex === q.correctAnswer) {
+                                this.classList.add('correct');
+                                feedbackDiv.textContent = '¡Correcto!';
+                                feedbackDiv.style.color = 'var(--accent-warm)';
+                                correctQuizAnswers++;
+                            } else {
+                                this.classList.add('incorrect');
+                                options[q.correctAnswer].classList.add('correct');
+                                feedbackDiv.textContent = 'Incorrecto. La respuesta correcta es: ' + q.options[q.correctAnswer];
+                                feedbackDiv.style.color = 'var(--primary-blue)';
+                            }
+                            nextBtn.classList.remove('hidden');
+                        });
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        currentQuizQuestionIndex++;
+                        feedbackDiv.textContent = '';
+                        feedbackDiv.style.color = 'inherit';
+                        nextBtn.classList.add('hidden');
+                        render();
+                    });
+
+                } else {
+                    quizContainer.innerHTML = `
+                        <div class="text-center">
+                            <p class="text-xl font-bold mb-4">¡Cuestionario Completado!</p>
+                            <p class="text-lg">Obtuviste ${correctQuizAnswers} de ${quizData.length} respuestas correctas.</p>
+                            <button id="reset-btn-${quizId}" class="mt-6 px-6 py-3 rounded-lg transition-colors duration-200" style="background-color: var(--primary-blue); color: white; hover:background-color: var(--accent-warm);">
+                                Volver a Intentar Cuestionario
+                            </button>
+                        </div>
+                    `;
+                    document.getElementById(`reset-btn-${quizId}`).addEventListener('click', () => {
+                        currentQuizQuestionIndex = 0;
+                        correctQuizAnswers = 0;
+                        render();
+                    });
+                }
+            };
+            render();
+        }
+
+        // Helper to render the final comprehensive quiz
+        function renderFinalQuiz() {
+            if (finalQuizQuestions.length === 0) {
+                // Combine all unit quizzes into one for the final quiz
+                finalQuizQuestions = [];
+                for (const unitKey in studyData) {
+                    // Only include quizzes from units that have them
+                    if (studyData[unitKey].quiz && studyData[unitKey].quiz.length > 0) {
+                        finalQuizQuestions = finalQuizQuestions.concat(studyData[unitKey].quiz);
+                    }
+                }
+                finalQuizQuestions = shuffleArray(finalQuizQuestions); // Shuffle only once for the whole quiz
+            }
+            const quizContainer = document.getElementById('final-quiz-questions');
+            if (!quizContainer) return;
+
+            if (finalQuizQuestions.length === 0) {
+                quizContainer.innerHTML = `
+                    <div class="text-center text-gray-500">
+                        <p>Cuestionario final no disponible aún. ¡Añade contenido a más unidades para habilitarlo!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (finalQuizCurrentQuestionIndex < finalQuizQuestions.length) {
+                const q = finalQuizQuestions[finalQuizCurrentQuestionIndex];
+                quizContainer.innerHTML = `
+                    <div class="mb-4">
+                        <p class="text-lg font-medium mb-3">Pregunta ${finalQuizCurrentQuestionIndex + 1}/${finalQuizQuestions.length}: ${q.question}</p>
+                        <div class="space-y-2">
+                            ${q.options.map((option, index) => `
+                                <button class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition-colors duration-200" data-index="${index}" style="background-color: var(--bg-card); border-color: var(--accent-warm); color: var(--text-color);">
+                                    ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="final-quiz-feedback" class="mt-3 text-center font-semibold"></div>
+                        <button id="next-final-quiz-btn" class="mt-4 px-5 py-2 rounded-lg transition-colors duration-200 hidden" style="background-color: var(--primary-blue); color: white; hover:background-color: var(--accent-warm);">Siguiente Pregunta</button>
+                    </div>
+                `;
+
+                const options = quizContainer.querySelectorAll('.quiz-option');
+                const feedbackDiv = document.getElementById('final-quiz-feedback');
+                const nextBtn = document.getElementById('next-final-quiz-btn');
+
+                options.forEach(optionBtn => {
+                    optionBtn.addEventListener('click', function() {
+                        if (optionBtn.dataset.answered) return; 
+
+                        const selectedIndex = parseInt(this.dataset.index);
+                        options.forEach(btn => btn.dataset.answered = 'true');
+
+                        if (selectedIndex === q.correctAnswer) {
+                            this.classList.add('correct');
+                            feedbackDiv.textContent = '¡Correcto!';
+                            feedbackDiv.style.color = 'var(--accent-warm)';
+                            finalQuizCorrectAnswers++;
+                        } else {
+                            this.classList.add('incorrect');
+                            options[q.correctAnswer].classList.add('correct');
+                            feedbackDiv.textContent = 'Incorrecto. La respuesta correcta es: ' + q.options[q.correctAnswer];
+                            feedbackDiv.style.color = 'var(--primary-blue)';
+                        }
+                        nextBtn.classList.remove('hidden');
+                    });
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    finalQuizCurrentQuestionIndex++;
+                    feedbackDiv.textContent = '';
+                    feedbackDiv.style.color = 'inherit';
+                    nextBtn.classList.add('hidden');
+                    renderFinalQuiz();
+                });
+
+            } else {
+                quizContainer.innerHTML = `
+                    <div class="text-center">
+                        <p class="text-xl font-bold mb-4">¡Cuestionario Final Completado!</p>
+                        <p class="text-lg">Obtuviste ${finalQuizCorrectAnswers} de ${finalQuizQuestions.length} respuestas correctas.</p>
+                        <button id="reset-final-quiz-btn" class="mt-6 px-6 py-3 rounded-lg transition-colors duration-200" style="background-color: var(--primary-blue); color: white; hover:background-color: var(--accent-warm);">
+                            Volver a Intentar Cuestionario Final
+                        </button>
+                    </div>
+                `;
+                document.getElementById('reset-final-quiz-btn').addEventListener('click', () => {
+                    finalQuizCurrentQuestionIndex = 0;
+                    finalQuizCorrectAnswers = 0;
+                    finalQuizQuestions = shuffleArray(finalQuizQuestions); // Reshuffle for new attempt
+                    renderFinalQuiz();
+                });
+            }
+        }
+
+        // Utility function to shuffle an array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Helper to create HTML for sentence builders
+        function createSentenceBuilderHtml(builder) {
+            let builderContent = '';
+            if (builder.type === "particula-eseo") {
+                builderContent = `
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Elige un Lugar (장소)</h4>
+                            <div id="eseo-places-container" class="grid grid-cols-2 gap-3">
+                                ${builder.places.map(item => `
+                                    <button class="interactive-builder-btn" data-type="place" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Elige una Acción (동사)</h4>
+                            <div id="eseo-actions-container" class="grid grid-cols-2 gap-3">
+                                ${builder.actions.map(item => `
+                                    <button class="interactive-builder-btn" data-type="action" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="eseo-sentence-output" class="mt-8 bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                        <p class="text-gray-500">Tu oración aparecerá aquí...</p>
+                    </div>
+                `;
+            } else if (builder.type === "pasado") {
+                 builderContent = `
+                    <div id="past-verbs-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+                        ${builder.verbs.map(item => `
+                            <button class="interactive-builder-btn" data-type="verb" data-kor="${item.kor}" data-esp="${item.esp}" data-past="${item.past}" data-example="${item.example}">
+                                <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="past-conjugation-output" class="bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                        <p class="text-gray-500">Selecciona un verbo...</p>
+                    </div>
+                `;
+            } else if (builder.type === "futuro") {
+                builderContent = `
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Elige un Lugar/Tiempo (장소/시간)</h4>
+                            <div id="future-places-container" class="grid grid-cols-2 gap-3">
+                                ${builder.places.map(item => `
+                                    <button class="interactive-builder-btn" data-type="place" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor === '' ? 'Vacío' : item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Elige una Acción (동사)</h4>
+                            <div id="future-actions-container" class="grid grid-cols-2 gap-3">
+                                ${builder.actions.map(item => `
+                                    <button class="interactive-builder-btn" data-type="action" data-kor="${item.kor}" data-esp="${item.esp}" data-future="${item.future}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="future-sentence-output" class="mt-8 bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                        <p class="text-gray-500">Tu oración aparecerá aquí...</p>
+                    </div>
+                `;
+            } else if (builder.type === "honorifico") {
+                builderContent = `
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Elige un Sujeto (주어)</h4>
+                            <div id="honorific-subjects-container" class="grid grid-cols-2 gap-3">
+                                ${builder.subjects.map(item => `
+                                    <button class="interactive-builder-btn" data-type="subject" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Elige un Verbo Honorífico (동사)</h4>
+                            <div id="honorific-verbs-container" class="grid grid-cols-2 gap-3">
+                                ${builder.honorificVerbs.map(item => `
+                                    <button class="interactive-builder-btn" data-type="verb" data-kor="${item.kor}" data-esp="${item.esp}" data-conjugated="${item.conjugated}" data-example="${item.example}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="honorific-sentence-output" class="mt-8 bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                        <p class="text-gray-500">Tu oración honorífica aparecerá aquí...</p>
+                    </div>
+                `;
+            } else if (builder.type === "destino-proposito") {
+                builderContent = `
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Elige un Destino (으)로 가요</h4>
+                            <div id="destino-container" class="grid grid-cols-2 gap-3">
+                                ${builder.destinations.map(item => `
+                                    <button class="interactive-builder-btn" data-type="destino" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <div id="destino-output" class="mt-4 bg-gray-100 p-4 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                                <p class="text-gray-500">Oración de destino...</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Elige un Propósito (으)러 가요</h4>
+                            <div id="proposito-container" class="grid grid-cols-2 gap-3">
+                                ${builder.purposes.map(item => `
+                                    <button class="interactive-builder-btn" data-type="proposito" data-kor="${item.kor}" data-esp="${item.esp}" data-form="${item.form}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                             <div id="proposito-destino-container" class="mt-4">
+                                <h5 class="font-semibold mb-2 text-center">Elige un Destino para el Propósito</h5>
+                                <div id="proposito-destinations-selector" class="grid grid-cols-2 gap-3">
+                                    ${builder.destinations.map(item => `
+                                        <button class="interactive-builder-btn" data-type="proposito-destino" data-kor="${item.kor}" data-esp="${item.esp}">
+                                            <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div id="proposito-output" class="mt-4 bg-gray-100 p-4 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                                <p class="text-gray-500">Oración de propósito...</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (builder.type === "quiero-hacer") {
+                builderContent = `
+                    <div id="quiero-hacer-verbs-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+                        ${builder.verbs.map(item => `
+                            <button class="interactive-builder-btn" data-type="verb" data-kor="${item.kor}" data-esp="${item.esp}" data-conjugated="${item.conjugated}">
+                                <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="quiero-hacer-output" class="bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                        <p class="text-gray-500">Selecciona un verbo...</p>
+                    </div>
+                `;
+            } else if (builder.type === "sugerencia") {
+                builderContent = `
+                    <div id="sugerencia-verbs-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+                        ${builder.verbs.map(item => `
+                            <button class="interactive-builder-btn" data-type="verb" data-kor="${item.kor}" data-esp="${item.esp}" data-conjugated="${item.conjugated}">
+                                <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="sugerencia-output" class="bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                        <p class="text-gray-500">Selecciona un verbo...</p>
+                    </div>
+                `;
+            } else if (builder.type === "conector-go") {
+                builderContent = `
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Primera parte de la frase</h4>
+                            <div id="conector-go-part1-container" class="grid grid-cols-2 gap-3">
+                                ${builder.firstParts.map(item => `
+                                    <button class="interactive-builder-btn" data-type="part1" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Segunda parte de la frase</h4>
+                            <div id="conector-go-part2-container" class="grid grid-cols-2 gap-3">
+                                ${builder.secondParts.map(item => `
+                                    <button class="interactive-builder-btn" data-type="part2" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="conector-go-output" class="mt-8 bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                        <p class="text-gray-500">Tu oración aparecerá aquí...</p>
+                    </div>
+                `;
+            } else if (builder.type === "probabilidad-future") {
+                builderContent = `
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Sujeto/Tiempo</h4>
+                            <div id="probabilidad-subject-container" class="grid grid-cols-2 gap-3">
+                                ${builder.subjects.map(item => `
+                                    <button class="interactive-builder-btn" data-type="subject" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-3 text-center text-lg">Acción/Predicción</h4>
+                            <div id="probabilidad-action-container" class="grid grid-cols-2 gap-3">
+                                ${builder.actions.map(item => `
+                                    <button class="interactive-builder-btn" data-type="action" data-kor="${item.kor}" data-esp="${item.esp}">
+                                        <span class="korean-text font-semibold">${item.kor}</span> <br> <span class="text-sm">${item.esp}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="probabilidad-output" class="mt-8 bg-gray-100 p-6 rounded-lg flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 builder-output">
+                        <p class="text-gray-500">Tu oración aparecerá aquí...</p>
+                    </div>
+                `;
+            }
+            return `
+                <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h3 class="text-2xl font-semibold mb-4">${builder.title}</h3>
+                    <p class="mb-6">${builder.description}</p>
+                    ${builderContent}
+                </div>
+            `;
+        }
+
+        // Function to set up all interactive sentence builders
+        function setupAllBuilders() {
+            // Helper to reset selected state
+            const resetSelected = (container) => {
+                if (container) {
+                    container.querySelectorAll('.selected').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                }
+            };
+
+            // Particula -에서 Builder (Unit 8)
+            const eseoPlacesContainer = document.getElementById('eseo-places-container');
+            const eseoActionsContainer = document.getElementById('eseo-actions-container');
+            const eseoOutputDiv = document.getElementById('eseo-sentence-output');
+            let selectedEseoPlace = null;
+            let selectedEseoAction = null;
+            if (eseoPlacesContainer && eseoActionsContainer && eseoOutputDiv) {
+                const updateEseoOutput = () => {
+                    if (selectedEseoPlace && selectedEseoAction) {
+                        eseoOutputDiv.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedEseoPlace.kor}</strong>에서 <strong style='color: var(--accent-warm);'>${selectedEseoAction.kor}</strong>.</p>
+                                <p class="text-md text-gray-500 mt-2">(<span style='color: var(--accent-warm);'>${selectedEseoAction.esp}</span> en la <span style='color: var(--primary-blue);'>${selectedEseoPlace.esp}</span>)</p>
+                            </div>
+                        `;
+                        eseoOutputDiv.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        eseoOutputDiv.innerHTML = `<p class="text-gray-500">Tu oración aparecerá aquí...</p>`;
+                        eseoOutputDiv.style.borderColor = 'var(--border-color)';
+                    }
+                };
+                eseoPlacesContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(eseoPlacesContainer);
+                        button.classList.add('selected');
+                        selectedEseoPlace = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateEseoOutput();
+                    });
+                });
+                eseoActionsContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(eseoActionsContainer);
+                        button.classList.add('selected');
+                        selectedEseoAction = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateEseoOutput();
+                    });
+                });
+            }
+
+            // Pasado Conjugator (Unit 8)
+            const pastVerbsContainer = document.getElementById('past-verbs-container');
+            const pastOutputDiv = document.getElementById('past-conjugation-output');
+            let selectedPastVerb = null;
+            if (pastVerbsContainer && pastOutputDiv) {
+                const updatePastOutput = () => {
+                    if (selectedPastVerb) {
+                        pastOutputDiv.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-lg text-gray-600 mb-2">Forma en infinitivo: <strong class="korean-text">${selectedPastVerb.kor}</strong> (${selectedPastVerb.esp})</p>
+                                <p class="text-3xl md:text-4xl korean-text font-bold" style='color: var(--primary-blue);'>${selectedPastVerb.past}</p>
+                                <p class="text-md text-gray-500 mt-4">${selectedPastVerb.example}</p>
+                            </div>
+                        `;
+                        pastOutputDiv.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        pastOutputDiv.innerHTML = `<p class="text-gray-500">Selecciona un verbo...</p>`;
+                        pastOutputDiv.style.borderColor = 'var(--border-color)';
+                    }
+                };
+                pastVerbsContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(pastVerbsContainer);
+                        button.classList.add('selected');
+                        selectedPastVerb = { 
+                            kor: button.dataset.kor, esp: button.dataset.esp, 
+                            past: button.dataset.past, example: button.dataset.example 
+                        };
+                        updatePastOutput();
+                    });
+                });
+            }
+
+            // Futuro Builder (Unit 9)
+            const futurePlacesContainer = document.getElementById('future-places-container');
+            const futureActionsContainer = document.getElementById('future-actions-container');
+            const futureOutputDiv = document.getElementById('future-sentence-output');
+            let selectedFuturePlace = null;
+            let selectedFutureAction = null;
+            if (futurePlacesContainer && futureActionsContainer && futureOutputDiv) {
+                const updateFutureOutput = () => {
+                    if (selectedFuturePlace && selectedFutureAction) {
+                        futureOutputDiv.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedFuturePlace.kor}</strong> <strong style='color: var(--accent-warm);'>${selectedFutureAction.future}</strong>.</p>
+                                <p class="text-md text-gray-500 mt-2">(Voy a <span style='color: var(--accent-warm);'>${selectedFutureAction.esp}</span> <span style='color: var(--primary-blue);'>${selectedFuturePlace.esp}</span>).</p>
+                            </div>
+                        `;
+                        futureOutputDiv.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        futureOutputDiv.innerHTML = `<p class="text-gray-500">Tu oración aparecerá aquí...</p>`;
+                        futureOutputDiv.style.borderColor = 'var(--border-color)';
+                    }
+                };
+                futurePlacesContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(futurePlacesContainer);
+                        button.classList.add('selected');
+                        selectedFuturePlace = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateFutureOutput();
+                    });
+                });
+                futureActionsContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(futureActionsContainer);
+                        button.classList.add('selected');
+                        selectedFutureAction = { kor: button.dataset.kor, esp: button.dataset.esp, future: button.dataset.future };
+                        updateFutureOutput();
+                    });
+                });
+            }
+
+            // Honorifico Builder (Unit 10)
+            const honorificSubjectsContainer = document.getElementById('honorific-subjects-container');
+            const honorificVerbsContainer = document.getElementById('honorific-verbs-container');
+            const honorificOutputDiv = document.getElementById('honorific-sentence-output');
+            let selectedHonorificSubject = null;
+            let selectedHonorificVerb = null;
+            if (honorificSubjectsContainer && honorificVerbsContainer && honorificOutputDiv) {
+                const updateHonorificOutput = () => {
+                    if (selectedHonorificSubject && selectedHonorificVerb) {
+                        honorificOutputDiv.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedHonorificSubject.kor}</strong> <strong style='color: var(--accent-warm);'>${selectedHonorificVerb.conjugated}</strong>.</p>
+                                <p class="text-md text-gray-500 mt-2">${selectedHonorificSubject.esp} ${selectedHonorificVerb.esp}.<br>${selectedHonorificVerb.example}</p>
+                            </div>
+                        `;
+                        honorificOutputDiv.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        honorificOutputDiv.innerHTML = `<p class="text-gray-500">Tu oración honorífica aparecerá aquí...</p>`;
+                        honorificOutputDiv.style.borderColor = 'var(--border-color)';
+                    }
+                };
+                honorificSubjectsContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(honorificSubjectsContainer);
+                        button.classList.add('selected');
+                        selectedHonorificSubject = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateHonorificOutput();
+                    });
+                });
+                honorificVerbsContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(honorificVerbsContainer);
+                        button.classList.add('selected');
+                        selectedHonorificVerb = { 
+                            kor: button.dataset.kor, esp: button.dataset.esp, 
+                            conjugated: button.dataset.conjugated, example: button.dataset.example 
+                        };
+                        updateHonorificOutput();
+                    });
+                });
+            }
+
+            // Destino vs. Propósito Builder (Unit 10)
+            const destinoContainer = document.getElementById('destino-container');
+            const propositoContainer = document.getElementById('proposito-container');
+            const propositoDestinationsSelector = document.getElementById('proposito-destinations-selector');
+            const destinoOutput = document.getElementById('destino-output');
+            const propositoOutput = document.getElementById('proposito-output');
+            let selectedDestinoDestination = null; // For (으)로
+            let selectedPropositoPurpose = null; // For (으)러
+            let selectedPropositoDestination = null; // Destination for (으)러
+
+            if (destinoContainer && propositoContainer && propositoDestinationsSelector && destinoOutput && propositoOutput) {
+                const updateDestinoOutput = () => {
+                    if (selectedDestinoDestination) {
+                        destinoOutput.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedDestinoDestination.kor}</strong>으로 가요.</p>
+                                <p class="text-md text-gray-500 mt-2">Voy a <span style='color: var(--primary-blue);'>${selectedDestinoDestination.esp}</span>. (Indica <strong style='color: var(--accent-warm);'>dirección/destino</strong>)</p>
+                            </div>
+                        `;
+                        destinoOutput.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        destinoOutput.innerHTML = `<p class="text-gray-500">Oración de destino...</p>`;
+                        destinoOutput.style.borderColor = 'var(--border-color)';
+                    }
+                };
+
+                const updatePropositoOutput = () => {
+                    if (selectedPropositoPurpose && selectedPropositoDestination) {
+                        propositoOutput.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedPropositoPurpose.form}</strong> <strong style='color: var(--accent-warm);'>${selectedPropositoDestination.kor}</strong>에 가요.</p>
+                                <p class="text-md text-gray-500 mt-2">Voy a <span style='color: var(--accent-warm);'>${selectedPropositoDestination.esp}</span> para <span style='color: var(--primary-blue);'>${selectedPropositoPurpose.esp}</span>. (Indica <strong style='color: var(--accent-warm);'>propósito/motivo</strong>)</p>
+                            </div>
+                        `;
+                        propositoOutput.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        propositoOutput.innerHTML = `<p class="text-gray-500">Oración de propósito...</p>`;
+                        propositoOutput.style.borderColor = 'var(--border-color)';
+                    }
+                };
+
+                destinoContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(destinoContainer);
+                        button.classList.add('selected');
+                        selectedDestinoDestination = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateDestinoOutput();
+                    });
+                });
+
+                propositoContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(propositoContainer);
+                        button.classList.add('selected');
+                        selectedPropositoPurpose = { kor: button.dataset.kor, esp: button.dataset.esp, form: button.dataset.form };
+                        updatePropositoOutput();
+                    });
+                });
+
+                propositoDestinationsSelector.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(propositoDestinationsSelector);
+                        button.classList.add('selected');
+                        selectedPropositoDestination = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updatePropositoOutput();
+                    });
+                });
+            }
+
+            // Quiero Hacer Builder (Unit 11)
+            const quieroHacerVerbsContainer = document.getElementById('quiero-hacer-verbs-container');
+            const quieroHacerOutput = document.getElementById('quiero-hacer-output');
+            let selectedQuieroHacerVerb = null;
+            if (quieroHacerVerbsContainer && quieroHacerOutput) {
+                const updateQuieroHacerOutput = () => {
+                    if (selectedQuieroHacerVerb) {
+                        quieroHacerOutput.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedQuieroHacerVerb.conjugated}</strong>.</p>
+                                <p class="text-md text-gray-500 mt-2">(Quiero <span style='color: var(--primary-blue);'>${selectedQuieroHacerVerb.esp}</span>).</p>
+                            </div>
+                        `;
+                        quieroHacerOutput.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        quieroHacerOutput.innerHTML = `<p class="text-gray-500">Selecciona un verbo...</p>`;
+                        quieroHacerOutput.style.borderColor = 'var(--border-color)';
+                    }
+                };
+                quieroHacerVerbsContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(quieroHacerVerbsContainer);
+                        button.classList.add('selected');
+                        selectedQuieroHacerVerb = { 
+                            kor: button.dataset.kor, esp: button.dataset.esp, 
+                            conjugated: button.dataset.conjugated 
+                        };
+                        updateQuieroHacerOutput();
+                    });
+                });
+            }
+
+            // Sugerencia Builder (Unit 11)
+            const sugerenciaVerbsContainer = document.getElementById('sugerencia-verbs-container');
+            const sugerenciaOutput = document.getElementById('sugerencia-output');
+            let selectedSugerenciaVerb = null;
+            if (sugerenciaVerbsContainer && sugerenciaOutput) {
+                const updateSugerenciaOutput = () => {
+                    if (selectedSugerenciaVerb) {
+                        sugerenciaOutput.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedSugerenciaVerb.conjugated}</strong></p>
+                                <p class="text-md text-gray-500 mt-2">(${selectedSugerenciaVerb.spanish})</p>
+                            </div>
+                        `;
+                        sugerenciaOutput.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        sugerenciaOutput.innerHTML = `<p class="text-gray-500">Selecciona un verbo...</p>`;
+                        sugerenciaOutput.style.borderColor = 'var(--border-color)';
+                    }
+                };
+                sugerenciaVerbsContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(sugerenciaVerbsContainer);
+                        button.classList.add('selected');
+                        selectedSugerenciaVerb = { 
+                            kor: button.dataset.kor, esp: button.dataset.esp, 
+                            conjugated: button.dataset.conjugated, spanish: button.dataset.spanish 
+                        };
+                        updateSugerenciaOutput();
+                    });
+                });
+            }
+
+            // Conector -고 Builder (Unit 12)
+            const conectorGoPart1Container = document.getElementById('conector-go-part1-container');
+            const conectorGoPart2Container = document.getElementById('conector-go-part2-container');
+            const conectorGoOutput = document.getElementById('conector-go-output');
+            let selectedConectorGoPart1 = null;
+            let selectedConectorGoPart2 = null;
+            if (conectorGoPart1Container && conectorGoPart2Container && conectorGoOutput) {
+                const updateConectorGoOutput = () => {
+                    if (selectedConectorGoPart1 && selectedConectorGoPart2) {
+                        conectorGoOutput.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedConectorGoPart1.kor}</strong>고 <strong style='color: var(--accent-warm);'>${selectedConectorGoPart2.kor}</strong>.</p>
+                                <p class="text-md text-gray-500 mt-2">(<span style='color: var(--primary-blue);'>${selectedConectorGoPart1.esp}</span> y <span style='color: var(--accent-warm);'>${selectedConectorGoPart2.esp}</span>).</p>
+                            </div>
+                        `;
+                        conectorGoOutput.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        conectorGoOutput.innerHTML = `<p class="text-gray-500">Tu oración aparecerá aquí...</p>`;
+                        conectorGoOutput.style.borderColor = 'var(--border-color)';
+                    }
+                };
+                conectorGoPart1Container.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(conectorGoPart1Container);
+                        button.classList.add('selected');
+                        selectedConectorGoPart1 = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateConectorGoOutput();
+                    });
+                });
+                conectorGoPart2Container.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(conectorGoPart2Container);
+                        button.classList.add('selected');
+                        selectedConectorGoPart2 = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateConectorGoOutput();
+                    });
+                });
+            }
+
+            // Probabilidad Future Builder (Unit 12)
+            const probabilidadSubjectContainer = document.getElementById('probabilidad-subject-container');
+            const probabilidadActionContainer = document.getElementById('probabilidad-action-container');
+            const probabilidadOutput = document.getElementById('probabilidad-output');
+            let selectedProbabilidadSubject = null;
+            let selectedProbabilidadAction = null;
+            if (probabilidadSubjectContainer && probabilidadActionContainer && probabilidadOutput) {
+                const updateProbabilidadOutput = () => {
+                    if (selectedProbabilidadSubject && selectedProbabilidadAction) {
+                        probabilidadOutput.innerHTML = `
+                            <div class='text-center'>
+                                <p class="text-2xl md:text-3xl korean-text"><strong style='color: var(--primary-blue);'>${selectedProbabilidadSubject.kor}</strong> <strong style='color: var(--accent-warm);'>${selectedProbabilidadAction.kor}</strong>.</p>
+                                <p class="text-md text-gray-500 mt-2">(<span style='color: var(--primary-blue);'>${selectedProbabilidadSubject.esp}</span> <span style='color: var(--accent-warm);'>${selectedProbabilidadAction.esp}</span>).</p>
+                            </div>
+                        `;
+                        probabilidadOutput.style.borderColor = 'var(--primary-blue)';
+                    } else {
+                        probabilidadOutput.innerHTML = `<p class="text-gray-500">Tu oración aparecerá aquí...</p>`;
+                        probabilidadOutput.style.borderColor = 'var(--border-color)';
+                    }
+                };
+                probabilidadSubjectContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(probabilidadSubjectContainer);
+                        button.classList.add('selected');
+                        selectedProbabilidadSubject = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateProbabilidadOutput();
+                    });
+                });
+                probabilidadActionContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        resetSelected(probabilidadActionContainer);
+                        button.classList.add('selected');
+                        selectedProbabilidadAction = { kor: button.dataset.kor, esp: button.dataset.esp };
+                        updateProbabilidadOutput();
+                    });
+                });
+            }
+        }
+        
+        // Function to render all content dynamically
+        function renderAllContent() {
+            const mainContentDiv = document.getElementById('main-content');
+            // Using a template literal for the main HTML structure
+            mainContentDiv.innerHTML = `
+                <section id="introduccion" class="bg-white rounded-xl shadow-lg p-8" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <h2 class="text-3xl font-bold mb-4 text-center" style="color: var(--primary-blue);">안녕하세요!</h2>
+                    <p class="text-lg mb-6">Creé este recurso para estudiar la materia del curso de coreano básico 1B del Instituto Rey Sejong a partir de mis apuntes, siéntete libre de usarlos!</p>
+                    <p class="mb-4">En esta guía, encontrarás:</p>
+                    <ul class="list-disc list-inside text-left mx-auto mb-6">
+                        <li>Vocabulario: Flashcards para memorizar palabras clave de lugares, verbos y familia.</li>
+                        <li>Gramática: Explicaciones con ejemplos de partículas y conjugaciones de tiempo.</li>
+                        <li>Constructores de Frases: Sirve para ver cómo se combina el vocabulario y el uso de la gramática.</li>
+                        <li>Cuestionarios de Sección: Pequeños tests para verificar el estado lo aprendido en cada tema.</li>
+                        <li>Cuestionario Final: Un cuestionario de 30 preguntas para evaluar todo.</li>
+                    </ul>
+                    <p class="mt-6 text-center text-lg font-semibold" style="color: var(--accent-warm);">¡Comienza a explorar y lleva tu coreano al siguiente nivel!</p>
+                </section>
+
+                <!-- Sección 1: Lugares, Acciones y el Pasado (Unidad 8) -->
+                <section id="unidad-8" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 1: Lugares, Acciones y el Pasado</h2>
+                        <p class="text-lg opacity-90">(Unidad 8: 도서관에서 뭐 했어요? - ¿Qué hiciste en la biblioteca?)</p>
+                        <p class="mt-4 text-gray-700">En esta sección, aprenderás a describir dónde realizas actividades y cómo expresar acciones que ya sucedieron. Es fundamental para hablar sobre tus experiencias.</p>
+                    </div>
+                    ${renderVocabularySection('placesAndNouns', studyData["8"].placesAndNouns, 'Vocabulario: Lugares y Sustantivos')}
+                    ${renderVocabularySection('verbsAndActions', studyData["8"].verbsAndActions, 'Vocabulario: Verbos y Acciones')}
+                    
+                    ${renderGrammarSection(studyData["8"].expressions)}
+
+                    ${createSentenceBuilderHtml(studyData["8"].sentenceBuilders[0])}
+                    ${createSentenceBuilderHtml(studyData["8"].sentenceBuilders[1])}
+
+                    <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                        <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 1</h3>
+                        <p class="mb-6">Pon a prueba tus conocimientos sobre lugares, acciones y el pasado.</p>
+                        <div id="quiz-questions-8"></div>
+                    </div>
+                </section>
+
+                <!-- Sección 2: Planes, Hobbies y Frecuencia (Unidad 9) -->
+                <section id="unidad-9" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 2: Planes, Hobbies y Frecuencia</h2>
+                        <p class="text-lg opacity-90">(Unidad 9: 다음 주말에 같이 축구해요 - La próxima semana jugaremos fútbol juntos)</p>
+                        <p class="mt-4 text-gray-700">Descubre cómo hablar de tus pasatiempos, hacer planes y expresar la frecuencia de tus actividades. ¡Ideal para invitar a amigos o describir tu rutina!</p>
+                    </div>
+                    ${renderVocabularySection('placesAndNouns', studyData["9"].placesAndNouns, 'Vocabulario: Hobbies y Sustantivos')}
+                    ${renderVocabularySection('verbsAndActions', studyData["9"].verbsAndActions, 'Vocabulario: Verbos de Hobbies y Frecuencia')}
+                    
+                    ${renderGrammarSection(studyData["9"].expressions)}
+
+                    ${createSentenceBuilderHtml(studyData["9"].sentenceBuilders[0])}
+
+                    <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                        <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 2</h3>
+                        <p class="mb-6">Pon a prueba tus conocimientos sobre planes, hobbies y adverbios de frecuencia.</p>
+                        <div id="quiz-questions-9"></div>
+                    </div>
+                </section>
+
+                <!-- Sección 3: La Familia y el Habla Honorífica (Unidad 10) -->
+                <section id="unidad-10" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 3: La Familia y el Habla Honorífica</h2>
+                        <p class="text-lg opacity-90">(Unidad 10: 낚시를 하러 갔어요 - Fui a pescar)</p>
+                        <p class="mt-4 text-gray-700">Aprende sobre los miembros de la familia y, lo más importante, cómo usar las formas honoríficas para mostrar respeto en coreano. Un aspecto clave de la cultura coreana.</p>
+                    </div>
+                    ${renderVocabularySection('placesAndNouns', studyData["10"].placesAndNouns, 'Vocabulario: Miembros de la Familia y Sustantivos Honoríficos')}
+                    ${renderVocabularySection('verbsAndActions', studyData["10"].verbsAndActions, 'Vocabulario: Verbos Honoríficos')}
+                    
+                    ${renderGrammarSection(studyData["10"].expressions)}
+
+                    ${createSentenceBuilderHtml(studyData["10"].sentenceBuilders[0])}
+                    ${createSentenceBuilderHtml(studyData["10"].sentenceBuilders[1])}
+
+                    <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                        <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 3</h3>
+                        <p class="mb-6">Pon a prueba tus conocimientos sobre vocabulario de la familia y el uso del lenguaje honorífico.</p>
+                        <div id="quiz-questions-10"></div>
+                    </div>
+                </section>
+
+                <!-- Sección 4: Deseos, sugerencias y descripciones (Unidad 11) -->
+                <section id="unidad-11" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 4: Deseos, sugerencias y descripciones</h2>
+                        <p class="text-lg opacity-90">(Unidad 11: Deseos, sugerencias y descripciones)</p>
+                        <p class="mt-4 text-gray-700">En esta sección, aprenderás a expresar tus deseos, a hacer sugerencias a otros y a describir cosas o personas usando adjetivos.</p>
+                    </div>
+                    ${renderVocabularySection('adjectives', studyData["11"].adjectives, 'Vocabulario: Adjetivos')}
+                    ${renderVocabularySection('verbsAndActions', studyData["11"].verbsAndActions, 'Vocabulario: Verbos')}
+                    
+                    ${renderGrammarSection(studyData["11"].expressions)}
+
+                    ${studyData["11"].sentenceBuilders.map(builder => createSentenceBuilderHtml(builder)).join('')}
+
+                    <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                        <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 4</h3>
+                        <p class="mb-6">Pon a prueba tus conocimientos sobre deseos, sugerencias y descripciones.</p>
+                        <div id="quiz-questions-11"></div>
+                    </div>
+                </section>
+
+                <!-- Sección 5: El clima, la ropa y las predicciones (Unidad 12) -->
+                <section id="unidad-12" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Sección 5: El clima, la ropa y las predicciones</h2>
+                        <p class="text-lg opacity-90">(Unidad 12: El clima, la ropa y las predicciones)</p>
+                        <p class="mt-4 text-gray-700">En esta sección, aprenderás a describir el clima, a hablar de la ropa adecuada y a hacer predicciones sobre eventos futuros utilizando expresiones de probabilidad.</p>
+                    </div>
+                    ${renderVocabularySection('weather', studyData["12"].weather, 'Vocabulario: Clima y fenómenos naturales')}
+                    ${renderVocabularySection('clothes', studyData["12"].clothes, 'Vocabulario: Ropa y objetos relacionados al clima')}
+                    ${renderVocabularySection('importantVerbs', studyData["12"].importantVerbs, 'Vocabulario: Verbos importantes')}
+                    
+                    ${renderGrammarSection(studyData["12"].expressions)}
+
+                    ${studyData["12"].sentenceBuilders.map(builder => createSentenceBuilderHtml(builder)).join('')}
+
+                    <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                        <h3 class="text-2xl font-semibold mb-4">Cuestionario de la Sección 5</h3>
+                        <p class="mb-6">Pon a prueba tus conocimientos sobre el clima, la ropa y las predicciones.</p>
+                        <div id="quiz-questions-12"></div>
+                    </div>
+                </section>
+
+                <!-- Cuestionario Final -->
+                <section id="final-quiz-section" class="space-y-8 p-6 rounded-xl shadow-lg" style="background-color: var(--bg-card); color: var(--text-color);">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold mb-2" style="color: var(--primary-blue);">Cuestionario Final</h2>
+                        <p class="text-lg opacity-90">¡Demuestra todo lo que has aprendido!</p>
+                        <p class="mt-4 text-gray-700">Este cuestionario de 30 preguntas abarca toda la materia de las unidades. ¡Mucha suerte!</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6" style="background-color: var(--bg-card); color: var(--text-color);">
+                        <h3 class="text-2xl font-semibold mb-4">Cuestionario Global</h3>
+                        <p class="mb-6">Pon a prueba tus conocimientos de todas las unidades.</p>
+                        <div id="final-quiz-questions">
+                            <!-- Final Quiz questions will be rendered here by JS -->
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            // Initialize quizzes and builders AFTER content is fully in the DOM
+            renderQuiz('quiz-questions-8', studyData["8"].quiz);
+            renderQuiz('quiz-questions-9', studyData["9"].quiz);
+            renderQuiz('quiz-questions-10', studyData["10"].quiz);
+            renderQuiz('quiz-questions-11', studyData["11"].quiz); 
+            renderQuiz('quiz-questions-12', studyData["12"].quiz); 
+            renderFinalQuiz();
+            setupAllBuilders();
+        }
+
+        // Call the main rendering function when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', renderAllContent);
+
+    </script>
+</body>
+</html>

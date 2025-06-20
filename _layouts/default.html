@@ -33,21 +33,26 @@
     <div class="w-full h-full p-4 overflow-auto">
       <button id="mobile-menu-close" class="mb-4 p-2 focus:outline-none text-(--text-color)">✕</button>
       <nav>
+        <h4 class="pl-4 mt-1 space-y-1">Categorías</h4>
         <ul class="space-y-2 capitalize">
           {% for category in site.categories %}
           <li>
             <details>
-              <summary class="flex justify-between items-center cursor-pointer py-2 px-3 rounded">
+              <summary class="flex justify-between items-center cursor-pointer py-2 px-6 rounded">
                 {{ category[0] }} <span>&rsaquo;</span>
               </summary>
               <ul class="pl-4 mt-1 space-y-1">
                 {% for post in category[1] %}
-                <li><a href="{{ post.url }}" class="block py-1 hover:underline">{{ post.title }}</a></li>
+                <li><a href="{{ post.url }}" class="block py-1 px-4">{{ post.title }}</a></li>
                 {% endfor %}
               </ul>
             </details>
           </li>
           {% endfor %}
+        </ul>
+        <h4 class="pl-4 mt-1 space-y-1">Guías de estudio</h4>
+        <ul class="pl-4 mt-1 space-y-1">
+          <li><a href="/coreano_1b/" class="block py-1 px-2">Coreano 1B</a></li>
         </ul>
       </nav>
     </div>
@@ -61,7 +66,8 @@
       </span>
       <button class="theme-toggle p-2 text-slate-50 focus:outline-none" onclick="window.soundOpen.play()">🌙</button>
     </div>
-    <ul class="px-2 space-y-2 text-slate-50">
+    <h4 class="pl-4 mt-1 space-y-1">Categorías</h4>
+    <ul class="px-4 space-y-2 text-slate-50">
       {% for category in site.categories %}
       <li>
         <details>
@@ -70,12 +76,16 @@
           </summary>
           <ul class="pl-4 mt-1 space-y-1">
             {% for post in category[1] %}
-            <li><a href="{{ post.url }}" class="block py-1 hover:underline">{{ post.title }}</a></li>
+            <li><a href="{{ post.url }}" class="block py-1">{{ post.title }}</a></li>
             {% endfor %}
           </ul>
         </details>
       </li>
       {% endfor %}
+    </ul>
+    <h4 class="pl-4 mt-1 space-y-1">Guías de estudio</h4>
+    <ul class="pl-4 mt-1 space-y-1">
+      <li><a href="/coreano_1b/" class="block py-1 px-2">Coreano 1B</a></li>
     </ul>
   </aside>
 
