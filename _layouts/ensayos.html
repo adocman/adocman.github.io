@@ -3,3 +3,20 @@ layout: default
 title: Ensayos
 permalink: /ensayos/
 ---
+<section class="content-section fade-up">
+  <div class="section-header">
+    <h2>Últimos ensayos</h2>
+    <a href="{{ '/ensayos/' | relative_url }}" class="view-all">Ver todos</a>
+  </div>
+  <div class="content-grid">
+    {% assign ensayos = site.posts | where: "type", "ensayo" %}
+    {% for post in ensayos limit:3 %}
+    <article class="post-card">
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
+      <span class="tag">Ensayo</span>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <p>{{ post.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>

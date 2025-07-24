@@ -4,90 +4,86 @@ title: Inicio
 permalink: /
 ---
 
-<section class="hero">
+<section class="hero fade-up">
   <div class="container">
-    <h1>Hola, soy Aarón Docman</h1>
-    <p class="lead">Exploro sobre la computación e informática, el pensamiento estructurado y la creatividad humana. Este es mi jardín digital para aprender compartiendo.</p>
+    <h1>Hola, soy Aarón</h1>
+    <p class="lead">Exploro la computación, el pensamiento estructurado y las ciencias. Este es mi jardín digital.</p>
   </div>
 </section>
 
-<section class="intro">
-  <div class="container">
-    <h2>¿Qué puedes encontrar aquí?</h2>
-    <ul class="">
-      <li><strong>Notas:</strong> Ideas en proceso, reflexiones y conexiones entre temas.</li>
-      <li><strong>Blog:</strong> Publicaciones didácticas orientadas a la divulgación técnica y humana.</li>
-      <li><strong>Ensayos:</strong> Exploraciones profundas, filosóficas o emocionales sobre el aprendizaje y la vida.</li>
-      <li><strong>Proyectos:</strong> Documentación de mis proyectos.</li>
-    </ul>
-  </div>
-</section>
 
 <!-- Notas -->
-<div class="">
-  {% assign notas = site.posts | where: "categories", "nota" %}
-  {% for post in notas %}
-  <article class="">
-    <div class="">
+<section class="content-section fade-up">
+  <div class="section-header">
+    <h2>Notas recientes</h2>
+    <a href="{{ '/notas/' | relative_url }}" class="view-all">Ver todas</a>
+  </div>
+  <div class="content-grid">
+    {% assign notas = site.posts | where: "type", "nota" %}
+    {% for post in notas limit:3 %}
+    <article class="post-card">
       <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="">{{ post.categories[0] }}</span>
-    </div>
-    <h3 class="">
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </h3>
-    <p class="">{{ post.excerpt }}</p>
-  </article>
-  {% endfor %}
-</div>
+      <span class="tag">Nota</span>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <p>{{ post.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
 
 <!-- Ensayos -->
-<div class="">
-  {% assign ensayos = site.posts | where: "categories", "ensayo" %}
-  {% for post in ensayos %}
-  <article class="">
-    <div class="">
+<section class="content-section fade-up">
+  <div class="section-header">
+    <h2>Últimos ensayos</h2>
+    <a href="{{ '/ensayos/' | relative_url }}" class="view-all">Ver todos</a>
+  </div>
+  <div class="content-grid">
+    {% assign ensayos = site.posts | where: "type", "ensayo" %}
+    {% for post in ensayos limit:3 %}
+    <article class="post-card">
       <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="">{{ post.categories[0] }}</span>
-    </div>
-    <h3 class="">
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </h3>
-    <p class="">{{ post.excerpt }}</p>
-  </article>
-  {% endfor %}
-</div>
+      <span class="tag">Ensayo</span>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <p>{{ post.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
 
-<!-- Entradas -->
-<div class="">
-  {% assign entradas = site.posts | where: "categories", "entrada" %}
-  {% for post in entradas %}
-  <article class="">
-    <div class="">
+<!-- Blog -->
+<section class="content-section fade-up">
+  <div class="section-header">
+    <h2>Últimos posts</h2>
+    <a href="{{ '/blog/' | relative_url }}" class="view-all">Ver todos</a>
+  </div>
+  <div class="content-grid">
+    {% assign entradas = site.posts | where: "type", "entrada" %}
+    {% for post in entradas limit:3 %}
+    <article class="post-card">
       <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="">{{ post.categories[0] }}</span>
-    </div>
-    <h3 class="">
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </h3>
-    <p class="">{{ post.excerpt }}</p>
-  </article>
-  {% endfor %}
-</div>
+      <span class="tag">Post</span>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <p>{{ post.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
 
 <!-- Proyectos -->
-<div class="">
-  {% assign proyectos = site.posts | where: "categories", "proyecto" %}
-  {% for post in proyectos %}
-  <article class="">
-    <div class="">
+<section class="content-section fade-up">
+  <div class="section-header">
+    <h2>Proyectos recientes</h2>
+    <a href="{{ '/proyectos/' | relative_url }}" class="view-all">Ver todos</a>
+  </div>
+  <div class="content-grid">
+    {% assign proyectos = site.posts | where: "type", "proyecto" %}
+    {% for post in proyectos limit:3 %}
+    <article class="post-card">
       <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="">{{ post.categories[0] }}</span>
-    </div>
-    <h3 class="">
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </h3>
-    <p class="">{{ post.excerpt }}</p>
-  </article>
-  {% endfor %}
-</div>
-
+      <span class="tag">Proyecto</span>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <p>{{ post.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>

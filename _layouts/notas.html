@@ -3,3 +3,20 @@ layout: default
 title: Notas
 permalink: /notas/
 ---
+<section class="content-section fade-up">
+  <div class="section-header">
+    <h2>Notas recientes</h2>
+    <a href="{{ '/notas/' | relative_url }}" class="view-all">Ver todas</a>
+  </div>
+  <div class="content-grid">
+    {% assign notas = site.posts | where: "type", "nota" %}
+    {% for post in notas limit:3 %}
+    <article class="post-card">
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
+      <span class="tag">Nota</span>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <p>{{ post.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>

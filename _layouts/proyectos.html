@@ -3,3 +3,20 @@ layout: default
 title: Proyectos
 permalink: /proyectos/
 ---
+<section class="content-section fade-up">
+  <div class="section-header">
+    <h2>Proyectos recientes</h2>
+    <a href="{{ '/proyectos/' | relative_url }}" class="view-all">Ver todos</a>
+  </div>
+  <div class="content-grid">
+    {% assign proyectos = site.posts | where: "type", "proyecto" %}
+    {% for post in proyectos limit:3 %}
+    <article class="post-card">
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
+      <span class="tag">Proyecto</span>
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <p>{{ post.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>

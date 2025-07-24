@@ -1,18 +1,24 @@
 <header class="site-header">
-    <div class="container">
-      <nav class="site-nav">
-        <ul class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-          <a href="{{ '/' | relative_url }}" class="logo">
-            Aarón Docman
-          </a>
-          <li><a href="{{ '/notas/' | relative_url }}">Notas</a></li>
-          <li><a href="{{ '/ensayos/' | relative_url }}">Ensayos</a></li>
-                    <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
-          <li><a href="{{ '/proyectos/' | relative_url }}">Proyectos</a></li>
-          <li><a href="{{ '/acerca/' | relative_url }}">Acerca</a></li>
-          <li><a href="{{ '/social/' | relative_url }}">Social</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  
+  <div class="logo">
+    <a href="{{ '/' | relative_url }}">Adocman</a>
+  </div>
+
+  <!-- Botón hamburguesa -->
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+  <div id="navigation-bar" class="nav-bar">
+    <a href="{{ '/notas/' | relative_url }}">Notas</a>
+    <a href="{{ '/ensayos/' | relative_url }}">Ensayos</a>
+    <a href="{{ '/blog/' | relative_url }}">Blog</a>
+    <a href="{{ '/proyectos/' | relative_url }}">Proyectos</a>
+    <a href="{{ '/acerca/' | relative_url }}">Acerca</a>
+    <a href="{{ '/social/' | relative_url }}">Social</a>
+  </div>
+</header>
+
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById("navigation-bar");
+    nav.classList.toggle("responsive");
+  }
+</script>
