@@ -3,20 +3,86 @@ layout: default
 title: Notas
 permalink: /notas/
 ---
-<section class="content-section fade-up">
-  <div class="section-header">
-    <h2>Notas recientes</h2>
-    <a href="{{ '/notas/' | relative_url }}" class="view-all">Ver todas</a>
+
+<section class="px-6 md:px-20 py-20 bg-[#FAF7F2] text-gray-900">
+  <div class="mb-12 text-center">
+    <h1 class="text-5xl font-serif mt-2">Notas</h1>
+    <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
+      Ideas, conceptos, observaciones y apuntes en formato atómico sobre cosas que estoy aprendiendo.
+    </p>
   </div>
-  <div class="content-grid">
-    {% assign notas = site.posts | where: "type", "nota" %}
-    {% for post in notas limit:3 %}
-    <article class="post-card">
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="tag">Nota</span>
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-      <p>{{ post.excerpt }}</p>
+
+  <!-- Filtro multiselección -->
+  <div class="flex justify-center gap-4 mb-12 flex-wrap">
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todas</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="fleeting">Fleeting</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="literature">Literature</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="permanent">Permanent</button>
+  </div>
+
+  <!-- Notas -->
+  <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+    {% assign notas = site.posts | where: "type", "zettelkasten" %}
+    {% for post in notas %}
+    <article class="group zettelkasten-card" data-status="{{ post.status | downcase }}">
+      <a href="{{ post.url }}" class="block transition space-y-2">
+        <h3 class="text-lg font-semibold leading-snug hover:text-[#4A6C6F] transition">
+          {{ post.title }}
+        </h3>
+        <p class="text-sm text-gray-600">{{ post.description | default: post.excerpt | truncatewords: 15 }}</p>
+        <div class="text-sm text-gray-400">
+          {{ post.status | capitalize }} &nbsp;•&nbsp; {{ post.date | date_to_relative }}
+        </div>
+      </a>
     </article>
     {% endfor %}
   </div>
 </section>
+
+<!-- Script para filtros múltiples -->
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.zettelkasten-card');
+
+  let activeFilters = new Set();
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+
+      if (filter === 'all') {
+        activeFilters.clear();
+        filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
+        button.classList.add('bg-gray-200', 'font-semibold', 'active');
+      } else {
+        const isActive = activeFilters.has(filter);
+        if (isActive) {
+          activeFilters.delete(filter);
+          button.classList.remove('bg-gray-200', 'font-semibold', 'active');
+        } else {
+          activeFilters.add(filter);
+          button.classList.add('bg-gray-200', 'font-semibold', 'active');
+        }
+
+        // Desactivar "Todas"
+        document.querySelector('[data-filter="all"]').classList.remove('bg-gray-200', 'font-semibold', 'active');
+      }
+
+      // Mostrar tarjetas según filtros activos
+      cards.forEach(card => {
+        const status = card.getAttribute('data-status');
+        if (activeFilters.size === 0 || activeFilters.has(status)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Si no hay filtros, activar "Todas"
+      if (activeFilters.size === 0) {
+        const allBtn = document.querySelector('[data-filter="all"]');
+        allBtn.classList.add('bg-gray-200', 'font-semibold', 'active');
+      }
+    });
+  });
+</script>

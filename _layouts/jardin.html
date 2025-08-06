@@ -1,0 +1,92 @@
+---
+layout: default
+title: Jardín
+permalink: /jardin/
+---
+
+<section class="px-6 md:px-20 py-20 bg-[#FAF7F2] text-gray-900">
+  <div class="mb-12 text-center">
+    <h1 class="text-5xl font-serif mt-2">El Jardín</h1>
+    <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
+      Reflexiones e ideas en constante evolución.
+    </p>
+  </div>
+
+  <!-- Filtro multiselección -->
+  <div class="flex justify-center gap-4 mb-12 flex-wrap">
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="seed">Seed</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="root">Root</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="tree">Tree</button>
+  </div>
+
+  <!-- Tarjetas -->
+  <div id="garden-grid" class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+    {% assign ensayos = site.posts | where: "type", "garden" %}
+    {% for post in ensayos %}
+    <article class="space-y-4 garden-card" data-status="{{ post.status | downcase }}">
+      {% if post.image %}
+      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
+      {% endif %}
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">{{ post.date | date: '%b %d, %Y' }}</time>
+      <span class="text-xs uppercase tracking-wide text-gray-400">{{ post.status | capitalize }}</span>
+      <h3 class="text-lg font-semibold">
+        <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
+      </h3>
+      <p class="text-sm text-gray-600 leading-relaxed">
+        {{ post.description | default: post.excerpt | truncatewords: 15 }}
+      </p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Script multiselección -->
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.garden-card');
+
+  let activeFilters = new Set();
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+
+      if (filter === 'all') {
+        // Reset all filters
+        activeFilters.clear();
+        filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
+        button.classList.add('bg-gray-200', 'font-semibold', 'active');
+      } else {
+        // Toggle filter
+        const isActive = activeFilters.has(filter);
+        if (isActive) {
+          activeFilters.delete(filter);
+          button.classList.remove('bg-gray-200', 'font-semibold', 'active');
+        } else {
+          activeFilters.add(filter);
+          button.classList.add('bg-gray-200', 'font-semibold', 'active');
+        }
+
+        // Remove "Todos" state
+        document.querySelector('[data-filter="all"]').classList.remove('bg-gray-200', 'font-semibold', 'active');
+      }
+
+      // Mostrar tarjetas
+      cards.forEach(card => {
+        const status = card.getAttribute('data-status');
+        if (activeFilters.size === 0 || activeFilters.has(status)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Si no hay filtros activos, marcar "Todos"
+      if (activeFilters.size === 0) {
+        const allBtn = document.querySelector('[data-filter="all"]');
+        allBtn.classList.add('bg-gray-200', 'font-semibold', 'active');
+      }
+    });
+  });
+</script>

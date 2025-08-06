@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: acerca
 title: Acerca
 permalink: /acerca/
 ---

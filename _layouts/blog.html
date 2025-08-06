@@ -4,19 +4,48 @@ title: Blog
 permalink: /blog/
 ---
 
-<section class="content-section fade-up">
-  <div class="section-header">
-    <h2>Últimos posts</h2>
-    <a href="{{ '/blog/' | relative_url }}" class="view-all">Ver todos</a>
+<section class="px-[100px] py-20 bg-[#F9F8F5] text-gray-900">
+  <div class="mb-12 text-center">
+    <h1 class="text-5xl font-serif mt-2">Blog</h1>
+    <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
+      Blog tradicional, entradas pensadas en compartirlas contigo.
+    </p>
   </div>
-  <div class="content-grid">
+
+  <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
     {% assign entradas = site.posts | where: "type", "entrada" %}
-    {% for post in entradas limit:3 %}
-    <article class="post-card">
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="tag">Post</span>
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-      <p>{{ post.excerpt }}</p>
+    {% for post in entradas %}
+    <article class="group rounded-lg overflow-hidden hover:bg-[#FAF7F2] transition-colors duration-200">
+      
+      <!-- Imagen -->
+      {% if post.image %}
+      <a href="{{ post.url }}">
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+      </a>
+      {% endif %}
+
+      <div class="p-4">
+        <!-- Fecha + tipo -->
+        <div class="flex items-center space-x-2 text-sm text-[#4A6C6F] font-semibold mb-1">
+          <span>🧠</span>
+          <span class="uppercase tracking-wide text-xs">Post</span>
+        </div>
+
+        <!-- Título -->
+        <h3 class="text-base font-semibold mb-1 group-hover:text-[#4A6C6F] transition">
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </h3>
+
+        <!-- Extracto -->
+        <p class="text-sm text-gray-600 mb-2 leading-relaxed">
+          {{ post.description | default: post.excerpt | truncatewords: 15 }}
+        </p>
+
+        <!-- Fecha -->
+        <div class="text-xs text-gray-400 mt-auto">
+          Publicado {{ post.date | date_to_relative }}
+        </div>
+      </div>
     </article>
     {% endfor %}
   </div>

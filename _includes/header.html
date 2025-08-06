@@ -1,24 +1,149 @@
-<header class="site-header">
-  <div class="logo">
-    <a href="{{ '/' | relative_url }}">Adocman</a>
+<header class="relative bg-[#FAF7F2] text-gray-800">
+  <nav class="mx-auto max-w-7xl px-[100px] py-[50px] flex items-center justify-between">
+    <!-- Logo -->
+    <div class="text-4xl font-serif tracking-wider uppercase">
+      <a href="{{ '/' | relative_url }}" class="hover:text-gray-600 transition-colors">ADOCMAN</a>
+    </div>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-8 text-base font-light tracking-wide">
+      <!-- Jardín dropdown (click toggle) -->
+      <div class="relative">
+        <button id="garden-btn" class="flex items-center gap-1 uppercase hover:text-[#4A6C6F] transition-colors">
+          Publicaciones
+          <svg class="w-4 h-4 stroke-current transition-transform" id="garden-icon" fill="none" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div id="garden-menu" class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 shadow-sm opacity-0 invisible transition-all rounded-md z-10">
+          <div class="flex flex-col py-2">
+            <a href="{{ '/notas/' | relative_url }}" class="px-4 py-2 text-sm hover:bg-[#F0F4F5] transition-colors">Notas</a>
+            <a href="{{ '/jardin/' | relative_url }}" class="px-4 py-2 text-sm hover:bg-[#F0F4F5] transition-colors">Jardín</a>
+            <a href="{{ '/proyectos/' | relative_url }}" class="px-4 py-2 text-sm hover:bg-[#F0F4F5] transition-colors">Proyectos</a>
+            <a href="{{ '/blog/' | relative_url }}" class="px-4 py-2 text-sm hover:bg-[#F0F4F5] transition-colors">Blog</a>
+            <hr class="my-1 border-t border-gray-200" />
+            <a href="{{ '/publicaciones/' | relative_url }}" class="px-4 py-2 text-sm font-medium text-[#191919] hover:bg-[#F0F4F5] transition-colors">Ver todo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sobre mí -->
+      <div class="uppercase hover:text-[#4A6C6F] transition-colors">
+        <a href="{{ '/acerca/' | relative_url }}">Acerca</a>
+      </div>
+      <!-- Redes -->
+      <div class="uppercase hover:text-[#4A6C6F] transition-colors">
+        <a href="{{ '/redes/' | relative_url }}">Redes</a>
+      </div>
+    </div>
+
+    <!-- Mobile toggle -->
+    <div class="md:hidden">
+      <button id="nav-toggle" aria-label="Abrir menú" class="flex items-center gap-1 focus:outline-none">
+        <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden px-6 pb-6 space-y-4 hidden">
+    <!-- Jardín accordion -->
+    <div class="border-t border-gray-200 pt-4">
+      <button aria-expanded="false" class="w-full flex justify-between items-center uppercase font-medium tracking-wide py-2 focus:outline-none" data-accordion-target="garden-submenu">
+        <span>Publicaciones</span>
+        <svg class="w-5 h-5 transition-transform accordion-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div id="garden-submenu" class="mt-2 pl-4 hidden flex-col gap-2">
+        <a href="{{ '/notas/' | relative_url }}" class="block py-1 hover:text-[#4A6C6F] transition-colors">Notas</a>
+        <a href="{{ '/jardin/' | relative_url }}" class="block py-1 hover:text-[#4A6C6F] transition-colors">Jardín</a>
+        <a href="{{ '/proyectos/' | relative_url }}" class="block py-1 hover:text-[#4A6C6F] transition-colors">Proyectos</a>
+        <a href="{{ '/blog/' | relative_url }}" class="block py-1 hover:text-[#4A6C6F] transition-colors">Blog</a>
+        <hr class="my-1 border-t border-gray-200" />
+        <a href="{{ '/publicaciones/' | relative_url }}" class="block py-1 hover:text-[#4A6C6F] transition-colors">Ver todo</a>
+      </div>
+    </div>
+
+    <!-- Sobre mí -->
+    <div class="uppercase">
+      <a href="{{ '/acerca/' | relative_url }}" class="block py-2 hover:text-[#4A6C6F] transition-colors">Acerca</a>
+    </div>
+    <!-- Redes -->
+    <div class="uppercase">
+      <a href="{{ '/redes/' | relative_url }}" class="block py-2 hover:text-[#4A6C6F] transition-colors">Redes</a>
+    </div>
   </div>
 
-  <!-- Botón hamburguesa -->
-  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <!-- Script mínimo -->
+  <script>
+    const toggleBtn = document.getElementById("nav-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const iconOpen = document.getElementById("icon-open");
+    const iconClose = document.getElementById("icon-close");
 
-  <div id="navigation-bar" class="nav-bar">
-    <a href="{{ '/notas/' | relative_url }}">Notas</a>
-    <a href="{{ '/ensayos/' | relative_url }}">Ensayos</a>
-    <a href="{{ '/blog/' | relative_url }}">Blog</a>
-    <a href="{{ '/proyectos/' | relative_url }}">Proyectos</a>
-    <a href="{{ '/acerca/' | relative_url }}">Acerca</a>
-    <a href="{{ '/social/' | relative_url }}">Social</a>
-  </div>
+    const gardenBtn = document.getElementById("garden-btn");
+    const gardenMenu = document.getElementById("garden-menu");
+    const gardenIcon = document.getElementById("garden-icon");
+
+    const accordionBtn = document.querySelector('[data-accordion-target="garden-submenu"]');
+    const gardenSub = document.getElementById("garden-submenu");
+    const accordionIcon = document.querySelector(".accordion-icon");
+
+    // Toggle mobile menu
+    toggleBtn?.addEventListener("click", () => {
+      const open = !mobileMenu.classList.contains("hidden");
+      if (open) {
+        mobileMenu.classList.add("hidden");
+        iconOpen.classList.remove("hidden");
+        iconClose.classList.add("hidden");
+      } else {
+        mobileMenu.classList.remove("hidden");
+        iconOpen.classList.add("hidden");
+        iconClose.classList.remove("hidden");
+      }
+    });
+
+    // Toggle Jardín dropdown in desktop
+    gardenBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = gardenMenu.classList.contains("opacity-100");
+      if (open) {
+        gardenMenu.classList.remove("opacity-100", "visible");
+        gardenMenu.classList.add("opacity-0", "invisible");
+        gardenIcon.style.transform = "rotate(0deg)";
+      } else {
+        gardenMenu.classList.remove("opacity-0", "invisible");
+        gardenMenu.classList.add("opacity-100", "visible");
+        gardenIcon.style.transform = "rotate(180deg)";
+      }
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener("click", (e) => {
+      if (!gardenMenu.contains(e.target) && !gardenBtn.contains(e.target)) {
+        gardenMenu.classList.remove("opacity-100", "visible");
+        gardenMenu.classList.add("opacity-0", "invisible");
+        gardenIcon.style.transform = "rotate(0deg)";
+      }
+    });
+
+    // Toggle Jardín accordion in mobile
+    accordionBtn?.addEventListener("click", () => {
+      const expanded = accordionBtn.getAttribute("aria-expanded") === "true";
+      accordionBtn.setAttribute("aria-expanded", String(!expanded));
+      if (gardenSub.classList.contains("hidden")) {
+        gardenSub.classList.remove("hidden");
+        accordionIcon.style.transform = "rotate(180deg)";
+      } else {
+        gardenSub.classList.add("hidden");
+        accordionIcon.style.transform = "rotate(0deg)";
+      }
+    });
+  </script>
 </header>
-
-<script>
-  function toggleMenu() {
-    const nav = document.getElementById("navigation-bar");
-    nav.classList.toggle("responsive");
-  }
-</script>

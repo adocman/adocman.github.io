@@ -4,86 +4,128 @@ title: Inicio
 permalink: /
 ---
 
-<section class="hero fade-up">
-  <div class="container">
-    <h1>Hola, soy Aarón</h1>
-    <p class="lead">Exploro la computación, el pensamiento estructurado y las ciencias. Este es mi jardín digital.</p>
+<!-- Hero -->
+<section class="bg-[#FAF7F2] px-6 md:px-20 py-20 text-gray-800">
+  <div class="max-w-5xl mx-auto text-center space-y-4">
+    <h1 class="text-4xl md:text-5xl font-serif tracking-wide">Hola, soy Aarón, aquí cultivo lo que aprendo en distintos formatos.</h1>
+    <p class="text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto">
+      Exploro desde las Ciencias de la Computación y los idiomas hasta el aprendizaje continuo y mi filosofía de vida.
+    </p>
   </div>
 </section>
 
+<!-- Notas & Ensayos -->
+<section class="bg-[#FAF7F2] px-6 md:px-20 py-20">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
 
-<!-- Notas -->
-<section class="content-section fade-up">
-  <div class="section-header">
-    <h2>Notas recientes</h2>
-    <a href="{{ '/notas/' | relative_url }}" class="view-all">Ver todas</a>
-  </div>
-  <div class="content-grid">
-    {% assign notas = site.posts | where: "type", "nota" %}
-    {% for post in notas limit:3 %}
-    <article class="post-card">
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="tag">Nota</span>
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-      <p>{{ post.excerpt }}</p>
-    </article>
-    {% endfor %}
+    <!-- Notas -->
+    <div class="space-y-10 md:col-span-1">
+      <div class="flex justify-between items-end">
+        <h2 class="text-2xl font-serif">Notas <a href="{{ '/notas/' | relative_url }}" class="tracking-wide hover:text-[#4A6C6F] transition">→</a></h2>
+      </div>
+      {% assign notas = site.posts | where: "type", "zettelkasten" %}
+      <div class="space-y-10">
+        {% for post in notas limit:7 %}
+        <article class="space-y-2">
+          <h3 class="text-lg font-semibold leading-snug">
+            <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
+          </h3>
+          {% unless forloop.last %}
+          <hr class="border-t border-[#D0D0D0] mt-6" />
+          {% endunless %}
+        </article>
+        {% endfor %}
+        <hr class="border-t border-[#D0D0D0] mt-6" />
+      </div>
+    </div>
+
+    <!-- Ensayos -->
+    <div class="space-y-6 md:col-span-2">
+      <div class="flex justify-between items-end">
+        <h2 class="text-2xl font-serif">Jardín Digital <a href="{{ '/ensayos/' | relative_url }}" class="tracking-wide hover:text-[#4A6C6F] transition">→</a></h2>
+      </div>
+      {% assign ensayos = site.posts | where: "type", "garden" %}
+      <div class="grid md:grid-cols-2 gap-8">
+        {% for post in ensayos limit:4 %}
+        <article class="space-y-4">
+          {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
+          {% endif %}
+          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">{{ post.date | date: '%b %d, %Y' }}</time>
+          <span class="text-xs uppercase tracking-wide text-gray-400">Ensayo</span>
+          <h3 class="text-lg font-semibold">
+            <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- Ensayos -->
-<section class="content-section fade-up">
-  <div class="section-header">
-    <h2>Últimos ensayos</h2>
-    <a href="{{ '/ensayos/' | relative_url }}" class="view-all">Ver todos</a>
-  </div>
-  <div class="content-grid">
-    {% assign ensayos = site.posts | where: "type", "ensayo" %}
-    {% for post in ensayos limit:3 %}
-    <article class="post-card">
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="tag">Ensayo</span>
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-      <p>{{ post.excerpt }}</p>
+<!-- Proyectos -->
+<section class="bg-[#FAF7F2] px-6 md:px-20 py-20">
+  <div class="max-w-6xl mx-auto space-y-16">
+    <div class="flex justify-between items-end">
+      <h2 class="text-2xl md:text-3xl font-serif">Proyectos <a href="{{ '/proyectos/' | relative_url }}" class="tracking-wide hover:text-[#4A6C6F] transition">→</a></h2>
+      
+    </div>
+    {% assign proyectos = site.posts | where: "type", "proyecto" %}
+    {% for post in proyectos limit:3 %}
+    <article class="grid md:grid-cols-3 gap-8 items-start border-t border-[#D0D0D0] pt-8">
+      <!-- Imagen del proyecto -->
+      {% if post.image %}
+      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="aspect-[3/2] object-cover w-full rounded-md">
+      {% else %}
+      <div class="aspect-[3/2] bg-gray-200 w-full rounded-md"></div>
+      {% endif %}
+
+      <!-- Info del proyecto -->
+      <div class="md:col-span-2 space-y-4">
+        <div class="flex justify-between flex-wrap gap-4">
+          <span class="text-xs uppercase tracking-wide text-gray-500">Proyecto</span>
+          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">
+            {{ post.date | date: '%B %d, %Y' }}
+          </time>
+        </div>
+        <h3 class="text-xl font-semibold">
+          <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
+        </h3>
+        <p class="text-sm text-gray-700 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
+        <div>
+          <a href="{{ post.url }}" class="inline-block mt-2 bg-[#4A6C6F] text-white text-sm px-5 py-2 rounded hover:bg-[#3b5658] transition">
+            Ver proyecto
+          </a>
+        </div>
+      </div>
     </article>
     {% endfor %}
   </div>
 </section>
 
 <!-- Blog -->
-<section class="content-section fade-up">
-  <div class="section-header">
-    <h2>Últimos posts</h2>
-    <a href="{{ '/blog/' | relative_url }}" class="view-all">Ver todos</a>
-  </div>
-  <div class="content-grid">
+<section class="bg-[#FAF7F2] px-6 md:px-20 py-20">
+  <div class="max-w-6xl mx-auto space-y-8">
+    <div class="flex justify-between items-end">
+      <h2 class="text-2xl md:text-3xl font-serif">Blog <a href="{{ '/blog/' | relative_url }}" class="tracking-wide hover:text-[#4A6C6F] transition">→</a></h2>
+    </div>
     {% assign entradas = site.posts | where: "type", "entrada" %}
-    {% for post in entradas limit:3 %}
-    <article class="post-card">
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="tag">Post</span>
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-      <p>{{ post.excerpt }}</p>
-    </article>
-    {% endfor %}
-  </div>
-</section>
-
-<!-- Proyectos -->
-<section class="content-section fade-up">
-  <div class="section-header">
-    <h2>Proyectos recientes</h2>
-    <a href="{{ '/proyectos/' | relative_url }}" class="view-all">Ver todos</a>
-  </div>
-  <div class="content-grid">
-    {% assign proyectos = site.posts | where: "type", "proyecto" %}
-    {% for post in proyectos limit:3 %}
-    <article class="post-card">
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="tag">Proyecto</span>
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-      <p>{{ post.excerpt }}</p>
-    </article>
-    {% endfor %}
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {% for post in entradas limit:3 %}
+      <article class="space-y-4">
+        {% if post.image %}
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
+        {% endif %}
+        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">{{ post.date | date: '%b %d, %Y' }}</time>
+        <span class="text-xs uppercase tracking-wide text-gray-400">Post</span>
+        <h3 class="text-lg font-semibold">
+          <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
+        </h3>
+        <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
+      </article>
+      {% endfor %}
+    </div>
   </div>
 </section>
