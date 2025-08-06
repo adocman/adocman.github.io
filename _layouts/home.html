@@ -23,7 +23,7 @@ permalink: /
       <div class="flex justify-between items-end">
         <h2 class="text-2xl font-serif">Notas <a href="{{ '/notas/' | relative_url }}" class="tracking-wide hover:text-[#4A6C6F] transition">→</a></h2>
       </div>
-      {% assign notas = site.posts | where: "type", "zettelkasten" %}
+      {% assign notas = site.posts | where: "type", "nota" %}
       <div class="space-y-10">
         {% for post in notas limit:7 %}
         <article class="space-y-2">
@@ -51,7 +51,7 @@ permalink: /
           {% if post.image %}
           <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
           {% endif %}
-          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">{{ post.date | date: '%b %d, %Y' }}</time>
+          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
           <span class="text-xs uppercase tracking-wide text-gray-400">Ensayo</span>
           <h3 class="text-lg font-semibold">
             <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
@@ -86,7 +86,7 @@ permalink: /
       <div class="md:col-span-2 space-y-4">
         <div class="flex justify-between flex-wrap gap-4">
           <span class="text-xs uppercase tracking-wide text-gray-500">Proyecto</span>
-          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">
+          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">
             {{ post.date | date: '%B %d, %Y' }}
           </time>
         </div>
@@ -118,7 +118,7 @@ permalink: /
         {% if post.image %}
         <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
         {% endif %}
-        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">{{ post.date | date: '%b %d, %Y' }}</time>
+        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
         <span class="text-xs uppercase tracking-wide text-gray-400">Post</span>
         <h3 class="text-lg font-semibold">
           <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>

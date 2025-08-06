@@ -15,9 +15,9 @@ permalink: /jardin/
   <!-- Filtro multiselección -->
   <div class="flex justify-center gap-4 mb-12 flex-wrap">
     <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todos</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="seed">Seed</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="root">Root</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="tree">Tree</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="semilla">Semilla</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="raiz">Raíz</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="arbol">Árbol</button>
   </div>
 
   <!-- Tarjetas -->
@@ -28,7 +28,7 @@ permalink: /jardin/
       {% if post.image %}
       <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
       {% endif %}
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">{{ post.date | date: '%b %d, %Y' }}</time>
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
       <span class="text-xs uppercase tracking-wide text-gray-400">{{ post.status | capitalize }}</span>
       <h3 class="text-lg font-semibold">
         <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>

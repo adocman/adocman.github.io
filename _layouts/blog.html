@@ -4,7 +4,7 @@ title: Blog
 permalink: /blog/
 ---
 
-<section class="px-[100px] py-20 bg-[#F9F8F5] text-gray-900">
+<section class="px-50 py-20 bg-[#F9F8F5] text-gray-900">
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Blog</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
@@ -42,7 +42,7 @@ permalink: /blog/
         </p>
 
         <!-- Fecha -->
-        <div class="text-xs text-gray-400 mt-auto">
+        <div class="text-xs text-gray-400 mt-auto relative-date" data-date="{{ post.date | date_to_xmlschema }}">
           Publicado {{ post.date | date_to_relative }}
         </div>
       </div>

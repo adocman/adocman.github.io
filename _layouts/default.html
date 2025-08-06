@@ -19,5 +19,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll('.relative-date');
+    elements.forEach(el => {
+      const date = new Date(el.dataset.date);
+      const now = new Date();
+      const diffSeconds = Math.floor((now - date) / 1000);
+
+      let result;
+      if (diffSeconds < 60) result = "Justo ahora";
+      else if (diffSeconds < 3600) result = `${Math.floor(diffSeconds / 60)} minutos atrás`;
+      else if (diffSeconds < 86400) result = `${Math.floor(diffSeconds / 3600)} horas atrás`;
+      else if (diffSeconds < 604800) result = `${Math.floor(diffSeconds / 86400)} días atrás`;
+      else if (diffSeconds < 2592000) result = `${Math.floor(diffSeconds / 604800)} semanas atrás`;
+      else if (diffSeconds < 31536000) result = `${Math.floor(diffSeconds / 2592000)} meses atrás`;
+      else result = `${Math.floor(diffSeconds / 31536000)} años atrás`;
+
+      el.textContent = result;
+    });
+  });
+</script>
+
 </body>
 </html>

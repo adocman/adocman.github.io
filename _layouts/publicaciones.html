@@ -4,7 +4,7 @@ title: Publicaciones
 permalink: /publicaciones/
 ---
 
-<section class="bg-[#FAF7F2] text-gray-900 px-6 md:px-20 py-20">
+<section class="bg-[#FAF7F2] text-gray-900 px-6 md:px-50 py-20">
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Publicaciones</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
@@ -36,7 +36,7 @@ permalink: /publicaciones/
   </div>
 
   <!-- Grid-->
-  <div id="publicaciones-grid" class="columns-1 md:columns-2 lg:columns-3 gap-6 max-w-6xl mx-auto space-y-6">
+  <div id="publicaciones-grid" class="columns-1 md:columns-2 lg:columns-3 gap-6 mx-auto space-y-6">
     {% assign publicaciones = site.posts %}
     {% for post in publicaciones %}
 
@@ -59,7 +59,7 @@ permalink: /publicaciones/
       {% endif %}
 
       <div class="flex items-center justify-between">
-        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500">{{ post.date | date: '%b %d, %Y' }}</time>
+        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
         <span class="text-xs uppercase tracking-wide text-gray-400">{{ type_label }}</span>
       </div>
 

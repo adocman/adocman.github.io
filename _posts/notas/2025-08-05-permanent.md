@@ -2,8 +2,8 @@
 layout: post
 title: Nota de prueba notas
 date: 2025-07-23
-type: zettelkasten
+type: nota
 pilar: filosofia
-status: permanent
+status: permanente
 ---
 hola, soy una nota permanente

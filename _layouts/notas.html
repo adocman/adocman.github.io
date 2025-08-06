@@ -4,7 +4,7 @@ title: Notas
 permalink: /notas/
 ---
 
-<section class="px-6 md:px-20 py-20 bg-[#FAF7F2] text-gray-900">
+<section class="px-6 md:px-50 py-20 bg-[#FAF7F2] text-gray-900">
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Notas</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
@@ -15,14 +15,14 @@ permalink: /notas/
   <!-- Filtro multiselección -->
   <div class="flex justify-center gap-4 mb-12 flex-wrap">
     <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todas</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="fleeting">Fleeting</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="literature">Literature</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="permanent">Permanent</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="rapida">Rápidas</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="literatura">Literatura</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="permanente">Permanentes</button>
   </div>
 
   <!-- Notas -->
   <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-    {% assign notas = site.posts | where: "type", "zettelkasten" %}
+    {% assign notas = site.posts | where: "type", "nota" %}
     {% for post in notas %}
     <article class="group zettelkasten-card" data-status="{{ post.status | downcase }}">
       <a href="{{ post.url }}" class="block transition space-y-2">
@@ -30,8 +30,8 @@ permalink: /notas/
           {{ post.title }}
         </h3>
         <p class="text-sm text-gray-600">{{ post.description | default: post.excerpt | truncatewords: 15 }}</p>
-        <div class="text-sm text-gray-400">
-          {{ post.status | capitalize }} &nbsp;•&nbsp; {{ post.date | date_to_relative }}
+        <div class="text-sm text-gray-400 relative-date" data-date="{{ post.date | date_to_xmlschema }}">
+          {{ post.status | capitalize }} &nbsp;•&nbsp; {{ post.date | date_to_xmlschema }}
         </div>
       </a>
     </article>
