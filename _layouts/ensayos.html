@@ -8,7 +8,7 @@ permalink: /ensayos/
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Ensayos</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
-      Reflexiones e ideas en constante evolución.
+      Textos reflexivos y argumentativos.
     </p>
   </div>
 
@@ -16,19 +16,20 @@ permalink: /ensayos/
   <div id="garden-grid" class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
     {% assign ensayos = site.posts | where: "type", "ensayo" %}
     {% for post in ensayos %}
-    <article class="space-y-4 garden-card" data-status="{{ post.status | downcase }}">
-      {% if post.image %}
-      <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
-      {% endif %}
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
-      <span class="text-xs uppercase tracking-wide text-gray-400">{{ post.status | capitalize }}</span>
-      <h3 class="text-lg font-semibold">
-        <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
-      </h3>
-      <p class="text-sm text-gray-600 leading-relaxed">
-        {{ post.description | default: post.excerpt | truncatewords: 15 }}
-      </p>
-    </article>
+    <a href="{{ post.url }}">
+      <article class="space-y-4 garden-card" data-status="{{ post.status | downcase }}">
+        {% if post.image %}
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
+        {% endif %}
+        <h3 class="text-lg font-semibold">
+          {{ post.title }}
+        </h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          {{ post.description | default: post.excerpt | truncatewords: 15 }}
+        </p>
+        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
+      </article>
+    </a>
     {% endfor %}
   </div>
 </section>

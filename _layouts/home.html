@@ -6,9 +6,9 @@ permalink: /
 <!-- Hero -->
 <section class="bg-[#FAF7F2] px-6 md:px-50 py-20 text-gray-800">
   <div class="max-w-5xl mx-auto text-center space-y-4">
-    <h1 class="text-4xl md:text-5xl font-serif tracking-wide">¡Hola, soy Aarón! aquí cultivo lo que aprendo sobre ciencias de la computación, idiomas, aprendizaje y filosofía.</h1>
+    <h1 class="text-4xl md:text-5xl font-serif tracking-wide">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut rhoncus libero.</h1>
     <p class="text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto">
-      Revisa las colecciones de mi jardín digital condensado en notas, ensayos y artículos.
+      Curabitur auctor id felis at faucibus.
     </p>
   </div>
 </section>
@@ -20,7 +20,7 @@ permalink: /
     <!-- Notas -->
     <div class="space-y-10 md:col-span-1">
       <div class="flex justify-between items-end">
-        <h2 class="text-2xl font-serif">Notas <a href="{{ '/notas/' | relative_url }}" class="tracking-wide hover:text-[#4A6C6F] transition">→</a></h2>
+        <a href="{{ '/notas/' | relative_url }}"><h2 class="text-2xl font-serif">Notas →</h2></a>
       </div>
       {% assign notas = site.posts | where: "type", "nota" %}
       <div class="space-y-10">
@@ -41,22 +41,23 @@ permalink: /
     <!-- Ensayos -->
     <div class="space-y-6 md:col-span-2">
       <div class="flex justify-between items-end">
-        <h2 class="text-2xl font-serif">Ensayos <a href="{{ '/ensayos/' | relative_url }}" class="tracking-wide hover:text-[#4A6C6F] transition">→</a></h2>
+        <a href="{{ '/ensayos/' | relative_url }}"><h2 class="text-2xl font-serif">Ensayos →</h2></a>
       </div>
       {% assign ensayos = site.posts | where: "type", "ensayo" %}
       <div class="grid md:grid-cols-2 gap-8">
         {% for post in ensayos limit:4 %}
-        <article class="space-y-4">
-          {% if post.image %}
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
-          {% endif %}
-          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
-          <span class="text-xs uppercase tracking-wide text-gray-400">Ensayo</span>
-          <h3 class="text-lg font-semibold">
-            <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
-          </h3>
-          <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
-        </article>
+        <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">
+          <article class="space-y-4">
+            {% if post.image %}
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
+            {% endif %}
+            <h3 class="text-lg font-semibold">
+              {{ post.title }}
+            </h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
+            <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
+          </article>
+        </a>
         {% endfor %}
       </div>
     </div>
@@ -68,22 +69,23 @@ permalink: /
 <section class="bg-[#FAF7F2] px-6 md:px-50 py-20">
   <div class="max-w-6xl mx-auto space-y-8">
     <div class="flex justify-between items-end">
-      <h2 class="text-2xl md:text-3xl font-serif">Artículos <a href="{{ '/articulos/' | relative_url }}" class="tracking-wide hover:text-[#4A6C6F] transition">→</a></h2>
+      <a href="{{ '/articulos/' | relative_url }}"><h2 class="text-2xl md:text-3xl font-serif">Artículos →<h2></a>
     </div>
     {% assign articulos = site.posts | where: "type", "articulo" %}
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-      {% for post in articulos limit:3 %}
-      <article class="space-y-4">
-        {% if post.image %}
-        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
-        {% endif %}
-        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
-        <span class="text-xs uppercase tracking-wide text-gray-400">Post</span>
-        <h3 class="text-lg font-semibold">
-          <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
-        </h3>
-        <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
-      </article>
+      {% for post in articulos limit:6 %}
+      <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">
+        <article class="space-y-4">
+          {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
+          {% endif %}
+          <h3 class="text-lg font-semibold">
+            {{ post.title }}
+          </h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
+          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
+        </article>
+      </a>
       {% endfor %}
     </div>
   </div>

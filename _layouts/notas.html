@@ -8,7 +8,7 @@ permalink: /notas/
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Notas</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
-      Notas en formato atómico sobre cosas que estoy aprendiendo.
+      Representan una única idea de forma sencilla.
     </p>
   </div>
 
@@ -16,17 +16,17 @@ permalink: /notas/
   <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
     {% assign notas = site.posts | where: "type", "nota" %}
     {% for post in notas %}
-    <article class="group zettelkasten-card" data-status="{{ post.status | downcase }}">
-      <a href="{{ post.url }}" class="block transition space-y-2">
-        <h3 class="text-lg font-semibold leading-snug hover:text-[#4A6C6F] transition">
-          {{ post.title }}
-        </h3>
-        <p class="text-sm text-gray-600">{{ post.description | default: post.excerpt | truncatewords: 15 }}</p>
-        <div class="text-sm text-gray-400 relative-date" data-date="{{ post.date | date_to_xmlschema }}">
-          {{ post.status | capitalize }} &nbsp;•&nbsp; {{ post.date | date_to_xmlschema }}
-        </div>
-      </a>
-    </article>
+    <a href="{{ post.url }}" class="block transition space-y-2">
+      <article class="group zettelkasten-card" data-status="{{ post.status | downcase }}">
+          <h3 class="text-lg font-semibold leading-snug hover:text-[#4A6C6F] transition">
+            {{ post.title }}
+          </h3>
+          <p class="text-sm text-gray-600">{{ post.description | default: post.excerpt | truncatewords: 15 }}</p>
+          <div class="text-sm text-gray-400 relative-date" data-date="{{ post.date | date_to_xmlschema }}">
+            {{ post.status | capitalize }} &nbsp;•&nbsp; {{ post.date | date_to_xmlschema }}
+          </div>
+      </article>
+    </a>
     {% endfor %}
   </div>
 </section>

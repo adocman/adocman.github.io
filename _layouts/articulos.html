@@ -8,45 +8,36 @@ permalink: /articulos/
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Artículos</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
-      Artículos pensados en ser divulgados.
+      Textos informativos y directos.
     </p>
   </div>
 
   <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
     {% assign articulos = site.posts | where: "type", "articulo" %}
     {% for post in articulos %}
-    <article class="group rounded-lg overflow-hidden hover:bg-[#FAF7F2] transition-colors duration-200">
-      
-      <!-- Imagen -->
-      {% if post.image %}
-      <a href="{{ post.url }}">
-        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
-      </a>
-      {% endif %}
+    <a href="{{ post.url }}" class="block h-full">
+      <article class="group rounded-lg overflow-hidden hover:bg-[#FAF7F2] transition-colors duration-200 h-full flex flex-col">
+        
+        {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+        {% endif %}
 
-      <div class="p-4">
-        <!-- Fecha + tipo -->
-        <div class="flex items-center space-x-2 text-sm text-[#4A6C6F] font-semibold mb-1">
-          <span>🧠</span>
-          <span class="uppercase tracking-wide text-xs">Post</span>
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="text-xl font-semibold mb-2 group-hover:text-[#4A6C6F] transition leading-tight">
+            {{ post.title }}
+          </h3>
+
+          <p class="text-base text-gray-600 mb-4 leading-normal flex-grow">
+            {{ post.description | default: post.excerpt | truncatewords: 20 }}
+          </p>
+
+          <div class="text-sm text-gray-400 mt-auto relative-date" data-date="{{ post.date | date_to_xmlschema }}">
+            Publicado {{ post.date | date_to_relative }}
+          </div>
         </div>
-
-        <!-- Título -->
-        <h3 class="text-base font-semibold mb-1 group-hover:text-[#4A6C6F] transition">
-          <a href="{{ post.url }}">{{ post.title }}</a>
-        </h3>
-
-        <!-- Extracto -->
-        <p class="text-sm text-gray-600 mb-2 leading-relaxed">
-          {{ post.description | default: post.excerpt | truncatewords: 15 }}
-        </p>
-
-        <!-- Fecha -->
-        <div class="text-xs text-gray-400 mt-auto relative-date" data-date="{{ post.date | date_to_xmlschema }}">
-          Publicado {{ post.date | date_to_relative }}
-        </div>
-      </div>
-    </article>
+      </article>
+    </a>
+    
     {% endfor %}
   </div>
 </section>

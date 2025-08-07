@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Nota de prueba jardín
+title: Ensayo
 date: 2025-07-23
 type: ensayo
 pilar: conocimiento

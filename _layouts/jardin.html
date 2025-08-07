@@ -48,31 +48,33 @@ permalink: /jardin/
       {% else %}                {% assign type_label = type %}
     {% endcase %}
 
-    <article class="break-inside-avoid rounded-md border border-gray-200 p-5 space-y-4 publicacion transition-all duration-300"
-            data-type="{{ type }}"
-            data-pilar="{{ post.pilar | downcase }}">
 
-      {% if post.image %}
-        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full mb-4">
-      {% endif %}
+      <article class="break-inside-avoid rounded-md border border-gray-200 p-5 space-y-4 publicacion transition-all duration-300"
+              data-type="{{ type }}"
+              data-pilar="{{ post.pilar | downcase }}">
+        <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">
+          {% if post.image %}
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full mb-4">
+          {% endif %}
 
-      <div class="flex items-center justify-between">
-        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
-        <span class="text-xs uppercase tracking-wide text-gray-400">{{ type_label }}</span>
-      </div>
+          <div class="flex items-center justify-between">
+            <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
+            <span class="text-xs uppercase tracking-wide text-gray-400">{{ type_label }}</span>
+          </div>
 
-      <h3 class="text-lg font-semibold leading-snug">
-        <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
-      </h3>
+          <h3 class="text-lg font-semibold leading-snug">
+            {{ post.title }}
+          </h3>
 
-      <p class="text-sm text-gray-600 leading-relaxed">
-        {{ post.description | default: post.excerpt | truncatewords: 20 }}
-      </p>
-    </article>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            {{ post.description | default: post.excerpt | truncatewords: 20 }}
+          </p>
+        </a>
+      </article>
+
 
     {% endfor %}
   </div>
-
 
 </section>
 

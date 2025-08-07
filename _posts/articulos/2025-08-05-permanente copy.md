@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Nota de prueba notas
+title: Articulo
 date: 2025-07-23
 type: articulo
 pilar: filosofia
