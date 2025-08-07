@@ -1,0 +1,191 @@
+---
+layout: default
+title: Homeb
+permalink: /homeb
+---
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+      .section {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        position: relative;
+      }
+      .panel-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        background: #faf7f2;
+        z-index: 20;
+      }
+      .panel-nav .step {
+        margin: 0 1rem;
+        font-weight: bold;
+        opacity: 0.3;
+        transition: opacity 0.3s;
+      }
+      .panel-nav .step.active {
+        opacity: 1;
+      }
+      .left-column {
+        flex: 1;
+        padding: 6rem 2rem 2rem;
+        background: #faf7f2;
+        overflow: hidden;
+      }
+      .right-column {
+        flex: 2;
+        padding: 6rem 3rem 2rem;
+        overflow-y: auto;
+        background: white;
+        height: 100vh;
+        scroll-behavior: smooth;
+      }
+      .note-preview {
+        margin-bottom: 2rem;
+        cursor: pointer;
+      }
+      .note-preview.active h3 {
+        color: #4A6C6F;
+      }
+      .note-content {
+        min-height: 100vh;
+        padding-bottom: 4rem;
+        opacity: 0.2;
+        transition: opacity 0.5s;
+      }
+      .note-content.active {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panel-nav">
+      <div class="step" id="step-notas">01 Notas</div>
+      <div class="step" id="step-ensayos">02 Ensayos</div>
+      <div class="step" id="step-articulos">03 Artículos</div>
+    </div>
+
+    <!-- NOTAS SECTION -->
+    <section class="section" id="section-notas">
+      <div class="left-column">
+        <h2 class="text-2xl font-serif mb-6">Notas</h2>
+        <p class="mb-10 text-sm text-gray-600 max-w-xs">Notas atómicas derivadas de mis estudios, pensamientos sueltos y exploraciones interdisciplinarias.</p>
+        {% assign notas = site.posts | where: "type", "nota" | slice: 0, 3 %}
+        {% for post in notas %}
+        <div class="note-preview" data-target="note-{{ forloop.index }}">
+          <h3 class="text-md font-semibold">{{ post.title }}</h3>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="right-column">
+        {% for post in notas %}
+        <div class="note-content" id="note-{{ forloop.index }}">
+          <h3 class="text-xl font-bold mb-2">{{ post.title }}</h3>
+          <p class="text-sm text-gray-700">{{ post.content }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- ENSAYOS SECTION -->
+    <section class="section" id="section-ensayos">
+      <div class="left-column">
+        <h2 class="text-2xl font-serif mb-6">Ensayos</h2>
+        <p class="mb-10 text-sm text-gray-600 max-w-xs">Exploraciones más extensas donde profundizo ideas, teorías y problemas complejos.</p>
+        {% assign ensayos = site.posts | where: "type", "ensayo" | slice: 0, 3 %}
+        {% for post in ensayos %}
+        <div class="note-preview" data-target="ensayo-{{ forloop.index }}">
+          <h3 class="text-md font-semibold">{{ post.title }}</h3>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="right-column">
+        {% for post in ensayos %}
+        <div class="note-content" id="ensayo-{{ forloop.index }}">
+          <h3 class="text-xl font-bold mb-2">{{ post.title }}</h3>
+          <p class="text-sm text-gray-700">{{ post.content }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- ARTICULOS SECTION -->
+    <section class="section" id="section-articulos">
+      <div class="left-column">
+        <h2 class="text-2xl font-serif mb-6">Artículos</h2>
+        <p class="mb-10 text-sm text-gray-600 max-w-xs">Publicaciones más formales o aplicadas sobre temas técnicos o interdisciplinarios.</p>
+        {% assign articulos = site.posts | where: "type", "articulo" | slice: 0, 3 %}
+        {% for post in articulos %}
+        <div class="note-preview" data-target="articulo-{{ forloop.index }}">
+          <h3 class="text-md font-semibold">{{ post.title }}</h3>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="right-column">
+        {% for post in articulos %}
+        <div class="note-content" id="articulo-{{ forloop.index }}">
+          <h3 class="text-xl font-bold mb-2">{{ post.title }}</h3>
+          <p class="text-sm text-gray-700">{{ post.content }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Cambiar step activo
+      const steps = document.querySelectorAll('.step');
+      const sections = document.querySelectorAll('.section');
+      sections.forEach((sec, i) => {
+        ScrollTrigger.create({
+          trigger: sec,
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => activateStep(i),
+          onEnterBack: () => activateStep(i),
+        });
+      });
+
+      function activateStep(index) {
+        steps.forEach((s, i) => s.classList.toggle('active', i === index));
+      }
+
+      // Contenido activo en scroll lateral
+      const allRightCols = document.querySelectorAll('.right-column');
+      allRightCols.forEach((col) => {
+        col.addEventListener('scroll', () => {
+          const contents = col.querySelectorAll('.note-content');
+          contents.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            el.classList.toggle('active', rect.top >= 0 && rect.top < window.innerHeight / 2);
+          });
+        });
+      });
+
+      // Interacción de previews
+      const previews = document.querySelectorAll('.note-preview');
+      previews.forEach((preview) => {
+        preview.addEventListener('click', () => {
+          const container = preview.closest('.section');
+          const targetId = preview.getAttribute('data-target');
+          const content = container.querySelector(`#${targetId}`);
+          container.querySelector('.right-column').scrollTo({
+            top: content.offsetTop,
+            behavior: 'smooth'
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
