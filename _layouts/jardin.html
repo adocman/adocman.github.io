@@ -8,7 +8,7 @@ permalink: /jardin/
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Jardín</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
-      Archivo vivo de ideas: notas, ensayos y artículos.
+      Colección de notas, ensayos y artículos.
     </p>
   </div>
 
@@ -81,31 +81,17 @@ permalink: /jardin/
   const publicaciones = document.querySelectorAll('.publicacion');
   const pilarFilter = document.getElementById('pilar-filter');
 
-  let activeTypes = new Set();
+  let activeType = 'all'; // Solo un tipo activo a la vez
 
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const type = btn.dataset.type;
+      activeType = btn.dataset.type;
 
-      if (type === 'all') {
-        activeTypes.clear();
-        filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
-        btn.classList.add('bg-gray-200', 'font-semibold', 'active');
-      } else {
-        document.querySelector('[data-type="all"]').classList.remove('bg-gray-200', 'font-semibold', 'active');
+      // Remueve clase activa de todos los botones
+      filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
 
-        if (activeTypes.has(type)) {
-          activeTypes.delete(type);
-          btn.classList.remove('bg-gray-200', 'font-semibold', 'active');
-        } else {
-          activeTypes.add(type);
-          btn.classList.add('bg-gray-200', 'font-semibold', 'active');
-        }
-      }
-
-      if (activeTypes.size === 0) {
-        document.querySelector('[data-type="all"]').classList.add('bg-gray-200', 'font-semibold', 'active');
-      }
+      // Activa solo el botón clickeado
+      btn.classList.add('bg-gray-200', 'font-semibold', 'active');
 
       applyFilters();
     });
@@ -120,14 +106,11 @@ permalink: /jardin/
       const postType = pub.dataset.type;
       const postPilar = pub.dataset.pilar;
 
-      const matchesType = activeTypes.size === 0 || activeTypes.has(postType);
+      const matchesType = activeType === 'all' || postType === activeType;
       const matchesPilar = !selectedPilar || postPilar === selectedPilar;
 
-      if (matchesType && matchesPilar) {
-        pub.style.display = "block";
-      } else {
-        pub.style.display = "none";
-      }
+      pub.style.display = (matchesType && matchesPilar) ? 'block' : 'none';
     });
   }
 </script>
+
