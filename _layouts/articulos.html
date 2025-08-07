@@ -1,20 +1,28 @@
 ---
 layout: default
-title: Blog
-permalink: /blog/
+title: Artículos
+permalink: /articulos/
 ---
 
 <section class="px-50 py-20 bg-[#F9F8F5] text-gray-900">
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Blog</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
-      Blog tradicional, entradas pensadas en compartirlas contigo.
+      Artículos pensados en ser divulgados.
     </p>
   </div>
 
+    <!-- Filtro multiselección -->
+  <div class="flex justify-center gap-4 mb-12 flex-wrap">
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="semilla">Semilla</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="raiz">Raíz</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="arbol">Árbol</button>
+  </div>
+
   <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-    {% assign entradas = site.posts | where: "type", "entrada" %}
-    {% for post in entradas %}
+    {% assign articulos = site.posts | where: "type", "articulo" %}
+    {% for post in articulos %}
     <article class="group rounded-lg overflow-hidden hover:bg-[#FAF7F2] transition-colors duration-200">
       
       <!-- Imagen -->

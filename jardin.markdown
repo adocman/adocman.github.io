@@ -1,5 +1,5 @@
 ---
 layout: jardin
-title: Jardin
+title: Jardín
 permalink: /jardin/
 ---
