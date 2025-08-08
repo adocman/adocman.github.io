@@ -1,0 +1,85 @@
+---
+layout: default
+title: Lecturas
+permalink: /lecturas/
+---
+
+<section class="px-6 md:px-50 py-20 bg-[#FAF7F2] text-gray-900">
+  <!-- Encabezado -->
+  <div class="mb-12 text-center">
+    <h1 class="text-5xl font-serif mt-2">Lecturas</h1>
+    <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
+      Una selección de lo que he leído (biblioteca) y lo que tengo pendiente (antibiblioteca) por leer en mis estantes.
+    </p>
+  </div>
+
+  <!-- Filtros -->
+  <div class="flex flex-wrap justify-center gap-4 mb-16">
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todas</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="biblioteca">Biblioteca</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="antibiblioteca">Antibiblioteca</button>
+  </div>
+
+  <!-- Grid de libros -->
+  <div id="lecturas-grid" class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+    {% for libro in site.data.lecturas %}
+    <div class="libro-card flex flex-col space-y-4 opacity-0 w-full" data-estado="{{ libro.estado }}">
+      <img src="{{ libro.portada }}" alt="{{ libro.titulo }}" 
+           class="w-full rounded shadow-md aspect-[11/16] object-fit" />
+      <div class="flex flex-col flex-grow items-center text-center space-y-2 px-2">
+        <h2 class="text-3xl font-serif font-semibold leading-snug">{{ libro.titulo }}</h2>
+        <p class="italic text-gray-600">{{ libro.autor }}</p>
+        {% if libro.notas %}
+        <p class="text-gray-700">{{ libro.notas }}</p>
+        {% endif %}
+        <p class="mt-auto font-semibold text-sm uppercase text-gray-500">{{ libro.estado }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Animaciones y filtro con GSAP -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.libro-card');
+
+    let activeFilter = 'all';
+
+    // Animación de entrada inicial
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power2.out"
+    });
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        activeFilter = button.getAttribute('data-filter');
+
+        filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
+        button.classList.add('bg-gray-200', 'font-semibold', 'active');
+
+        cards.forEach(card => {
+          const estado = card.getAttribute('data-estado');
+          const matches = activeFilter === 'all' || estado === activeFilter;
+
+          if (matches) {
+            card.style.display = 'flex';
+            gsap.to(card, { opacity: 1, y: 0, duration: 0.5 });
+          } else {
+            gsap.to(card, {
+              opacity: 0,
+              y: 20,
+              duration: 0.3,
+              onComplete: () => { card.style.display = 'none'; }
+            });
+          }
+        });
+      });
+    });
+  });
+</script>

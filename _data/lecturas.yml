@@ -1,0 +1,17 @@
+- titulo: "Antifragile"
+  autor: "Nassim Taleb"
+  portada: "../assets/images/lecturas/antifragile.jpg"
+  estado: "biblioteca"   # o "antibiblioteca"
+  notas: "Influyó en mi forma de entender el riesgo y la incertidumbre."
+
+- titulo: "The obstacle is the way"
+  autor: "Ryan Holiday"
+  portada: "../assets/images/lecturas/the-obstacle-is-the-way.jpg"
+  estado: "biblioteca"
+  notas: "Un recordatorio práctico de que las dificultades pueden convertirse en oportunidades."
+
+- titulo: "Your Next Five Moves"
+  autor: "Patrick Bet-David"
+  portada: "../assets/images/lecturas/your-next-five-moves.jpg"
+  estado: "antibiblioteca"
+  notas: "Pendiente por leer, con ideas estratégicas para pensar mejor en los negocios."

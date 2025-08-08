@@ -13,106 +13,119 @@ permalink: /jardin/
   </div>
 
   <!-- Filtros -->
-  <div class="flex flex-wrap justify-center gap-4 mb-12 items-center">
-    <!-- Filtros por tipo (estilo igual a jardin.html) -->
-    <div class="flex gap-2 flex-wrap justify-center">
+  <div class="flex flex-wrap justify-center gap-4 mb-16 items-center">
+    <div class="flex gap-2 flex-wrap justify-center" role="group" aria-label="Filtrar por tipo">
       <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-type="all">Todos</button>
       <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-type="nota">Notas</button>
       <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-type="ensayo">Ensayos</button>
       <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-type="articulo">Artículos</button>
     </div>
 
-    <!-- Dropdown por pilar -->
     <div class="relative">
+      <label for="pilar-filter" class="sr-only">Filtrar por pilar</label>
       <select id="pilar-filter" class="border px-4 py-2 rounded text-sm bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-300 transition">
-        <option value="">Pilar (todos)</option>
-        <option value="stem">STEM</option>
-        <option value="idiomas">Idiomas</option>
-        <option value="conocimiento">Conocimiento</option>
-        <option value="filosofia">Filosofía</option>
+        <option value="">Pilares</option>
+        <option value="logos">Logos</option>
+        <option value="pathos">Pathos</option>
+        <option value="ethos">Ethos</option>
       </select>
     </div>
   </div>
 
-  <!-- Grid-->
+  <!-- Grid -->
   <div id="publicaciones-grid" class="columns-1 md:columns-2 lg:columns-3 gap-6 mx-auto space-y-6">
     {% assign publicaciones = site.posts %}
     {% for post in publicaciones %}
+      {% assign type = post.type | downcase %}
+      {% assign type_label = "" %}
+      {% case type %}
+        {% when "nota" %} {% assign type_label = "Nota" %}
+        {% when "ensayo" %} {% assign type_label = "Ensayo" %}
+        {% when "articulo" %} {% assign type_label = "Artículo" %}
+        {% else %} {% assign type_label = type %}
+      {% endcase %}
 
-    {% assign type = post.type | downcase %}
-    {% assign type_label = "" %}
-    {% case type %}
-      {% when "nota" %} {% assign type_label = "Nota" %}
-      {% when "ensayo" %}       {% assign type_label = "Ensayo" %}
-      {% when "articulo" %}      {% assign type_label = "Artículo" %}
-      {% else %}                {% assign type_label = type %}
-    {% endcase %}
-
-
-      <article class="break-inside-avoid rounded-md border border-gray-200 p-5 space-y-4 publicacion transition-all duration-300"
-              data-type="{{ type }}"
-              data-pilar="{{ post.pilar | downcase }}">
-        <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">
+      <article
+        class="publicacion break-inside-avoid rounded-md border border-gray-200 p-5 space-y-3 transition-all duration-300 opacity-0"
+        data-type="{{ type }}"
+        data-pilar="{{ post.pilar | downcase }}"
+      >
+        <a href="{{ post.url }}" class="group block hover:text-[#4A6C6F] transition-colors duration-200">
           {% if post.image %}
-            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full mb-4">
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full mb-4 transition-transform duration-300 group-hover:scale-105">
           {% endif %}
 
-          <div class="flex items-center justify-between">
-            <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
-            <span class="text-xs uppercase tracking-wide text-gray-400">{{ type_label }}</span>
-          </div>
-
-          <h3 class="text-lg font-semibold leading-snug">
-            {{ post.title }}
-          </h3>
+          <h3 class="text-lg font-semibold leading-snug">{{ post.title }}</h3>
 
           <p class="text-sm text-gray-600 leading-relaxed">
             {{ post.description | default: post.excerpt | truncatewords: 20 }}
           </p>
+
+          <div class="mt-2 space-y-1 text-sm text-gray-500">
+            <div>
+              <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="relative-date" data-date="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: '%b %d, %Y' }}
+              </time>
+            </div>
+            <div class="flex items-center justify-between text-sm text-gray-500">
+              {% if post.pilar %}
+                <div class="capitalize">Pilar: <span class="font-medium">{{ post.pilar }}</span></div>
+              {% endif %}
+              <div class="tracking-wide text-xs text-gray-400">{{ type_label }}</div>
+            </div>
+
+          </div>
         </a>
       </article>
 
-
     {% endfor %}
   </div>
-
 </section>
 
 <script>
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const publicaciones = document.querySelectorAll('.publicacion');
-  const pilarFilter = document.getElementById('pilar-filter');
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const publicaciones = document.querySelectorAll('.publicacion');
+    const pilarFilter = document.getElementById('pilar-filter');
 
-  let activeType = 'all'; // Solo un tipo activo a la vez
+    let activeType = 'all';
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      activeType = btn.dataset.type;
-
-      // Remueve clase activa de todos los botones
-      filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
-
-      // Activa solo el botón clickeado
-      btn.classList.add('bg-gray-200', 'font-semibold', 'active');
-
-      applyFilters();
+    // Animación de entrada inicial con GSAP
+    gsap.to(".publicacion", {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power2.out"
     });
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeType = btn.dataset.type;
+        filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
+        btn.classList.add('bg-gray-200', 'font-semibold', 'active');
+        applyFilters();
+      });
+    });
+
+    pilarFilter.addEventListener('change', applyFilters);
+
+    function applyFilters() {
+      const selectedPilar = pilarFilter.value;
+
+      publicaciones.forEach(pub => {
+        const postType = pub.dataset.type;
+        const postPilar = pub.dataset.pilar;
+        const matchesType = activeType === 'all' || postType === activeType;
+        const matchesPilar = !selectedPilar || postPilar === selectedPilar;
+        const shouldShow = matchesType && matchesPilar;
+
+        if (shouldShow) {
+          gsap.to(pub, { opacity: 1, y: 0, duration: 0.5, display: 'block' });
+        } else {
+          gsap.to(pub, { opacity: 0, y: 20, duration: 0.3, onComplete: () => pub.style.display = 'none' });
+        }
+      });
+    }
   });
-
-  pilarFilter.addEventListener('change', applyFilters);
-
-  function applyFilters() {
-    const selectedPilar = pilarFilter.value;
-
-    publicaciones.forEach(pub => {
-      const postType = pub.dataset.type;
-      const postPilar = pub.dataset.pilar;
-
-      const matchesType = activeType === 'all' || postType === activeType;
-      const matchesPilar = !selectedPilar || postPilar === selectedPilar;
-
-      pub.style.display = (matchesType && matchesPilar) ? 'block' : 'none';
-    });
-  }
 </script>
-

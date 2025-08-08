@@ -8,78 +8,98 @@ permalink: /ensayos/
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Ensayos</h1>
     <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
-      Textos reflexivos y argumentativos.
+      Textos reflexivos, profundos y personales.
     </p>
   </div>
 
-  <!-- Tarjetas -->
-  <div id="garden-grid" class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+  <!-- Filtros por pilar -->
+  <div class="flex flex-wrap justify-center gap-4 mb-16">
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="logos">Logos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="pathos">Pathos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="ethos">Ethos</button>
+  </div>
+
+  <!-- Ensayos -->
+  <div id="ensayos-grid" class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
     {% assign ensayos = site.posts | where: "type", "ensayo" %}
     {% for post in ensayos %}
-    <a href="{{ post.url }}">
-      <article class="space-y-4 garden-card" data-status="{{ post.status | downcase }}">
+    <a href="{{ post.url }}" class="block h-full">
+      <article class="group rounded-lg overflow-hidden hover:bg-[#FAF7F2] transition-colors duration-200 h-full flex flex-col space-y-2 opacity-0" data-pilar="{{ post.pilar | downcase }}">
         {% if post.image %}
-        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="rounded-md aspect-[3/2] object-cover w-full">
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full aspect-[4/3] object-cover">
         {% endif %}
-        <h3 class="text-lg font-semibold">
+
+        <h3 class="text-lg font-semibold leading-snug hover:text-[#4A6C6F] transition">
           {{ post.title }}
         </h3>
-        <p class="text-sm text-gray-600 leading-relaxed">
-          {{ post.description | default: post.excerpt | truncatewords: 15 }}
+
+        <p class="text-base text-gray-600 leading-normal">
+          {{ post.description | default: post.excerpt | truncatewords: 20 }}
         </p>
-        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
+
+        <div class="text-sm text-gray-400 mt-auto relative-date" data-date="{{ post.date | date_to_xmlschema }}">
+          Publicado {{ post.date | date_to_relative }}
+        </div>
+
+        <div class="flex justify-between text-sm text-gray-500 mt-2">
+          {% if post.pilar %}
+            <div class="capitalize">Pilar: <span class="font-medium">{{ post.pilar }}</span></div>
+          {% else %}
+            <div></div>
+          {% endif %}
+          <div class="tracking-wide text-xs text-gray-400 uppercase">{{ post.type }}</div>
+        </div>
       </article>
     </a>
     {% endfor %}
   </div>
 </section>
 
-<!-- Script multiselección -->
+<!-- GSAP + Filtro por Pilar -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.garden-card');
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cardLinks = document.querySelectorAll('#ensayos-grid > a');
+    const cards = document.querySelectorAll('#ensayos-grid .group');
 
-  let activeFilters = new Set();
+    let activeFilter = 'all';
 
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const filter = button.getAttribute('data-filter');
+    // Animación inicial de entrada
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power2.out"
+    });
 
-      if (filter === 'all') {
-        // Reset all filters
-        activeFilters.clear();
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        activeFilter = button.getAttribute('data-filter');
+
         filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
         button.classList.add('bg-gray-200', 'font-semibold', 'active');
-      } else {
-        // Toggle filter
-        const isActive = activeFilters.has(filter);
-        if (isActive) {
-          activeFilters.delete(filter);
-          button.classList.remove('bg-gray-200', 'font-semibold', 'active');
-        } else {
-          activeFilters.add(filter);
-          button.classList.add('bg-gray-200', 'font-semibold', 'active');
-        }
 
-        // Remove "Todos" state
-        document.querySelector('[data-filter="all"]').classList.remove('bg-gray-200', 'font-semibold', 'active');
-      }
+        cardLinks.forEach(link => {
+          const card = link.querySelector('.group');
+          const cardPilar = card.getAttribute('data-pilar');
+          const matches = activeFilter === 'all' || cardPilar === activeFilter;
 
-      // Mostrar tarjetas
-      cards.forEach(card => {
-        const status = card.getAttribute('data-status');
-        if (activeFilters.size === 0 || activeFilters.has(status)) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
+          if (matches) {
+            link.style.display = 'block';
+            gsap.to(card, { opacity: 1, y: 0, duration: 0.5, display: 'block' });
+          } else {
+            gsap.to(card, {
+              opacity: 0,
+              y: 20,
+              duration: 0.3,
+              onComplete: () => { link.style.display = 'none'; }
+            });
+          }
+        });
       });
-
-      // Si no hay filtros activos, marcar "Todos"
-      if (activeFilters.size === 0) {
-        const allBtn = document.querySelector('[data-filter="all"]');
-        allBtn.classList.add('bg-gray-200', 'font-semibold', 'active');
-      }
     });
   });
 </script>

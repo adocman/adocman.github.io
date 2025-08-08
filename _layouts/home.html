@@ -5,10 +5,10 @@ permalink: /
 ---
 <!-- Hero -->
 <section class="bg-[#FAF7F2] px-6 md:px-50 py-20 text-gray-800">
-  <div class="max-w-5xl mx-auto text-center space-y-4">
-    <h1 class="text-4xl md:text-5xl font-serif tracking-wide">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut rhoncus libero.</h1>
+  <div class="max-w-5xl mx-auto text-center space-y-6">
+    <h1 class="text-4xl md:text-5xl font-serif tracking-wide">Hola, soy Aarón.</h1>
     <p class="text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto">
-      Curabitur auctor id felis at faucibus.
+      Te doy la bienvenida a mi jardín digital. Aquí comparto notas, ensayos y artículos que entrelazan distintas disciplinas como las ciencias de la computación y el aprendizaje a través de mi visión personal.
     </p>
   </div>
 </section>
@@ -54,7 +54,7 @@ permalink: /
             <h3 class="text-lg font-semibold">
               {{ post.title }}
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
+            <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 20 }}</p>
             <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
           </article>
         </a>
@@ -82,7 +82,7 @@ permalink: /
           <h3 class="text-lg font-semibold">
             {{ post.title }}
           </h3>
-          <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 15 }}</p>
+          <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 20 }}</p>
           <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
         </article>
       </a>
@@ -91,6 +91,43 @@ permalink: /
   </div>
 </section>
 
+<!-- CTA Biblioteca / Antibiblioteca -->
+<section class="bg-[#FAF7F2] px-6 md:px-50 py-20">
+  <div class="max-w-6xl mx-auto mb-12">
+    <a href="{{ '/lecturas/' | relative_url }}" class="group inline-flex items-center text-2xl md:text-3xl font-serif">
+      Explora mis lecturas a través de la Biblioteca y Antibiblioteca
+      <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+    </a>
+    <p class="mt-4 text-lg text-gray-700">
+      Una selección de lo que he leído y lo que tengo pendiente por leer en mis estantes.
+    </p>
+  </div>
+
+  <div class="w-full max-w-screen-xl mx-auto px-6">
+    <div class="grid md:grid-cols-3 gap-10">
+      {% assign biblioteca = site.data.lecturas | where: "estado", "biblioteca" | slice: 0, 2 %}
+      {% assign antibiblioteca = site.data.lecturas | where: "estado", "antibiblioteca" | slice: 0, 1 %}
+      {% assign libros = biblioteca | concat: antibiblioteca %}
+
+      {% for libro in libros %}
+      <div class="libro-card flex flex-col space-y-2 opacity-0 w-full" data-estado="{{ libro.estado }}">
+        <img src="{{ libro.portada }}" alt="{{ libro.titulo }}" 
+            class="w-full rounded shadow-md aspect-[11/16] object-cover" />
+        <div class="flex flex-col flex-grow items-center text-center space-y-2 px-2">
+          <h3 class="text-2xl font-serif font-semibold leading-snug">{{ libro.titulo }}</h3>
+          <p class="italic text-gray-600">{{ libro.autor }}</p>
+          {% if libro.notas %}
+          <p class="text-gray-700 text-sm">{{ libro.notas }}</p>
+          {% endif %}
+          <p class="mt-auto font-semibold text-xs uppercase text-gray-500">{{ libro.estado }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+</section>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -143,5 +180,18 @@ permalink: /
       });
     });
 
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const ctaCards = document.querySelectorAll('section:last-of-type .libro-card');
+    gsap.to(ctaCards, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power2.out"
+    });
   });
 </script>
