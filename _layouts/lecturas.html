@@ -21,13 +21,13 @@ permalink: /lecturas/
   </div>
 
   <!-- Grid de libros -->
-  <div id="lecturas-grid" class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+  <div id="lecturas-grid" class="grid gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
     {% for libro in site.data.lecturas %}
     <div class="libro-card flex flex-col space-y-4 opacity-0 w-full" data-estado="{{ libro.estado }}">
       <img src="{{ libro.portada }}" alt="{{ libro.titulo }}" 
            class="w-full rounded shadow-md aspect-[11/16] object-fit" />
       <div class="flex flex-col flex-grow items-center text-center space-y-2 px-2">
-        <h2 class="text-3xl font-serif font-semibold leading-snug">{{ libro.titulo }}</h2>
+        <h2 class="text-3xl md:text-xl lg:text-2xl font-serif font-semibold leading-snug">{{ libro.titulo }}</h2>
         <p class="italic text-gray-600">{{ libro.autor }}</p>
         {% if libro.notas %}
         <p class="text-gray-700">{{ libro.notas }}</p>

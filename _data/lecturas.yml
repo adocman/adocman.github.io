@@ -1,10 +1,10 @@
 - titulo: "Antifragile"
   autor: "Nassim Taleb"
   portada: "../assets/images/lecturas/antifragile.jpg"
-  estado: "biblioteca"   # o "antibiblioteca"
+  estado: "biblioteca" 
   notas: "Influyó en mi forma de entender el riesgo y la incertidumbre."
 
-- titulo: "The obstacle is the way"
+- titulo: "The Obstacle is the Way"
   autor: "Ryan Holiday"
   portada: "../assets/images/lecturas/the-obstacle-is-the-way.jpg"
   estado: "biblioteca"
@@ -15,3 +15,15 @@
   portada: "../assets/images/lecturas/your-next-five-moves.jpg"
   estado: "antibiblioteca"
   notas: "Pendiente por leer, con ideas estratégicas para pensar mejor en los negocios."
+
+- titulo: "The Almanack of Naval Ravikant"
+  autor: "Eric Jorgenson"
+  portada: "../assets/images/lecturas/the-almanack-of-naval-ravikant.jpg"
+  estado: "biblioteca"
+  notas: "Una colección de sabiduría sobre riqueza y felicidad, curado a partir de distintos tweets y otras fuentes de Naval."
+
+- titulo: "On Writing Well"
+  autor: "William Zinsser"
+  portada: "../assets/images/lecturas/on-writing-well.jpg"
+  estado: "antibiblioteca"
+  notas: "Quiero mejorar la claridad y la sencillez de mi escritura sobre no ficción."
