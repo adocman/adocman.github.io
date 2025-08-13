@@ -16,6 +16,17 @@
   </main>
 
   {% include footer.html %}
+  
+  <div class="flex fixed bottom-8 right-8 z-50">
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center shadow-lg hover:bg-gray-800 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <polyline points="18 15 12 9 6 15" transform="translate(0, 1)"/>
+      </svg>
+    </button>
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
@@ -40,8 +51,6 @@
       el.textContent = result;
     });
   });
-</script>
-
-
+  </script>
 </body>
 </html>
