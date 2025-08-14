@@ -1,3 +1,143 @@
 body {
     background: #FAF7F2;
 }
+
+/* Estilos generales para el contenido del post */
+#post-content > * {
+  /* Establece un espacio uniforme entre los elementos */
+  margin-bottom: 1.5rem;
+  /* Mejora la legibilidad de todo el texto */
+  line-height: 1.65;
+  /* El color del texto base es stone-950 (negro oscuro) */
+  color: #1c1917; /* Representación hexadecimal de stone-950 */
+}
+
+/* Encabezados del 1 al 3 */
+#post-content > h1,
+#post-content > h2,
+#post-content > h3 {
+  font-family: 'Georgia', serif; /* Un serif clásico para los títulos */
+  font-weight: 700;
+  color: #1c1917;
+  /* Espaciado para que respiren los títulos */
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+#post-content > h1 {
+  font-size: 2.5rem; /* Tamaño de letra grande para h1 */
+}
+
+#post-content > h2 {
+  font-size: 2rem;
+  /* Borde sutil para un toque editorial */
+  border-bottom: 1px solid rgba(28, 25, 23, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+#post-content > h3 {
+  font-size: 1.5rem;
+}
+
+/* Párrafos */
+#post-content > p {
+  font-family: 'Helvetica', 'Arial', sans-serif; /* Un sans-serif legible para el cuerpo del texto */
+  text-align: justify; /* Justifica el texto para una apariencia pulcra */
+}
+
+#post-content > p:first-of-type::first-letter {
+  /* Tamaño de la letra más grande */
+  font-size: 3rem;
+  /* La altura de línea es crucial para que no baje al siguiente renglón */
+  line-height: 1;
+  /* Estilo negrita para que destaque más */
+  font-weight: bold;
+  /* Color de acento para la capitular */
+  color: #141414;
+  /* Ajusta la posición de la letra para que quede alineada con el texto */
+  vertical-align: bottom;
+}
+
+/* Enlaces */
+#post-content a {
+  color: #1c1917; /* Mantiene el color del texto principal */
+  text-decoration: none; /* Elimina el subrayado por defecto */
+  border-bottom: 1px solid #4A6C6F; /* Subrayado sutil con el color de acento */
+  transition: color 0.2s, border-bottom 0.2s; /* Transición suave */
+}
+
+#post-content a:hover {
+  color: #4A6C6F; /* Color de acento al pasar el mouse */
+  border-bottom: 1px solid transparent; /* El subrayado desaparece */
+}
+
+/* Citas (blockquote) */
+#post-content > blockquote {
+  /* Barra izquierda con el color de acento para destacar */
+  border-left: 4px solid #4A6C6F;
+  padding-left: 1.5rem;
+  font-style: italic; /* Cursiva para el texto de la cita */
+  color: #555;
+  background-color: #f7f2ea; /* Un fondo ligeramente más oscuro que el general */
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+}
+
+/* Listas (ul, ol) */
+#post-content > ul,
+#post-content > ol {
+  padding-left: 2.5rem;
+  color: #1c1917;
+}
+
+#post-content > li {
+  margin-bottom: 0.5rem;
+}
+
+/* Tablas */
+#post-content > table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+#post-content > th,
+#post-content > td {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+}
+
+#post-content > th {
+  background-color: #f7f2ea;
+  font-weight: 700;
+  color: #1c1917;
+}
+
+/* Bloques de código (code, pre) */
+#post-content > pre {
+  background-color: #f0f0f0; /* Fondo gris claro para el código */
+  padding: 1rem;
+  overflow-x: auto; /* Para el desbordamiento horizontal en móviles */
+  border-radius: 6px;
+  font-family: 'Courier New', Courier, monospace; /* Fuente monoespaciada para código */
+  color: #333;
+}
+
+#post-content code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #f0f0f0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* Imágenes */
+#post-content > img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Elimina el espacio extra debajo de las imágenes */
+  margin: 2rem auto; /* Centra las imágenes */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para un efecto de profundidad */
+}
