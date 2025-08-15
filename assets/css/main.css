@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+/* Estilos generales del cuerpo */
 body {
-    background: #FAF7F2;
+  background: #F9F9F9;
+  font-family: 'Source Sans 3', sans-serif;
+  font-optical-sizing: auto;
 }
 
 /* Estilos generales para el contenido del post */
@@ -8,17 +13,17 @@ body {
   margin-bottom: 1.5rem;
   /* Mejora la legibilidad de todo el texto */
   line-height: 1.65;
-  /* El color del texto base es stone-950 (negro oscuro) */
-  color: #1c1917; /* Representación hexadecimal de stone-950 */
+  /* El color del texto base */
+  color: #141414;
 }
 
 /* Encabezados del 1 al 3 */
 #post-content > h1,
 #post-content > h2,
 #post-content > h3 {
-  font-family: 'Georgia', serif; /* Un serif clásico para los títulos */
+  font-family: 'Source Serif 4', serif; /* Usa Source Serif 4 para un estilo de título clásico */
   font-weight: 700;
-  color: #1c1917;
+  color: #141414;
   /* Espaciado para que respiren los títulos */
   margin-top: 3rem;
   margin-bottom: 1rem;
@@ -31,8 +36,8 @@ body {
 
 #post-content > h2 {
   font-size: 2rem;
-  /* Borde sutil para un toque editorial */
-  border-bottom: 1px solid rgba(28, 25, 23, 0.1);
+  /* Borde sutil */
+  border-bottom: 1px solid #F3F6F4;
   padding-bottom: 0.5rem;
 }
 
@@ -42,11 +47,13 @@ body {
 
 /* Párrafos */
 #post-content > p {
-  font-family: 'Helvetica', 'Arial', sans-serif; /* Un sans-serif legible para el cuerpo del texto */
+  font-family: 'Source Sans 3', sans-serif; /* Fuente del cuerpo, más legible y moderna */
   text-align: justify; /* Justifica el texto para una apariencia pulcra */
 }
 
 #post-content > p:first-of-type::first-letter {
+  /* Aplica el estilo de la fuente serif para la capitular */
+  font-family: 'Source Serif 4', serif;
   /* Tamaño de la letra más grande */
   font-size: 3rem;
   /* La altura de línea es crucial para que no baje al siguiente renglón */
@@ -61,7 +68,7 @@ body {
 
 /* Enlaces */
 #post-content a {
-  color: #1c1917; /* Mantiene el color del texto principal */
+  color: #141414; /* Mantiene el color del texto principal */
   text-decoration: none; /* Elimina el subrayado por defecto */
   border-bottom: 1px solid #4A6C6F; /* Subrayado sutil con el color de acento */
   transition: color 0.2s, border-bottom 0.2s; /* Transición suave */
@@ -78,17 +85,19 @@ body {
   border-left: 4px solid #4A6C6F;
   padding-left: 1.5rem;
   font-style: italic; /* Cursiva para el texto de la cita */
-  color: #555;
-  background-color: #f7f2ea; /* Un fondo ligeramente más oscuro que el general */
+  color: #BCBCBC;
+  background-color: #F3F6F4;
   padding: 1rem 1.5rem;
   border-radius: 4px;
+  font-family: 'Source Sans 3', sans-serif;
 }
 
 /* Listas (ul, ol) */
 #post-content > ul,
 #post-content > ol {
   padding-left: 2.5rem;
-  color: #1c1917;
+  color: #141414;
+  font-family: 'Source Sans 3', sans-serif;
 }
 
 #post-content > li {
@@ -105,31 +114,33 @@ body {
 
 #post-content > th,
 #post-content > td {
-  border: 1px solid #ccc;
+  border: 1px solid #F3F6F4;
   padding: 0.75rem;
+  font-family: 'Source Sans 3', sans-serif;
 }
 
 #post-content > th {
-  background-color: #f7f2ea;
+  background-color: #F3F6F4;
   font-weight: 700;
-  color: #1c1917;
+  color: #141414;
 }
 
 /* Bloques de código (code, pre) */
 #post-content > pre {
-  background-color: #f0f0f0; /* Fondo gris claro para el código */
+  background-color: #F3F6F4; /* Fondo para el código */
   padding: 1rem;
   overflow-x: auto; /* Para el desbordamiento horizontal en móviles */
   border-radius: 6px;
-  font-family: 'Courier New', Courier, monospace; /* Fuente monoespaciada para código */
-  color: #333;
+  font-family: 'Courier New', Courier, monospace; /* Mantiene la fuente monoespaciada */
+  color: #141414;
 }
 
 #post-content code {
   font-family: 'Courier New', Courier, monospace;
-  background-color: #f0f0f0;
+  background-color: #F3F6F4;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
+  color: #141414;
 }
 
 /* Imágenes */

@@ -4,26 +4,25 @@ title: Jardín
 permalink: /jardin/
 ---
 
-<section class="bg-[#FAF7F2] text-gray-900 px-6 md:px-50 py-20">
+<section class="bg-[#F9F9F9] text-[#141414] px-6 xl:px-50 lg:px-30 md:px-20 py-20">
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Jardín</h1>
-    <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
+    <p class="mt-4 text-xl max-w-2xl mx-auto text-[#141414]">
       Colección de notas, ensayos y artículos.
     </p>
   </div>
 
-  <!-- Filtros -->
   <div class="flex flex-wrap justify-center gap-4 mb-16 items-center">
     <div class="flex gap-2 flex-wrap justify-center" role="group" aria-label="Filtrar por tipo">
-      <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-type="all">Todos</button>
-      <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-type="nota">Notas</button>
-      <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-type="ensayo">Ensayos</button>
-      <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-type="articulo">Artículos</button>
+      <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition active" data-type="all">Todos</button>
+      <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-type="nota">Notas</button>
+      <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-type="ensayo">Ensayos</button>
+      <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-type="articulo">Artículos</button>
     </div>
 
     <div class="relative">
       <label for="pilar-filter" class="sr-only">Filtrar por pilar</label>
-      <select id="pilar-filter" class="border px-4 py-2 rounded text-sm bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-300 transition">
+      <select id="pilar-filter" class="border border-[#F3F6F4] px-4 py-2 rounded text-sm bg-white text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#4A6C6F] transition">
         <option value="">Pilares</option>
         <option value="logos">Logos</option>
         <option value="pathos">Pathos</option>
@@ -32,8 +31,7 @@ permalink: /jardin/
     </div>
   </div>
 
-  <!-- Grid -->
-  <div id="publicaciones-grid" class="columns-1 md:columns-2 lg:columns-3 gap-6 mx-auto space-y-6">
+  <div id="publicaciones-grid" class="columns-1 lg:columns-2 xl:columns-3 xl:px-50 gap-6 mx-auto space-y-6">
     {% assign publicaciones = site.posts %}
     {% for post in publicaciones %}
       {% assign type = post.type | downcase %}
@@ -46,7 +44,7 @@ permalink: /jardin/
       {% endcase %}
 
       <article
-        class="publicacion break-inside-avoid rounded-md border border-gray-200 p-5 space-y-3 transition-all duration-300 opacity-0"
+        class="publicacion break-inside-avoid rounded-md border border-[#F3F6F4] p-5 space-y-3 transition-all duration-300 opacity-0"
         data-type="{{ type }}"
         data-pilar="{{ post.pilar | downcase }}"
       >
@@ -57,21 +55,21 @@ permalink: /jardin/
 
           <h3 class="text-lg font-semibold leading-snug">{{ post.title }}</h3>
 
-          <p class="text-sm text-gray-600 leading-relaxed">
+          <p class="text-sm text-[#BCBCBC] leading-relaxed">
             {{ post.description | default: post.excerpt | truncatewords: 20 }}
           </p>
 
-          <div class="mt-2 space-y-1 text-sm text-gray-500">
+          <div class="mt-2 space-y-1 text-sm text-[#BCBCBC]">
             <div>
               <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="relative-date" data-date="{{ post.date | date_to_xmlschema }}">
                 {{ post.date | date: '%b %d, %Y' }}
               </time>
             </div>
-            <div class="flex items-center justify-between text-sm text-gray-500">
+            <div class="flex items-center justify-between text-sm text-[#BCBCBC]">
               {% if post.pilar %}
                 <div class="capitalize">Pilar: <span class="font-medium">{{ post.pilar }}</span></div>
               {% endif %}
-              <div class="tracking-wide text-xs text-gray-400">{{ type_label }}</div>
+              <div class="tracking-wide text-xs text-[#F3F6F4]">{{ type_label }}</div>
             </div>
 
           </div>
@@ -82,6 +80,7 @@ permalink: /jardin/
   </div>
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const filterButtons = document.querySelectorAll('.filter-btn');
@@ -98,12 +97,38 @@ permalink: /jardin/
       stagger: 0.15,
       ease: "power2.out"
     });
+    
+    // Configura el estado inicial del botón activo
+    const initialActiveButton = document.querySelector('.filter-btn[data-type="all"]');
+    if (initialActiveButton) {
+      gsap.set(initialActiveButton, { backgroundColor: '#4A6C6F', color: 'white' });
+    }
 
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         activeType = btn.dataset.type;
-        filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
-        btn.classList.add('bg-gray-200', 'font-semibold', 'active');
+
+        // Anima todos los botones para volver al estado inactivo
+        gsap.to(filterButtons, {
+          backgroundColor: '#F9F9F9', // Color de fondo inactivo
+          color: '#141414', // Color de texto inactivo
+          duration: 0.3,
+          ease: 'power2.inOut',
+          onComplete: () => {
+             // Después de la animación, elimina la clase 'active' de todos
+             filterButtons.forEach(b => b.classList.remove('active'));
+             btn.classList.add('active');
+          }
+        });
+
+        // Anima el botón seleccionado al estado activo
+        gsap.to(btn, {
+          backgroundColor: '#4A6C6F', // Color de fondo activo
+          color: 'white', // Color de texto activo
+          duration: 0.3,
+          ease: 'power2.inOut'
+        });
+
         applyFilters();
       });
     });

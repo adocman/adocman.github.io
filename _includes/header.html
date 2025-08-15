@@ -1,75 +1,72 @@
-<header class="sticky top-0 z-200 bg-[#FAF7F2]/90 backdrop-blur-md shadow-sm">
+<header class="fixed top-0 z-200 w-full bg-[#F9F9F9]/90 backdrop-blur-md shadow-sm border-b border-[#F3F6F4]">
   <nav class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-    <!-- Logo -->
-    <a href="{{ '/' | relative_url }}" class="text-3xl font-serif tracking-wide uppercase hover:opacity-80 transition">
+    <button id="nav-toggle" class="md:hidden focus:outline-none" aria-label="Abrir menú">
+      <svg id="icon-open" class="w-6 h-6 text-[#141414]" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <svg id="icon-close" class="w-6 h-6 hidden text-[#141414]" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6"/>
+      </svg>
+    </button>
+    
+    <a href="{{ '/' | relative_url }}" class="text-3xl font-serif tracking-wide hover:opacity-80 transition">
       ADOCMAN
     </a>
 
-    <!-- Desktop nav -->
-    <div class="hidden md:flex items-center gap-8 text-gray-700 uppercase text-sm font-medium">
-      <!-- Publicaciones (click toggle) -->
+    <div class="hidden md:flex items-center gap-8 text-[#141414] uppercase text-sm font-medium">
       <div class="relative">
         <button id="garden-btn-desktop"
                 aria-expanded="false"
                 aria-controls="garden-menu-desktop"
                 class="flex items-center gap-2 uppercase hover:text-[#4A6C6F] transition-colors focus:outline-none">
-          <span>PUBLICACIONES</span>
+          <span>Publicaciones</span>
           <svg id="garden-icon-desktop" class="w-4 h-4 stroke-current transition-transform duration-200" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-
-        <!-- Dropdown (closed by default) -->
+      
         <div id="garden-menu-desktop"
-             class="absolute left-0 mt-3 w-56 bg-white rounded-lg shadow-lg transform opacity-0 scale-95 translate-y-1 pointer-events-none transition-all duration-250 ease-out">
-          <div class="py-3 space-y-2 uppercase">
-            <a href="{{ '/notas/' | relative_url }}" class="block px-4 py-3 hover:bg-[#F0F4F5]">Notas</a>
-            <a href="{{ '/ensayos/' | relative_url }}" class="block px-4 py-3 hover:bg-[#F0F4F5]">Ensayos</a>
-            <a href="{{ '/articulos/' | relative_url }}" class="block px-4 py-3 hover:bg-[#F0F4F5]">Artículos</a>
-            <hr class="my-1 border-gray-200" />
-            <a href="{{ '/jardin/' | relative_url }}" class="block px-4 py-3 font-medium text-[#191919] hover:bg-[#F0F4F5]">Ver jardín</a>
+             class="absolute left-0 mt-3 w-56 bg-[#F9F9F9] rounded-lg shadow-lg transform opacity-0 scale-95 translate-y-1 pointer-events-none transition-all duration-250 ease-out">
+          <div class="py-3 space-y-2 text-[#141414] uppercase">
+            <a href="{{ '/notas/' | relative_url }}" class="block px-4 py-3 hover:bg-[#F3F6F4]">Notas</a>
+            <a href="{{ '/ensayos/' | relative_url }}" class="block px-4 py-3 hover:bg-[#F3F6F4]">Ensayos</a>
+            <a href="{{ '/articulos/' | relative_url }}" class="block px-4 py-3 hover:bg-[#F3F6F4]">Artículos</a>
+            <hr class="my-1 border-[#F3F6F4]" />
+            <a href="{{ '/jardin/' | relative_url }}" class="block px-4 py-3 font-medium hover:bg-[#F3F6F4]">Ver jardín</a>
           </div>
         </div>
       </div>
-
       <a href="{{ '/acerca/' | relative_url }}" class="hover:text-[#4A6C6F]">Acerca</a>
       <a href="{{ '/redes/' | relative_url }}" class="hover:text-[#4A6C6F]">Redes</a>
       <a href="{{ '/lecturas/' | relative_url }}" class="hover:text-[#4A6C6F]">Lecturas</a>
     </div>
-
-    <!-- Mobile toggle -->
-    <button id="nav-toggle" class="md:hidden focus:outline-none" aria-label="Abrir menú">
-      <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-      <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M6 18L18 6"/>
-      </svg>
-    </button>
   </nav>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-[#FAF7F2] px-6 pb-6 space-y-2 border-t border-gray-200 uppercase text-sm font-medium transition-all duration-300 ease-out">
-    <details>
-      <summary class="py-2 cursor-pointer flex justify-between items-center hover:text-[#4A6C6F]">
-        Publicaciones
-        <svg class="w-4 h-4 stroke-current transition-transform duration-200" fill="none" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </summary>
-      <nav class="ml-4 flex flex-col gap-1 mt-1">
-        <a href="{{ '/notas/' | relative_url }}" class="py-1 hover:text-[#4A6C6F]">Notas</a>
-        <a href="{{ '/ensayos/' | relative_url }}" class="py-1 hover:text-[#4A6C6F]">Ensayos</a>
-        <a href="{{ '/articulos/' | relative_url }}" class="py-1 hover:text-[#4A6C6F]">Artículos</a>
-        <hr class="my-1 border-gray-300" />
-        <a href="{{ '/jardin/' | relative_url }}" class="py-1 font-medium hover:text-[#4A6C6F]">Ver jardín</a>
-      </nav>
-    </details>
-    <a href="{{ '/acerca/' | relative_url }}" class="block py-2 hover:text-[#4A6C6F]">Acerca</a>
-    <a href="{{ '/redes/' | relative_url }}" class="block py-2 hover:text-[#4A6C6F]">Redes</a>
-    <a href="{{ '/lecturas/' | relative_url }}" class="block py-2 hover:text-[#4A6C6F]">Lecturas</a>
+  <div id="mobile-menu" class="md:hidden bg-[#F9F9F9] border-t border-[#F3F6F4] uppercase text-sm font-medium overflow-hidden h-0">
+    <div class="px-6 py-6 space-y-2">
+      <div id="mobile-publications-details">
+        <button id="mobile-publications-toggle" class="py-2 cursor-pointer flex justify-between items-center hover:text-[#4A6C6F] w-full">
+          <span>Publicaciones</span>
+          <svg id="mobile-publications-icon" class="w-4 h-4 stroke-current transition-transform duration-200" fill="none" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <nav id="mobile-publications-menu" class="ml-4 flex flex-col gap-1 mt-1 text-[#141414] overflow-hidden h-0">
+          <a href="{{ '/notas/' | relative_url }}" class="py-1 hover:text-[#4A6C6F]">Notas</a>
+          <a href="{{ '/ensayos/' | relative_url }}" class="py-1 hover:text-[#4A6C6F]">Ensayos</a>
+          <a href="{{ '/articulos/' | relative_url }}" class="py-1 hover:text-[#4A6C6F]">Artículos</a>
+          <hr class="my-1 border-[#F3F6F4]" />
+          <a href="{{ '/jardin/' | relative_url }}" class="py-1 font-medium hover:text-[#4A6C6F]">Ver jardín</a>
+        </nav>
+      </div>
+      <a href="{{ '/acerca/' | relative_url }}" class="block py-2 hover:text-[#4A6C6F]">Acerca</a>
+      <a href="{{ '/redes/' | relative_url }}" class="block py-2 hover:text-[#4A6C6F]">Redes</a>
+      <a href="{{ '/lecturas/' | relative_url }}" class="block py-2 hover:text-[#4A6C6F]">Lecturas</a>
+    </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  
   <script>
     (function () {
       // Desktop dropdown
@@ -113,22 +110,46 @@
         if (e.key === 'Escape' && isOpen()) closeGarden();
       });
 
-      // Mobile toggle
-      const toggleBtn = document.getElementById("nav-toggle");
+      // Mobile menu (GSAP)
       const mobileMenu = document.getElementById("mobile-menu");
+      const navToggle = document.getElementById("nav-toggle");
       const iconOpen = document.getElementById("icon-open");
       const iconClose = document.getElementById("icon-close");
+      
+      const mobileTimeline = gsap.timeline({ paused: true });
+      mobileTimeline.to(mobileMenu, { duration: 0.3, height: "auto", opacity: 1, ease: "power2.inOut" });
 
-      toggleBtn?.addEventListener("click", () => {
-        const open = !mobileMenu.classList.contains("hidden");
-        if (open) {
-          mobileMenu.classList.add("hidden");
-          iconOpen.classList.remove("hidden");
-          iconClose.classList.add("hidden");
-        } else {
-          mobileMenu.classList.remove("hidden");
+      navToggle.addEventListener("click", () => {
+        if (mobileTimeline.reversed()) {
+          mobileTimeline.play();
           iconOpen.classList.add("hidden");
           iconClose.classList.remove("hidden");
+        } else {
+          mobileTimeline.reverse();
+          iconOpen.classList.remove("hidden");
+          iconClose.classList.add("hidden");
+        }
+      });
+      
+      // Mobile "Publicaciones" dropdown (GSAP)
+      const mobilePubToggle = document.getElementById('mobile-publications-toggle');
+      const mobilePubMenu = document.getElementById('mobile-publications-menu');
+      const mobilePubIcon = document.getElementById('mobile-publications-icon');
+      
+      const pubTimeline = gsap.timeline({ paused: true });
+      pubTimeline.to(mobilePubMenu, { 
+        duration: 0.3,
+        height: "auto",
+        ease: "power2.inOut"
+      });
+      
+      mobilePubToggle.addEventListener('click', () => {
+        if (pubTimeline.reversed()) {
+          pubTimeline.play();
+          gsap.to(mobilePubIcon, { duration: 0.2, rotate: 180 });
+        } else {
+          pubTimeline.reverse();
+          gsap.to(mobilePubIcon, { duration: 0.2, rotate: 0 });
         }
       });
     })();

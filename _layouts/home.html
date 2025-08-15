@@ -3,8 +3,7 @@ layout: default
 title: Inicio
 permalink: /
 ---
-<!-- Hero -->
-<section class="bg-[#FAF7F2] px-6 md:px-50 py-20 text-gray-800">
+<section class="bg-[#F9F9F9] px-6 md:px-50 py-20 text-[#141414]">
   <div class="max-w-6xl mx-auto text-center space-y-6">
     <h1 class="text-4xl md:text-5xl font-serif tracking-wide">Hola, soy Aarón.</h1>
     <p class="text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto">
@@ -13,14 +12,15 @@ permalink: /
   </div>
 </section>
 
-<!-- Notas & Ensayos -->
-<section class="bg-[#FAF7F2] px-6 md:px-50 py-20">
+<section class="bg-[#F9F9F9] px-6 md:px-50 py-20">
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
 
-    <!-- Notas -->
     <div class="space-y-10 md:col-span-1">
       <div class="flex justify-between items-end">
-        <a href="{{ '/notas/' | relative_url }}"><h2 class="text-2xl font-serif">Notas →</h2></a>
+        <a href="{{ '/notas/' | relative_url }}" class="group inline-flex items-center">
+          <h2 class="text-2xl md:text-3xl font-serif">Notas</h2>
+          <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+        </a>
       </div>
       {% assign notas = site.posts | where: "type", "nota" %}
       <div class="space-y-10">
@@ -30,18 +30,20 @@ permalink: /
             <a href="{{ post.url }}" class="hover:text-[#4A6C6F] transition">{{ post.title }}</a>
           </h3>
           {% unless forloop.last %}
-          <hr class="border-t border-[#D0D0D0] mt-6" />
+          <hr class="border-t border-[#F3F6F4] mt-6" />
           {% endunless %}
         </article>
         {% endfor %}
-        <hr class="border-t border-[#D0D0D0] mt-6" />
+        <hr class="border-t border-[#F3F6F4] mt-6" />
       </div>
     </div>
 
-    <!-- Ensayos -->
     <div class="space-y-6 md:col-span-2">
       <div class="flex justify-between items-end">
-        <a href="{{ '/ensayos/' | relative_url }}"><h2 class="text-2xl font-serif">Ensayos →</h2></a>
+        <a href="{{ '/ensayos/' | relative_url }}" class="group inline-flex items-center">
+          <h2 class="text-2xl md:text-3xl font-serif">Ensayos</h2>
+          <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+        </a>
       </div>
       {% assign ensayos = site.posts | where: "type", "ensayo" %}
       <div class="grid md:grid-cols-2 gap-8">
@@ -54,8 +56,8 @@ permalink: /
             <h3 class="text-lg font-semibold">
               {{ post.title }}
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 20 }}</p>
-            <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
+            <p class="text-sm text-[#BCBCBC] leading-relaxed">{{ post.excerpt | truncatewords: 20 }}</p>
+            <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-[#BCBCBC] relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
           </article>
         </a>
         {% endfor %}
@@ -65,11 +67,13 @@ permalink: /
   </div>
 </section>
 
-<!-- Artículos -->
-<section class="bg-[#FAF7F2] px-6 md:px-50 py-20">
+<section class="bg-[#F9F9F9] px-6 md:px-50 py-20">
   <div class="max-w-6xl mx-auto space-y-8">
     <div class="flex justify-between items-end">
-      <a href="{{ '/articulos/' | relative_url }}"><h2 class="text-2xl md:text-3xl font-serif">Artículos →<h2></a>
+      <a href="{{ '/articulos/' | relative_url }}" class="group inline-flex items-center">
+        <h2 class="text-2xl md:text-3xl font-serif">Artículos</h2>
+        <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+      </a>
     </div>
     {% assign articulos = site.posts | where: "type", "articulo" %}
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -82,8 +86,8 @@ permalink: /
           <h3 class="text-lg font-semibold">
             {{ post.title }}
           </h3>
-          <p class="text-sm text-gray-600 leading-relaxed">{{ post.excerpt | truncatewords: 20 }}</p>
-          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-gray-500 relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
+          <p class="text-sm text-[#BCBCBC] leading-relaxed">{{ post.excerpt | truncatewords: 20 }}</p>
+          <time datetime="{{ post.date | date: '%Y-%m-%d' }}" class="text-sm text-[#BCBCBC] relative-date" data-date="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
         </article>
       </a>
       {% endfor %}
@@ -91,14 +95,13 @@ permalink: /
   </div>
 </section>
 
-<!-- CTA Biblioteca / Antibiblioteca -->
-<section class="bg-[#FAF7F2] px-6 md:px-50 py-20">
+<section class="bg-[#F9F9F9] px-6 md:px-50 py-20">
   <div class="max-w-6xl mx-auto mb-12">
     <a href="{{ '/lecturas/' | relative_url }}" class="group inline-flex items-center text-2xl md:text-3xl font-serif">
       Explora mis lecturas a través de la Biblioteca y Antibiblioteca
       <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
     </a>
-    <p class="mt-4 text-lg text-gray-700">
+    <p class="mt-4 text-lg text-[#141414]">
       Una selección de lo que he leído y lo que tengo pendiente por leer en mis estantes.
     </p>
   </div>
@@ -111,15 +114,15 @@ permalink: /
 
       {% for libro in libros %}
       <div class="libro-card flex flex-col space-y-2 opacity-0 w-full" data-estado="{{ libro.estado }}">
-        <img src="{{ libro.portada }}" alt="{{ libro.titulo }}" 
-            class="w-full rounded shadow-md aspect-[11/16] object-cover" />
+        <img src="{{ libro.portada }}" alt="{{ libro.titulo }}"
+             class="w-full rounded shadow-md aspect-[11/16] object-cover" />
         <div class="flex flex-col flex-grow items-center text-center space-y-2 px-2">
           <h3 class="text-2xl font-serif font-semibold leading-snug">{{ libro.titulo }}</h3>
-          <p class="italic text-gray-600">{{ libro.autor }}</p>
+          <p class="italic text-[#BCBCBC]">{{ libro.autor }}</p>
           {% if libro.notas %}
-          <p class="text-gray-700 text-sm">{{ libro.notas }}</p>
+          <p class="text-[#141414] text-sm">{{ libro.notas }}</p>
           {% endif %}
-          <p class="mt-auto font-semibold text-xs uppercase text-gray-500">{{ libro.estado }}</p>
+          <p class="mt-auto font-semibold text-xs uppercase text-[#BCBCBC]">{{ libro.estado }}</p>
         </div>
       </div>
       {% endfor %}

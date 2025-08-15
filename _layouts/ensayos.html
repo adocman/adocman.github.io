@@ -4,28 +4,26 @@ title: Ensayos
 permalink: /ensayos/
 ---
 
-<section class="px-6 md:px-50 py-20 bg-[#FAF7F2] text-gray-900">
+<section class="px-6 xl:px-50 lg:px-30 md:px-20 py-20 bg-[#F9F9F9] text-[#141414]">
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Ensayos</h1>
-    <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
+    <p class="mt-4 text-xl max-w-2xl mx-auto text-[#141414]">
       Textos reflexivos, profundos y personales.
     </p>
   </div>
 
-  <!-- Filtros por pilar -->
   <div class="flex flex-wrap justify-center gap-4 mb-16">
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todos</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="logos">Logos</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="pathos">Pathos</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="ethos">Ethos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition active bg-[#4A6C6F] text-white" data-filter="all">Todos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-filter="logos">Logos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-filter="pathos">Pathos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-filter="ethos">Ethos</button>
   </div>
 
-  <!-- Ensayos -->
   <div id="ensayos-grid" class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
     {% assign ensayos = site.posts | where: "type", "ensayo" %}
     {% for post in ensayos %}
     <a href="{{ post.url }}" class="block h-full">
-      <article class="group rounded-lg overflow-hidden hover:bg-[#FAF7F2] transition-colors duration-200 h-full flex flex-col space-y-2 opacity-0" data-pilar="{{ post.pilar | downcase }}">
+      <article class="group rounded-lg overflow-hidden hover:bg-[#F9F9F9] transition-colors duration-200 h-full flex flex-col space-y-2 opacity-0" data-pilar="{{ post.pilar | downcase }}">
         {% if post.image %}
           <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="w-full aspect-[4/3] object-cover">
         {% endif %}
@@ -34,21 +32,21 @@ permalink: /ensayos/
           {{ post.title }}
         </h3>
 
-        <p class="text-base text-gray-600 leading-normal">
+        <p class="text-base text-[#BCBCBC] leading-normal">
           {{ post.description | default: post.excerpt | truncatewords: 20 }}
         </p>
 
-        <div class="text-sm text-gray-400 mt-auto relative-date" data-date="{{ post.date | date_to_xmlschema }}">
+        <div class="text-sm text-[#F3F6F4] mt-auto relative-date" data-date="{{ post.date | date_to_xmlschema }}">
           Publicado {{ post.date | date_to_relative }}
         </div>
 
-        <div class="flex justify-between text-sm text-gray-500 mt-2">
+        <div class="flex justify-between text-sm text-[#BCBCBC] mt-2">
           {% if post.pilar %}
             <div class="capitalize">Pilar: <span class="font-medium">{{ post.pilar }}</span></div>
           {% else %}
             <div></div>
           {% endif %}
-          <div class="tracking-wide text-xs text-gray-400 uppercase">{{ post.type }}</div>
+          <div class="tracking-wide text-xs text-[#F3F6F4] uppercase">{{ post.type }}</div>
         </div>
       </article>
     </a>
@@ -56,7 +54,6 @@ permalink: /ensayos/
   </div>
 </section>
 
-<!-- GSAP + Filtro por Pilar -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -79,8 +76,14 @@ permalink: /ensayos/
       button.addEventListener('click', () => {
         activeFilter = button.getAttribute('data-filter');
 
-        filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
-        button.classList.add('bg-gray-200', 'font-semibold', 'active');
+        // Quita las clases de activo a todos los botones
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-[#4A6C6F]', 'text-white', 'active');
+          // Opcional: Puedes añadir aquí las clases por defecto si es necesario
+        });
+
+        // Añade las clases de activo al botón seleccionado
+        button.classList.add('bg-[#4A6C6F]', 'text-white', 'active');
 
         cardLinks.forEach(link => {
           const card = link.querySelector('.group');

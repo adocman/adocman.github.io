@@ -4,24 +4,22 @@ title: Notas
 permalink: /notas/
 ---
 
-<section class="px-6 md:px-50 py-20 bg-[#FAF7F2] text-gray-900">
+<section class="px-6 xl:px-50 lg:px-30 md:px-20 py-20 bg-[#F9F9F9] text-[#141414]">
   <div class="mb-12 text-center">
     <h1 class="text-5xl font-serif mt-2">Notas</h1>
-    <p class="mt-4 text-xl max-w-2xl mx-auto text-gray-700">
+    <p class="mt-4 text-xl max-w-2xl mx-auto text-[#141414]">
       Representan una única idea de forma sencilla.
     </p>
   </div>
 
-  <!-- Filtros por pilar -->
   <div class="flex flex-wrap justify-center gap-4 mb-16">
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition active" data-filter="all">Todas</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="logos">Logos</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="pathos">Pathos</button>
-    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-gray-300 hover:bg-gray-200 transition" data-filter="ethos">Ethos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition active bg-[#4A6C6F] text-white" data-filter="all">Todas</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-filter="logos">Logos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-filter="pathos">Pathos</button>
+    <button class="filter-btn text-sm font-medium px-4 py-2 rounded border border-[#F3F6F4] hover:bg-[#F3F6F4] transition" data-filter="ethos">Ethos</button>
   </div>
 
-  <!-- Notas -->
-  <div id="notas-grid" class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+  <div id="notas-grid" class="grid gap-10 xl:px-50 md:grid-cols-2 lg:grid-cols-3">
     {% assign notas = site.posts | where: "type", "nota" %}
     {% for post in notas %}
     <a href="{{ post.url }}" class="block transition space-y-2">
@@ -29,16 +27,16 @@ permalink: /notas/
         <h3 class="text-lg font-semibold leading-snug hover:text-[#4A6C6F] transition">
           {{ post.title }}
         </h3>
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-[#BCBCBC]">
           {{ post.description | default: post.excerpt | truncatewords: 20 }}
         </p>
-        <div class="flex justify-between text-sm text-gray-500 mt-2">
+        <div class="flex justify-between text-sm text-[#BCBCBC] mt-2">
           {% if post.pilar %}
             <div class="capitalize">Pilar: <span class="font-medium">{{ post.pilar }}</span></div>
           {% else %}
             <div></div>
           {% endif %}
-          <div class="tracking-wide text-xs text-gray-400 uppercase">{{ post.type }}</div>
+          <div class="tracking-wide text-xs text-[#F3F6F4] uppercase">{{ post.type }}</div>
         </div>
       </article>
     </a>
@@ -46,7 +44,6 @@ permalink: /notas/
   </div>
 </section>
 
-<!-- Animaciones y filtro con GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -69,8 +66,13 @@ permalink: /notas/
       button.addEventListener('click', () => {
         activeFilter = button.getAttribute('data-filter');
 
-        filterButtons.forEach(b => b.classList.remove('bg-gray-200', 'font-semibold', 'active'));
-        button.classList.add('bg-gray-200', 'font-semibold', 'active');
+        // Quita las clases de activo a todos los botones
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-[#4A6C6F]', 'text-white', 'active');
+        });
+
+        // Añade las clases de activo al botón seleccionado
+        button.classList.add('bg-[#4A6C6F]', 'text-white', 'active');
 
         cardLinks.forEach(link => {
           const card = link.querySelector('.zettelkasten-card');
